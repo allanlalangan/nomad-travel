@@ -1,0 +1,8 @@
+.main-header {
+  background-color: var(--header-bg-color);
+  height: 8vh;
+}
+
+.title {
+  color: var(--header-text-color);
+}

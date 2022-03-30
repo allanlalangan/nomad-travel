@@ -1,6 +1,14 @@
 :root {
-  --dark-bg-color: hsla(225, 25%, 15%, 1);
-  --dark-bg-text: hsla(255, 50%, 75%, 1);
+  --header-bg-color: hsla(200, 25%, 50%, 1);
+  --header-text-color: hsla(215, 25%, 15%, 1);
+  --dark-bg-color: hsla(215, 25%, 15%, 1);
+  --light-text: hsla(225, 75%, 75%, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
@@ -10,7 +18,7 @@ html {
 }
 
 body {
-  color: var(--dark-bg-text);
+  color: var(--light-text);
   background-color: var(--dark-bg-color);
 }
 

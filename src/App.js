@@ -1,11 +1,18 @@
-import './App.css';
+// styles and ui
+import styles from './App.module.css';
+// components
+import Header from './components/Header/Header';
+import List from './components/List/List';
+import Map from './components/Map/Map';
 
 function App() {
   return (
     <div>
-      <header>
-        <h1>Nomad</h1>
-      </header>
+      <Header />
+      <main>
+        <List />
+        <Map />
+      </main>
     </div>
   );
 }
