@@ -8,6 +8,7 @@ import Places from './components/Places/Places';
 import Map from './components/Map/Map';
 
 function App() {
+  // default center
   const [coordinates, setCoordinates] = useState({
     lat: 45.53436716317859,
     lng: -122.6657052896321,
@@ -25,11 +26,12 @@ function App() {
     <div>
       <Header />
       <main>
-        <Places places={places} />
+        <Places selectCategory={null} places={places} />
         <Map
           coordinates={coordinates}
           setCoordinates={setCoordinates}
           setBoundary={setBoundary}
+          places={places}
         />
       </main>
     </div>

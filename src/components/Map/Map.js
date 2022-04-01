@@ -1,10 +1,10 @@
 import GoogleMapReact from 'google-map-react';
-import { IoLocationSharp } from 'react-icons/io';
+import { IoLocationSharp } from 'react-icons/io5';
 
 // styles and ui
 import styles from './Map.module.css';
 
-const Map = ({ coordinates, setCoordinates, setBoundary }) => {
+const Map = ({ places, coordinates, setCoordinates, setBoundary }) => {
   const apiKey = process.env.REACT_APP_MAPS_API_KEY;
 
   return (
@@ -27,7 +27,17 @@ const Map = ({ coordinates, setCoordinates, setBoundary }) => {
         }}
         onChildClick={''}
         options={''}
-      ></GoogleMapReact>
+      >
+        {places?.map((place) => (
+          <div
+            className={`${styles['marker-container']}`}
+            lat={Number(place.latitude)}
+            lng={Number(place.longitude)}
+          >
+            <IoLocationSharp />
+          </div>
+        ))}
+      </GoogleMapReact>
     </section>
   );
 };
