@@ -19,14 +19,13 @@ const Map = ({ places, coordinates, setCoordinates, setBoundary }) => {
           // console.log(e);
           setCoordinates({ lat: e.center.lat, lng: e.center.lng });
           setBoundary({
-            bl_latitude: e.marginBounds.sw.lat,
-            tr_latitude: e.marginBounds.ne.lat,
-            bl_longitude: e.marginBounds.sw.lng,
-            tr_longitude: e.marginBounds.ne.lng,
+            bl_latitude: e.marginBounds.sw.lat.toFixed(6),
+            tr_latitude: e.marginBounds.ne.lat.toFixed(6),
+            bl_longitude: e.marginBounds.sw.lng.toFixed(6),
+            tr_longitude: e.marginBounds.ne.lng.toFixed(6),
           });
         }}
-        onChildClick={''}
-        options={''}
+        // onChildClick={(e) => console.log(e.target)}
       >
         {places?.map((place) => (
           <div
@@ -34,7 +33,7 @@ const Map = ({ places, coordinates, setCoordinates, setBoundary }) => {
             lat={Number(place.latitude)}
             lng={Number(place.longitude)}
           >
-            <IoLocationSharp />
+            <IoLocationSharp fontSize={'large'} />
           </div>
         ))}
       </GoogleMapReact>

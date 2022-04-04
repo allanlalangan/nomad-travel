@@ -5,7 +5,7 @@ export const getPlaces = async (boundary, category) => {
   const config = {
     method: 'GET',
     url: `https://travel-advisor.p.rapidapi.com/${category}/list-in-boundary`,
-    params: boundary,
+    params: { ...boundary, limit: '30' },
     headers: {
       'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
       'X-RapidAPI-Key': process.env.REACT_APP_TRAVEL_API_KEY,

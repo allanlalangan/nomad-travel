@@ -7,16 +7,18 @@ const PlaceCard = ({ place }) => {
         <h3>{place.name}</h3>
       </div>
       <div className={`${styles['image-container']}`}>
-        <img
-          className={`${styles['place-image']}`}
-          src={place.photo.images.medium.url}
-          alt={`Place card img of ${place.name}`}
-        />
-        <ul>
-          {place.cuisine?.map((cuisine) => {
-            <li>{cuisine}</li>;
-          })}
-        </ul>
+        {place.photo &&
+        place.photo.images &&
+        place.photo.images.medium &&
+        place.photo.images.medium.url ? (
+          <img
+            className={`${styles['place-image']}`}
+            src={place.photo.images.medium.url}
+            alt={`Place card img of ${place.name}`}
+          />
+        ) : (
+          <span>Image unavailable</span>
+        )}
       </div>
     </li>
   );

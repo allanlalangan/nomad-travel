@@ -8,7 +8,6 @@ import Places from './components/Places/Places';
 import Map from './components/Map/Map';
 
 function App() {
-  // default center
   const [coordinates, setCoordinates] = useState({
     lat: 45.53436716317859,
     lng: -122.6657052896321,
@@ -17,20 +16,24 @@ function App() {
   const [places, setPlaces] = useState([]);
   const [category, setCategory] = useState('');
 
-  // useEffect(() => {
-  //   if (category !== '') {
-  //     getPlaces(boundary, category).then((data) => {
-  //       setPlaces(data);
-  //     });
-  //   }
-  //   console.log(category);
-  // }, [category, coordinates, boundary]);
+  useEffect(() => {
+    if (category !== '') {
+      getPlaces(boundary, category).then((data) => {
+        console.log(data);
+        setPlaces(data);
+      });
+    }
+  }, [category, boundary]);
 
   return (
     <div>
       <Header />
       <main>
-        <Places boundary={boundary} setPlaces={setPlaces} places={places} />
+        <Places
+          category={category}
+          onCategoryChange={setCategory}
+          places={places}
+        />
         <Map
           coordinates={coordinates}
           setCoordinates={setCoordinates}
