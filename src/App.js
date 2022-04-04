@@ -15,18 +15,22 @@ function App() {
   });
   const [boundary, setBoundary] = useState(null);
   const [places, setPlaces] = useState([]);
+  const [category, setCategory] = useState('');
 
-  useEffect(() => {
-    getPlaces(boundary).then((data) => {
-      setPlaces(data);
-    });
-  }, [coordinates, boundary]);
+  // useEffect(() => {
+  //   if (category !== '') {
+  //     getPlaces(boundary, category).then((data) => {
+  //       setPlaces(data);
+  //     });
+  //   }
+  //   console.log(category);
+  // }, [category, coordinates, boundary]);
 
   return (
     <div>
       <Header />
       <main>
-        <Places selectCategory={null} places={places} />
+        <Places boundary={boundary} setPlaces={setPlaces} places={places} />
         <Map
           coordinates={coordinates}
           setCoordinates={setCoordinates}
