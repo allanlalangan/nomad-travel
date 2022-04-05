@@ -4,6 +4,7 @@ import { getPlaces } from './api/placesAPI';
 import styles from './App.module.css';
 // components
 import Header from './components/Header/Header';
+import FilterBar from './components/Places/FilterBar';
 import Places from './components/Places/Places';
 import Map from './components/Map/Map';
 
@@ -19,7 +20,6 @@ function App() {
   useEffect(() => {
     if (category !== '') {
       getPlaces(boundary, category).then((data) => {
-        console.log(data);
         setPlaces(data);
       });
     }
@@ -29,17 +29,18 @@ function App() {
     <div>
       <Header />
       <main>
-        <Places
-          category={category}
-          onCategoryChange={setCategory}
-          places={places}
-        />
-        <Map
-          coordinates={coordinates}
-          setCoordinates={setCoordinates}
-          setBoundary={setBoundary}
-          places={places}
-        />
+        <section className={`${styles['places-section']}`}>
+          <FilterBar onCategoryChange={setCategory} />
+          <Places category={category} places={places} />
+        </section>
+        <section className={`${styles['map-section']}`}>
+          <Map
+            coordinates={coordinates}
+            setCoordinates={setCoordinates}
+            setBoundary={setBoundary}
+            places={places}
+          />
+        </section>
       </main>
     </div>
   );

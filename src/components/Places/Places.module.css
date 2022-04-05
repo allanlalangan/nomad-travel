@@ -1,5 +1,5 @@
-.places-section {
-  width: 50%;
-  height: 92vh;
+.places-list {
+  /* width: 40%; */
+  height: 75%;
   overflow-y: scroll;
 }

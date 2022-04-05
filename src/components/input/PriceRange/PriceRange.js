@@ -7,9 +7,19 @@ const PriceRange = () => {
       <span>Price Range</span>
       <fieldset className={`${styles['pricerange-fieldset']}`}>
         <label htmlFor='min'>Min</label>
-        <input id='min' name='min' type='number' />
+        <input
+          id='min'
+          name='min'
+          type='number'
+          className={`${styles['number-input']}`}
+        />
         <label htmlFor='min'>Max</label>
-        <input id='max' name='max' type='number' />
+        <input
+          id='max'
+          name='max'
+          type='number'
+          className={`${styles['number-input']}`}
+        />
       </fieldset>
     </div>
   );

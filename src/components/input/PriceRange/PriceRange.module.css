@@ -1,4 +1,5 @@
 .pricerange-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: space-between;
@@ -6,7 +7,14 @@
 }
 
 .pricerange-fieldset {
+  border: none;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+.number-input {
+  border: none;
+  width: 25%;
+  padding: 0.5rem 0;
 }

@@ -1,0 +1,28 @@
+.filter-bar {
+  height: 25%;
+  box-shadow: var(--box-shadow);
+  padding: auto;
+}
+
+.category-select-container {
+  display: flex;
+}
+
+.category-select {
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+
+  background-color: transparent;
+  border: 1px solid var(--header-text-color);
+}
+
+.places-filter-fieldset {
+  border: none;
+}
+
+.places-heading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
