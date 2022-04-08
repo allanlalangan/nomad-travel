@@ -14,12 +14,12 @@ const Map = ({ places, coordinates, setCoordinates, setBoundary }) => {
   return (
     <GoogleMapReact
       bootstrapURLKeys={{ key: apiKey }}
-      defaultCenter={{ lat: 51.5, lng: -0.12 }}
+      defaultCenter={coordinates}
       center={coordinates}
       defaultZoom={14}
       margin={[50, 50, 50, 50]}
+      options={{ disableDefaultUI: true, zoomControl: true }}
       onChange={(e) => {
-        // console.log(e);
         setCoordinates({ lat: e.center.lat, lng: e.center.lng });
         setBoundary({
           bl_latitude: e.marginBounds.sw.lat,
@@ -31,14 +31,12 @@ const Map = ({ places, coordinates, setCoordinates, setBoundary }) => {
       onChildClick={(child) => console.log(child)}
     >
       {places?.map((place, i) => (
-        <div
-          className={styles['marker-container']}
-          lat={Number(place.latitude)}
-          lng={Number(place.longitude)}
+        <PlaceMarker
+          place={place}
+          lat={place.latitude}
+          lng={place.longitude}
           key={i}
-        >
-          <PlaceMarker place={place} />
-        </div>
+        />
       ))}
     </GoogleMapReact>
   );

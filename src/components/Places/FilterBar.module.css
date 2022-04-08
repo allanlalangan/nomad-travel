@@ -1,7 +1,6 @@
 .filter-bar {
   height: 25%;
   box-shadow: var(--box-shadow);
-  padding: auto;
 }
 
 .category-select-container {
