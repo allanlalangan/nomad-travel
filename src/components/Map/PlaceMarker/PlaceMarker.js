@@ -2,9 +2,9 @@ import styles from './PlaceMarker.module.css';
 
 const PlaceMarker = ({ place }) => {
   return (
-    <div className={styles['marker-card']}>
-      <h3 className={`${styles['marker-name']}`}>{place.name}</h3>
-      <div className={`${styles['marker-image-container']}`}>
+    <div className={`${styles['marker-card']} ${styles['marker-hover']}`}>
+      <span className={`${styles['marker-name']}`}>{place.name}</span>
+      <span className={`${styles['marker-image-container']}`}>
         {place.photo &&
         place.photo.images &&
         place.photo.images.small &&
@@ -17,7 +17,7 @@ const PlaceMarker = ({ place }) => {
         ) : (
           <span>Image unavailable</span>
         )}
-      </div>
+      </span>
     </div>
   );
 };
