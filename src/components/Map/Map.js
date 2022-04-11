@@ -8,14 +8,7 @@ import styles from './Map.module.css';
 import Marker from './Marker/Marker';
 import PlaceMarker from './PlaceMarker/PlaceMarker';
 
-const Map = ({ places, coordinates, setCoordinates, setBoundary }) => {
-  const apiKey = process.env.REACT_APP_MAPS_API_KEY;
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: apiKey,
-  });
-
-  if (!isLoaded) return <div>Loading...</div>;
-
+const Map = () => {
   return <div className={styles.map}></div>;
 };
 
