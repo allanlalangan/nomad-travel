@@ -9,21 +9,23 @@ import Places from './components/Places/Places';
 import Map from './components/Map/Map';
 
 function App() {
-  const [coordinates, setCoordinates] = useState({
-    lat: 45.53436716317859,
-    lng: -122.6657052896321,
-  });
+  const defaultCenter = {
+    lat: 45.5252,
+    lng: -122.6584,
+  };
+  const [coordinates, setCoordinates] = useState(defaultCenter);
   const [boundary, setBoundary] = useState(null);
   const [places, setPlaces] = useState([]);
   const [category, setCategory] = useState('');
 
   useEffect(() => {
-    if (category !== '') {
+    console.log(boundary);
+    if (category !== '' && boundary) {
       getPlaces(boundary, category).then((data) => {
         setPlaces(data);
       });
     }
-  }, [category, boundary]);
+  }, [coordinates, category, boundary]);
 
   return (
     <div>
