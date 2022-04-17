@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useLoadScript } from '@react-google-maps/api';
 import { getPlaces } from './api/placesAPI';
 // styles and ui
 import styles from './App.module.css';
@@ -9,17 +10,26 @@ import Places from './components/Places/Places';
 import Map from './components/Map/Map';
 
 function App() {
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
+  });
+
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+  }, []);
+
   const defaultCenter = {
     lat: 45.5252,
     lng: -122.6584,
   };
+
   const [coordinates, setCoordinates] = useState(defaultCenter);
   const [boundary, setBoundary] = useState(null);
   const [places, setPlaces] = useState([]);
   const [category, setCategory] = useState('');
 
   useEffect(() => {
-    console.log(boundary);
     if (category !== '' && boundary) {
       getPlaces(boundary, category).then((data) => {
         setPlaces(data);
@@ -36,12 +46,15 @@ function App() {
           <Places category={category} places={places} />
         </section>
         <section className={`${styles['map-section']}`}>
-          <Map
-            coordinates={coordinates}
-            setCoordinates={setCoordinates}
-            setBoundary={setBoundary}
-            places={places}
-          />
+          {isLoaded ? (
+            <Map
+              ref={mapRef.current}
+              onLoad={onMapLoad}
+              coordinates={coordinates}
+            />
+          ) : (
+            <h1>Loading...</h1>
+          )}
         </section>
       </main>
     </div>

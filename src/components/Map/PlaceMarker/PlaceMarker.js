@@ -1,8 +1,9 @@
 import styles from './PlaceMarker.module.css';
+import { IoLocationSharp } from 'react-icons/io5';
 
-const PlaceMarker = ({ place }) => {
+const PlaceMarker = ({ place, className }) => {
   return (
-    <div className={`${styles['marker-card']} ${styles['marker-hover']}`}>
+    <div className={`${styles['marker-card']} ${className}`}>
       <span className={`${styles['marker-name']}`}>{place.name}</span>
       <span className={`${styles['marker-image-container']}`}>
         {place.photo &&

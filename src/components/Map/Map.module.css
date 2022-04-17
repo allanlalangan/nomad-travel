@@ -1,8 +1,11 @@
-.marker-container {
-  position: relative;
+.map-container {
+  width: 100%;
+  height: 100%;
 }
-.marker-icon {
+
+.place-marker {
   position: absolute;
+
   display: flex;
   align-items: center;
   justify-content: center;
