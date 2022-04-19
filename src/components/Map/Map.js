@@ -3,21 +3,33 @@ import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 // styles and ui
 import styles from './Map.module.css';
 // components
-// import Marker from './Marker/Marker';
 import PlaceMarker from './PlaceMarker/PlaceMarker';
 
-const Map = ({ onLoad, coordinates }) => {
+const Map = ({ places, setCenter, setBounds, center }) => {
+  const mapContainerStyle = {
+    width: '100%',
+    height: '100%',
+  };
+
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
-  const onBoundsChange = () => {
-    console.log(mapRef.current.getBounds());
-  };
-  const mapContainerStyle = {
-    width: '100%',
-    height: '100%',
+  const onIdle = () => {
+    const {
+      Ab: { h: bl_latitude },
+      Ua: { h: bl_longitude },
+      Ua: { j: tr_longitude },
+      Ab: { j: tr_latitude },
+    } = mapRef.current.getBounds();
+
+    setBounds({
+      bl_latitude,
+      bl_longitude,
+      tr_longitude,
+      tr_latitude,
+    });
   };
 
   const options = {
@@ -29,12 +41,22 @@ const Map = ({ onLoad, coordinates }) => {
   return (
     <GoogleMap
       onLoad={onMapLoad}
-      onIdle={onBoundsChange}
+      onIdle={onIdle}
       mapContainerStyle={mapContainerStyle}
-      center={coordinates}
+      center={center}
       options={options}
       zoom={15}
-    ></GoogleMap>
+    >
+      {places?.map(({ location_id, latitude, longitude }) => (
+        <Marker
+          key={location_id}
+          position={{
+            lat: Number(latitude),
+            lng: Number(longitude),
+          }}
+        />
+      ))}
+    </GoogleMap>
   );
 };
 

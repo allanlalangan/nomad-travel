@@ -11,9 +11,9 @@ const FilterBar = ({ onCategoryChange }) => {
           className={`${styles['category-select']}`}
         >
           <option value=''>Select a category</option>
-          <option value='restaurants'>Restaurants</option>
-          <option value='hotels'>Hotels</option>
-          <option value='attractions'>Attractions</option>
+          <option value='restaurant'>Restaurants</option>
+          <option value='hotel'>Hotels</option>
+          <option value='attraction'>Attractions</option>
         </select>
       </div>
       <PriceRange />

@@ -14,28 +14,28 @@ function App() {
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
   });
 
-  const mapRef = useRef();
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map;
-  }, []);
-
   const defaultCenter = {
     lat: 45.5252,
     lng: -122.6584,
   };
 
-  const [coordinates, setCoordinates] = useState(defaultCenter);
-  const [boundary, setBoundary] = useState(null);
+  const [center, setCenter] = useState(defaultCenter);
+  const [bounds, setBounds] = useState(null);
   const [places, setPlaces] = useState([]);
   const [category, setCategory] = useState('');
 
   useEffect(() => {
-    if (category !== '' && boundary) {
-      getPlaces(boundary, category).then((data) => {
+    console.log(bounds);
+  }, [bounds]);
+
+  useEffect(() => {
+    if (category !== '' && bounds) {
+      getPlaces(bounds, category).then((data) => {
+        console.log(data);
         setPlaces(data);
       });
-    }
-  }, [coordinates, category, boundary]);
+    } else return;
+  }, [center, category, bounds]);
 
   return (
     <div>
@@ -47,11 +47,7 @@ function App() {
         </section>
         <section className={`${styles['map-section']}`}>
           {isLoaded ? (
-            <Map
-              ref={mapRef.current}
-              onLoad={onMapLoad}
-              coordinates={coordinates}
-            />
+            <Map places={places} setBounds={setBounds} center={center} />
           ) : (
             <h1>Loading...</h1>
           )}
