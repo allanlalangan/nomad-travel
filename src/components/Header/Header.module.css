@@ -1,11 +1,16 @@
 .main-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   background-color: var(--header-bg-color);
-  height: 8vh;
+  height: var(--header-height);
   box-shadow: var(--header-shadow);
 }
 
 .logo {
-  width: 25vw;
+  margin: 0 1rem;
+  /* width: 30%; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,10 +18,11 @@
 
 .logo-icon {
   color: var(--light-text);
-  font-size: 7vh;
+  font-size: 2rem;
 }
 
 .title {
+  font-size: 2rem;
   font-weight: 700;
   letter-spacing: 3px;
   color: var(--header-text-color);

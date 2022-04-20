@@ -1,4 +1,5 @@
 .pricerange-container {
+  margin: 1rem 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -16,5 +17,5 @@
 .number-input {
   border: none;
   width: 25%;
-  padding: 0.5rem 0;
+  /* padding: 0.5rem 0; */
 }

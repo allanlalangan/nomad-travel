@@ -1,5 +1,5 @@
 .filter-bar {
-  height: 25%;
+  padding: 1rem;
   box-shadow: var(--box-shadow);
 }
 
@@ -9,15 +9,11 @@
 
 .category-select {
   border: none;
-  padding: 0.5rem 1rem;
-  margin: 1rem;
+  /* padding: 0.5rem 1rem; */
+  /* margin: 1rem; */
 
   background-color: transparent;
   border: 1px solid var(--header-text-color);
-}
-
-.places-filter-fieldset {
-  border: none;
 }
 
 .places-heading {

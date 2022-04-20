@@ -1,18 +1,18 @@
 main {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   width: 100vw;
-  height: 92vh;
+  height: var(--main-content-height);
 }
 
 .places-section {
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
   width: 30%;
-  height: 100%;
 }
 
 .map-section {
-  /* margin-top: 8vh; */
   width: 70%;
-  height: 100%;
 }

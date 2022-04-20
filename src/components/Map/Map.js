@@ -2,18 +2,23 @@ import { useCallback, useRef } from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 // styles and ui
 import styles from './Map.module.css';
+import { mapStyles } from './mapStyles';
 // components
 import PlaceMarker from './PlaceMarker/PlaceMarker';
 
-const Map = ({ places, setCenter, setBounds, center }) => {
+const Map = ({ places, setBounds, center }) => {
   const mapContainerStyle = {
     width: '100%',
     height: '100%',
   };
 
   const mapRef = useRef();
+  const markerRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+  }, []);
+  const onMarkerLoad = useCallback((marker) => {
+    markerRef.current = marker;
   }, []);
 
   const onIdle = () => {
@@ -33,6 +38,7 @@ const Map = ({ places, setCenter, setBounds, center }) => {
   };
 
   const options = {
+    styles: mapStyles,
     clickableIcons: false,
     disableDefaultUI: true,
     zoomControl: true,
@@ -42,6 +48,7 @@ const Map = ({ places, setCenter, setBounds, center }) => {
     <GoogleMap
       onLoad={onMapLoad}
       onIdle={onIdle}
+      onClick={(e) => console.log(e)}
       mapContainerStyle={mapContainerStyle}
       center={center}
       options={options}
@@ -49,6 +56,7 @@ const Map = ({ places, setCenter, setBounds, center }) => {
     >
       {places?.map(({ location_id, latitude, longitude }) => (
         <Marker
+          ref={markerRef}
           key={location_id}
           position={{
             lat: Number(latitude),

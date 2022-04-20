@@ -4,7 +4,7 @@ import styles from './PriceRange.module.css';
 const PriceRange = () => {
   return (
     <div className={`${styles['pricerange-container']}`}>
-      <span>Price Range</span>
+      <p>Price Range</p>
       <fieldset className={`${styles['pricerange-fieldset']}`}>
         <label htmlFor='min'>Min</label>
         <input
