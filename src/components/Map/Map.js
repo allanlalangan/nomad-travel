@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 // styles and ui
 import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
@@ -13,19 +13,24 @@ const Map = ({ places, setBounds, center }) => {
   };
 
   const mapRef = useRef();
-  const markerRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+    console.log(mapRef.current);
   }, []);
-  const onMarkerLoad = useCallback((marker) => {
-    markerRef.current = marker;
+  const onMarkerLoad = useCallback((marker, i) => {
+    console.log(marker);
+    console.log(i);
+  }, []);
+  const onMarkerHover = useCallback((e) => {
+    console.log(e);
   }, []);
 
   const onIdle = () => {
+    console.log(mapRef.current.getBounds());
     const {
       Ab: { h: bl_latitude },
-      Ua: { h: bl_longitude },
-      Ua: { j: tr_longitude },
+      Va: { h: bl_longitude },
+      Va: { j: tr_longitude },
       Ab: { j: tr_latitude },
     } = mapRef.current.getBounds();
 
@@ -54,9 +59,12 @@ const Map = ({ places, setBounds, center }) => {
       options={options}
       zoom={15}
     >
-      {places?.map(({ location_id, latitude, longitude }) => (
+      {places?.map(({ location_id, latitude, longitude }, i) => (
         <Marker
-          ref={markerRef}
+          onLoad={(marker) => {
+            console.log(marker);
+          }}
+          onMouseOver={() => console.log(i)}
           key={location_id}
           position={{
             lat: Number(latitude),
