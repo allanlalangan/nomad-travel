@@ -7,7 +7,7 @@ export const getPlaces = async (bounds, category) => {
     url: `https://travel-advisor.p.rapidapi.com/${category}s/list-in-boundary`,
     params: {
       ...bounds,
-      limit: '15',
+      limit: '30',
       currency: 'USD',
     },
     headers: {

@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  Marker,
+  InfoWindow,
+  MarkerClusterer,
+} from '@react-google-maps/api';
 // styles and ui
 import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
@@ -11,6 +16,7 @@ const Map = ({
   selectPlace,
   setPlaces,
   places,
+  bounds,
   setBounds,
   center,
 }) => {
@@ -31,15 +37,16 @@ const Map = ({
     mapRef.current = map;
   }, []);
 
-  const onMarkerHover = useCallback((marker) => {
-    console.log(marker.latLng.lat(), marker.latLng.lng());
+  const onMarkerHover = useCallback((marker, place) => {
+    setHoveredMarker({ place: place, placeMarker: marker });
   }, []);
 
   const onMarkerExitHover = useCallback(() => {
     setHoveredMarker(null);
   }, []);
 
-  const onIdle = () => {
+  const onIdle = useCallback(() => {
+    setHoveredMarker(null);
     setPlaces([]);
     setMarkers([]);
 
@@ -56,13 +63,18 @@ const Map = ({
       tr_longitude,
       tr_latitude,
     });
-  };
+  }, [setBounds, setPlaces, bounds, places]);
 
   const options = {
     styles: mapStyles,
     clickableIcons: false,
     disableDefaultUI: true,
     zoomControl: true,
+  };
+
+  const infoWindowOptions = {
+    pixelOffset: new window.google.maps.Size(0, -40),
+    disableAutoPan: true,
   };
 
   const mapContainerStyle = {
@@ -79,19 +91,39 @@ const Map = ({
       options={options}
       zoom={15}
     >
-      {places?.map((place, i) => (
-        <Marker
-          onLoad={(marker) => setMarkers((prevState) => [...prevState, marker])}
-          onMouseOver={(marker) => onMarkerHover(marker)}
-          onMouseOut={onMarkerExitHover}
-          onClick={() => selectPlace(place)}
-          key={place.location_id}
+      <MarkerClusterer>
+        {(clusterer) =>
+          places?.map((place, i) => (
+            <Marker
+              clusterer={clusterer}
+              onLoad={(marker) =>
+                setMarkers((prevState) => [...prevState, marker])
+              }
+              onMouseOver={(marker) => onMarkerHover(marker, place)}
+              onMouseOut={onMarkerExitHover}
+              key={place.location_id}
+              position={{
+                lat: Number(place.latitude),
+                lng: Number(place.longitude),
+              }}
+            />
+          ))
+        }
+      </MarkerClusterer>
+      {hoveredMarker && (
+        <InfoWindow
+          options={infoWindowOptions}
           position={{
-            lat: Number(place.latitude),
-            lng: Number(place.longitude),
+            lat: hoveredMarker.placeMarker.latLng.lat(),
+            lng: hoveredMarker.placeMarker.latLng.lng(),
           }}
-        />
-      ))}
+        >
+          <div className={styles['info-window']}>
+            <p>{hoveredMarker.place.name}</p>
+            <p>{hoveredMarker.place.address}</p>
+          </div>
+        </InfoWindow>
+      )}
     </GoogleMap>
   );
 };

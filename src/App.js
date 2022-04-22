@@ -54,6 +54,7 @@ function App() {
               selectPlace={setSelectedPlace}
               setPlaces={setPlaces}
               places={places}
+              bounds={bounds}
               setBounds={setBounds}
               center={center}
             />
