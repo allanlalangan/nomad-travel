@@ -22,16 +22,18 @@ function App() {
   const [center, setCenter] = useState(defaultCenter);
   const [bounds, setBounds] = useState(null);
   const [places, setPlaces] = useState([]);
+  const [selectedPlace, setSelectedPlace] = useState(null);
   const [category, setCategory] = useState('');
 
   useEffect(() => {
     console.log(bounds);
-  }, [bounds]);
+    console.log(selectedPlace);
+    console.log(places);
+  }, [bounds, selectedPlace, places]);
 
   useEffect(() => {
     if (category !== '' && bounds) {
       getPlaces(bounds, category).then((data) => {
-        console.log(data);
         setPlaces(data);
       });
     } else return;
@@ -47,7 +49,14 @@ function App() {
         </section>
         <section className={`${styles['map-section']}`}>
           {isLoaded ? (
-            <Map places={places} setBounds={setBounds} center={center} />
+            <Map
+              selectedPlace={selectedPlace}
+              selectPlace={setSelectedPlace}
+              setPlaces={setPlaces}
+              places={places}
+              setBounds={setBounds}
+              center={center}
+            />
           ) : (
             <h1>Loading...</h1>
           )}

@@ -1,32 +1,48 @@
-import { useCallback, useRef } from 'react';
-import { GoogleMap, Marker } from '@react-google-maps/api';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 // styles and ui
 import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
 // components
 import PlaceMarker from './PlaceMarker/PlaceMarker';
 
-const Map = ({ places, setBounds, center }) => {
-  const mapContainerStyle = {
-    width: '100%',
-    height: '100%',
-  };
+const Map = ({
+  selectedPlace,
+  selectPlace,
+  setPlaces,
+  places,
+  setBounds,
+  center,
+}) => {
+  const [markers, setMarkers] = useState([]);
+  const [hoveredMarker, setHoveredMarker] = useState(null);
+
+  useEffect(() => {
+    console.log(hoveredMarker);
+  }, [hoveredMarker]);
+
+  useEffect(() => {
+    console.log(markers);
+  }, [markers]);
 
   const mapRef = useRef();
+
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-    console.log(mapRef.current);
   }, []);
-  const onMarkerLoad = useCallback((marker, i) => {
-    console.log(marker);
-    console.log(i);
+
+  const onMarkerHover = useCallback((marker) => {
+    console.log(marker.latLng.lat(), marker.latLng.lng());
   }, []);
-  const onMarkerHover = useCallback((e) => {
-    console.log(e);
+
+  const onMarkerExitHover = useCallback(() => {
+    setHoveredMarker(null);
   }, []);
 
   const onIdle = () => {
-    console.log(mapRef.current.getBounds());
+    setPlaces([]);
+    setMarkers([]);
+
     const {
       Ab: { h: bl_latitude },
       Va: { h: bl_longitude },
@@ -49,26 +65,30 @@ const Map = ({ places, setBounds, center }) => {
     zoomControl: true,
   };
 
+  const mapContainerStyle = {
+    width: '100%',
+    height: '100%',
+  };
+
   return (
     <GoogleMap
       onLoad={onMapLoad}
       onIdle={onIdle}
-      onClick={(e) => console.log(e)}
       mapContainerStyle={mapContainerStyle}
       center={center}
       options={options}
       zoom={15}
     >
-      {places?.map(({ location_id, latitude, longitude }, i) => (
+      {places?.map((place, i) => (
         <Marker
-          onLoad={(marker) => {
-            console.log(marker);
-          }}
-          onMouseOver={() => console.log(i)}
-          key={location_id}
+          onLoad={(marker) => setMarkers((prevState) => [...prevState, marker])}
+          onMouseOver={(marker) => onMarkerHover(marker)}
+          onMouseOut={onMarkerExitHover}
+          onClick={() => selectPlace(place)}
+          key={place.location_id}
           position={{
-            lat: Number(latitude),
-            lng: Number(longitude),
+            lat: Number(place.latitude),
+            lng: Number(place.longitude),
           }}
         />
       ))}
