@@ -20,7 +20,6 @@ export const getPlaces = async (bounds, category) => {
       data: { data },
     } = await axios.get(config.url, config);
     const places = await data.filter((place) => place.name);
-    // .filter((place) => place.address_obj);
     return places;
   } catch (error) {
     console.log(error);

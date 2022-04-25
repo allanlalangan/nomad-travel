@@ -25,18 +25,15 @@ function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [category, setCategory] = useState('');
 
-  useEffect(() => {
-    console.log(bounds);
-    console.log(selectedPlace);
-    console.log(places);
-  }, [bounds, selectedPlace, places]);
-
+  // fetch places in bounds if category and bounds are set
+  // pass bounds and category to api
   useEffect(() => {
     if (category !== '' && bounds) {
       getPlaces(bounds, category).then((data) => {
         setPlaces(data);
       });
     } else return;
+    // fetch places when user pan/zoom map or filters change
   }, [center, category, bounds]);
 
   return (
@@ -51,10 +48,9 @@ function App() {
           {isLoaded ? (
             <Map
               selectedPlace={selectedPlace}
-              selectPlace={setSelectedPlace}
+              setSelectedPlace={setSelectedPlace}
               setPlaces={setPlaces}
               places={places}
-              bounds={bounds}
               setBounds={setBounds}
               center={center}
             />
