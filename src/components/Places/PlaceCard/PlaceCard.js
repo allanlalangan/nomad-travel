@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { getPlaces } from '../../../api/placesAPI';
 import styles from './PlaceCard.module.css';
 
-const PlaceCard = forwardRef(({ place }, ref) => {
+const PlaceCard = forwardRef(({ place, liRef, selected }, ref) => {
   return (
     <li ref={ref} className={`${styles['place-card']}`}>
       <h3 className={styles['place-heading']}>{place.name}</h3>

@@ -10,15 +10,15 @@ import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
 
 const Map = ({
+  places,
+  setPlaces,
+  placeRefs,
   selectedPlace,
   setSelectedPlace,
-  setPlaces,
-  places,
   setBounds,
   center,
 }) => {
   const mapRef = useRef();
-  const placeRefs = useRef([]);
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
@@ -30,10 +30,6 @@ const Map = ({
   useEffect(() => {
     console.log('Hovering...', hoveredMarker);
   }, [hoveredMarker]);
-  // print selectedPlace
-  useEffect(() => {
-    console.log('Selected:', selectedPlace);
-  }, [selectedPlace]);
 
   // print places and markers in bounds
   useEffect(() => {
@@ -68,10 +64,14 @@ const Map = ({
     setHoveredMarker({ marker, place });
   }, []);
 
-  const onMarkerClick = useCallback((marker, place, i) => {
-    setSelectedPlace({ marker, place });
-    console.log(i, place.name);
-  }, []);
+  const onMarkerClick = useCallback(
+    (marker, place, i) => {
+      setSelectedPlace({ marker, place, ref: placeRefs[i] });
+      console.log('Selected:', i, selectedPlace);
+      placeRefs[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    },
+    [placeRefs, selectedPlace, setSelectedPlace]
+  );
 
   const onMarkerExitHover = useCallback(() => {
     setHoveredMarker(null);

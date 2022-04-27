@@ -4,19 +4,19 @@ import styles from './Places.module.css';
 // components
 import PlaceCard from './PlaceCard/PlaceCard';
 
-const Places = ({ places }) => {
-  const [placeRefs, setPlaceRefs] = useState([]);
+const Places = ({ places, placeRefs, setPlaceRefs }) => {
   const liRefs = useRef([]);
 
   // create new array of Place refs and setPlaceRefs state
   useEffect(() => {
+    console.log(liRefs);
     console.log('Create refs for: ', places);
     const refs = [];
     places.forEach((place, i) => {
       refs.push(liRefs.current[i]);
     });
     setPlaceRefs(refs);
-  }, [places]);
+  }, [setPlaceRefs, places]);
 
   // print placeRefs state on update
   useEffect(() => {
@@ -30,6 +30,7 @@ const Places = ({ places }) => {
           ref={(element) => {
             liRefs.current[i] = element;
           }}
+          liRef={placeRefs[i]}
           key={i}
           place={place}
         />

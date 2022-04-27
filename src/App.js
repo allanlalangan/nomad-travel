@@ -22,6 +22,7 @@ function App() {
   const [center, setCenter] = useState(defaultCenter);
   const [bounds, setBounds] = useState(null);
   const [places, setPlaces] = useState([]);
+  const [placeRefs, setPlaceRefs] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [category, setCategory] = useState('');
 
@@ -42,11 +43,18 @@ function App() {
       <main>
         <section className={`${styles['places-section']}`}>
           <FilterBar onCategoryChange={setCategory} />
-          <Places category={category} places={places} />
+          <Places
+            placeRefs={placeRefs}
+            setPlaceRefs={setPlaceRefs}
+            category={category}
+            places={places}
+          />
         </section>
         <section className={`${styles['map-section']}`}>
           {isLoaded ? (
             <Map
+              placeRefs={placeRefs}
+              setPlaceRefs={setPlaceRefs}
               selectedPlace={selectedPlace}
               setSelectedPlace={setSelectedPlace}
               setPlaces={setPlaces}
