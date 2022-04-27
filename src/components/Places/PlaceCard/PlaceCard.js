@@ -1,9 +1,10 @@
+import { forwardRef } from 'react';
 import { getPlaces } from '../../../api/placesAPI';
 import styles from './PlaceCard.module.css';
 
-const PlaceCard = ({ place }) => {
+const PlaceCard = forwardRef(({ place }, ref) => {
   return (
-    <li className={`${styles['place-card']}`}>
+    <li ref={ref} className={`${styles['place-card']}`}>
       <h3 className={styles['place-heading']}>{place.name}</h3>
       <div className={`${styles['image-container']}`}>
         {place.photo &&
@@ -45,6 +46,6 @@ const PlaceCard = ({ place }) => {
       </div>
     </li>
   );
-};
+});
 
 export default PlaceCard;

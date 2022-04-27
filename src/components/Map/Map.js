@@ -18,6 +18,7 @@ const Map = ({
   center,
 }) => {
   const mapRef = useRef();
+  const placeRefs = useRef([]);
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
@@ -25,20 +26,25 @@ const Map = ({
   const [markers, setMarkers] = useState([]);
   const [hoveredMarker, setHoveredMarker] = useState(null);
 
-  // test
+  // print hoveredMarker
   useEffect(() => {
-    console.log(hoveredMarker);
+    console.log('Hovering...', hoveredMarker);
   }, [hoveredMarker]);
-
+  // print selectedPlace
   useEffect(() => {
-    console.log(markers);
-  }, [markers]);
-
-  useEffect(() => {
-    console.log(selectedPlace);
+    console.log('Selected:', selectedPlace);
   }, [selectedPlace]);
 
+  // print places and markers in bounds
+  useEffect(() => {
+    console.log('Places:', places);
+    console.log('Markers:', markers);
+  }, [markers, places]);
+
   const onIdle = useCallback(() => {
+    setPlaces([]);
+    setMarkers([]);
+
     const {
       Ab: { h: bl_latitude },
       Va: { h: bl_longitude },
@@ -52,8 +58,6 @@ const Map = ({
       tr_longitude,
       tr_latitude,
     });
-    setPlaces([]);
-    setMarkers([]);
   }, [setBounds, setPlaces]);
 
   const onMarkerLoad = useCallback((marker) => {
@@ -64,12 +68,10 @@ const Map = ({
     setHoveredMarker({ marker, place });
   }, []);
 
-  const onMarkerClick = useCallback(
-    (marker, place) => {
-      setSelectedPlace({ marker, place });
-    },
-    [setSelectedPlace]
-  );
+  const onMarkerClick = useCallback((marker, place, i) => {
+    setSelectedPlace({ marker, place });
+    console.log(i, place.name);
+  }, []);
 
   const onMarkerExitHover = useCallback(() => {
     setHoveredMarker(null);
@@ -106,7 +108,7 @@ const Map = ({
           places?.map((place, i) => (
             <Marker
               onLoad={(marker) => onMarkerLoad(marker)}
-              onClick={(marker) => onMarkerClick(marker, place)}
+              onClick={(marker) => onMarkerClick(marker, place, i)}
               onMouseOver={(marker) => onMarkerHover(marker, place)}
               onMouseOut={onMarkerExitHover}
               position={{
@@ -114,7 +116,7 @@ const Map = ({
                 lng: Number(place.longitude),
               }}
               clusterer={clusterer}
-              key={place.location_id}
+              key={i}
             />
           ))
         }
