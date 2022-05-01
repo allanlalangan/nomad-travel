@@ -31,11 +31,14 @@ const Map = ({
     console.log('Hovering...', hoveredMarker);
   }, [hoveredMarker]);
 
-  // print places and markers in bounds
+  useEffect(() => {
+    console.log('Selected:', selectedPlace);
+  }, [selectedPlace]);
+
+  // print places and markers in boundsd
   useEffect(() => {
     console.log('Places:', places);
-    console.log('Markers:', markers);
-  }, [markers, places]);
+  }, [places]);
 
   const onIdle = useCallback(() => {
     setPlaces([]);
@@ -67,10 +70,9 @@ const Map = ({
   const onMarkerClick = useCallback(
     (marker, place, i) => {
       setSelectedPlace({ marker, place, ref: placeRefs[i] });
-      console.log('Selected:', i, selectedPlace);
       placeRefs[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
     },
-    [placeRefs, selectedPlace, setSelectedPlace]
+    [placeRefs, setSelectedPlace]
   );
 
   const onMarkerExitHover = useCallback(() => {
@@ -90,8 +92,9 @@ const Map = ({
   };
 
   const infoWindowOptions = {
+    shouldFocus: true,
     pixelOffset: new window.google.maps.Size(0, -40),
-    // disableAutoPan: true,
+    disableAutoPan: true,
   };
 
   return (
@@ -124,6 +127,9 @@ const Map = ({
 
       {hoveredMarker && (
         <InfoWindow
+          onLoad={(InfoWindow) => {
+            console.log(InfoWindow);
+          }}
           options={infoWindowOptions}
           position={{
             lat: hoveredMarker.marker.latLng.lat(),

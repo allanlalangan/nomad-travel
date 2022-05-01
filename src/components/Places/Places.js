@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 // styles and ui
 import styles from './Places.module.css';
 // components
@@ -9,8 +9,6 @@ const Places = ({ places, placeRefs, setPlaceRefs }) => {
 
   // create new array of Place refs and setPlaceRefs state
   useEffect(() => {
-    console.log(liRefs);
-    console.log('Create refs for: ', places);
     const refs = [];
     places.forEach((place, i) => {
       refs.push(liRefs.current[i]);

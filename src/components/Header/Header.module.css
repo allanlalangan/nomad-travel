@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   background-color: var(--header-bg-color);
   height: var(--header-height);
   box-shadow: var(--header-shadow);

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
 import { getPlaces } from './api/placesAPI';
 // styles and ui
@@ -10,7 +10,7 @@ import Places from './components/Places/Places';
 import Map from './components/Map/Map';
 
 function App() {
-  const { isLoaded, loadError } = useLoadScript({
+  const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
   });
 
@@ -32,6 +32,7 @@ function App() {
     if (category !== '' && bounds) {
       getPlaces(bounds, category).then((data) => {
         setPlaces(data);
+        setSelectedPlace(null);
       });
     } else return;
     // fetch places when user pan/zoom map or filters change
