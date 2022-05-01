@@ -17,6 +17,7 @@ const Map = ({
   setSelectedPlace,
   setBounds,
   center,
+  setCenter,
 }) => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -41,6 +42,7 @@ const Map = ({
   }, [places]);
 
   const onIdle = useCallback(() => {
+    console.log(center);
     setPlaces([]);
     setMarkers([]);
 
@@ -57,14 +59,23 @@ const Map = ({
       tr_longitude,
       tr_latitude,
     });
-  }, [setBounds, setPlaces]);
+  }, [center, setBounds, setPlaces]);
 
-  const onMarkerLoad = useCallback((marker) => {
+  const onDragEnd = () => {
+    setCenter({
+      lat: mapRef.current.center.lat(),
+      lng: mapRef.current.center.lng(),
+    });
+  };
+
+  const onMarkerLoad = (marker) => {
     setMarkers((prevState) => [...prevState, marker]);
-  }, []);
+  };
 
   const onMarkerHover = useCallback((marker, place) => {
     setHoveredMarker({ marker, place });
+    const infoWindow = new window.google.maps.Size(200, -35);
+    console.log(infoWindow);
   }, []);
 
   const onMarkerClick = useCallback(
@@ -92,15 +103,20 @@ const Map = ({
   };
 
   const infoWindowOptions = {
-    shouldFocus: true,
-    pixelOffset: new window.google.maps.Size(0, -40),
+    pixelOffset: new window.google.maps.Size(0, -35),
     disableAutoPan: true,
+    position: {
+      lat: hoveredMarker?.marker.latLng.lat(),
+      lng: hoveredMarker?.marker.latLng.lng(),
+    },
+    maxWidth: 200,
   };
 
   return (
     <GoogleMap
       onLoad={onMapLoad}
       onIdle={onIdle}
+      onDragEnd={onDragEnd}
       mapContainerStyle={mapContainerStyle}
       center={center}
       options={options}
@@ -131,10 +147,6 @@ const Map = ({
             console.log(InfoWindow);
           }}
           options={infoWindowOptions}
-          position={{
-            lat: hoveredMarker.marker.latLng.lat(),
-            lng: hoveredMarker.marker.latLng.lng(),
-          }}
         >
           <div className={styles['info-window']}>
             <p>{hoveredMarker.place.name}</p>

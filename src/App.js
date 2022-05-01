@@ -62,6 +62,7 @@ function App() {
               places={places}
               setBounds={setBounds}
               center={center}
+              setCenter={setCenter}
             />
           ) : (
             <h1>Loading...</h1>
