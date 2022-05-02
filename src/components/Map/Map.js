@@ -43,6 +43,7 @@ const Map = ({
 
   const onIdle = useCallback(() => {
     console.log(center);
+    setHoveredMarker(null);
     setPlaces([]);
     setMarkers([]);
 
@@ -104,7 +105,7 @@ const Map = ({
 
   const infoWindowOptions = {
     pixelOffset: new window.google.maps.Size(0, -35),
-    disableAutoPan: true,
+    // disableAutoPan: true,
     position: {
       lat: hoveredMarker?.marker.latLng.lat(),
       lng: hoveredMarker?.marker.latLng.lng(),

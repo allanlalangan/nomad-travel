@@ -4,7 +4,6 @@ import styles from './PlaceCard.module.css';
 const PlaceCard = forwardRef(({ place }, ref) => {
   return (
     <li ref={ref} className={`${styles['place-card']}`}>
-      <h3 className={styles['place-heading']}>{place.name}</h3>
       <div className={`${styles['image-container']}`}>
         {place.photo &&
         place.photo.images &&
@@ -18,6 +17,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         ) : (
           <span>Image unavailable</span>
         )}
+        <h3 className={styles['place-heading']}>{place.name}</h3>
       </div>
       <div className={`${styles['place-summary']}`}>
         <div className={styles['place-details']}>

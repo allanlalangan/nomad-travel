@@ -40,6 +40,10 @@ button {
   justify-content: center;
 }
 
+li {
+  list-style: none;
+}
+
 input,
 select,
 option {
