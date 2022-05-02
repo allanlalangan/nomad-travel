@@ -31,6 +31,7 @@ function App() {
   useEffect(() => {
     if (category !== '' && bounds) {
       getPlaces(bounds, category).then((data) => {
+        console.log(data);
         setPlaces(data);
         setSelectedPlace(null);
       });

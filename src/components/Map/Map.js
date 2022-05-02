@@ -27,26 +27,29 @@ const Map = ({
   const [markers, setMarkers] = useState([]);
   const [hoveredMarker, setHoveredMarker] = useState(null);
 
-  // print hoveredMarker
+  // re-render and print hoveredMarker
   useEffect(() => {
-    console.log('Hovering...', hoveredMarker);
+    console.log('hoveredMarker = ', hoveredMarker);
   }, [hoveredMarker]);
-
-  useEffect(() => {
-    console.log('Selected:', selectedPlace);
-  }, [selectedPlace]);
 
   // print places and markers in boundsd
   useEffect(() => {
     console.log('Places:', places);
   }, [places]);
 
-  const onIdle = useCallback(() => {
-    console.log(center);
-    setHoveredMarker(null);
-    setPlaces([]);
-    setMarkers([]);
+  useEffect(() => {
+    console.log('selectedPlace = ', selectedPlace);
+  }, [selectedPlace]);
 
+  useEffect(() => {
+    console.log('markers = ', markers);
+  }, [markers]);
+
+  const onIdle = useCallback(() => {
+    setHoveredMarker(null);
+    setSelectedPlace(null);
+    setMarkers([]);
+    setPlaces([]);
     const {
       Ab: { h: bl_latitude },
       Va: { h: bl_longitude },
@@ -60,7 +63,7 @@ const Map = ({
       tr_longitude,
       tr_latitude,
     });
-  }, [center, setBounds, setPlaces]);
+  }, [setMarkers, setPlaces, setBounds, setHoveredMarker, setSelectedPlace]);
 
   const onDragEnd = () => {
     setCenter({
@@ -73,11 +76,14 @@ const Map = ({
     setMarkers((prevState) => [...prevState, marker]);
   };
 
-  const onMarkerHover = useCallback((marker, place) => {
-    setHoveredMarker({ marker, place });
-    const infoWindow = new window.google.maps.Size(200, -35);
-    console.log(infoWindow);
-  }, []);
+  const onMarkerHover = useCallback(
+    (marker, place) => {
+      setHoveredMarker({ marker, place });
+      console.log('markers = ', markers);
+      console.log('Hovering place:', places.indexOf(place), place);
+    },
+    [markers, places]
+  );
 
   const onMarkerClick = useCallback(
     (marker, place, i) => {
@@ -103,6 +109,23 @@ const Map = ({
     height: '100%',
   };
 
+  const markerOptions = (place) => ({
+    position: {
+      lat: Number(place.latitude),
+      lng: Number(place.longitude),
+    },
+  });
+
+  const markerShape = (place) => ({
+    coords: [
+      Number(place.longitude) - 0.01,
+      Number(place.latitude) + 0.01,
+      Number(place.longitude) + 0.01,
+      Number(place.latitude) - 0.01,
+    ],
+    type: 'rect',
+  });
+
   const infoWindowOptions = {
     pixelOffset: new window.google.maps.Size(0, -35),
     // disableAutoPan: true,
@@ -126,35 +149,49 @@ const Map = ({
       <MarkerClusterer>
         {(clusterer) =>
           places?.map((place, i) => (
-            <Marker
-              onLoad={(marker) => onMarkerLoad(marker)}
-              onClick={(marker) => onMarkerClick(marker, place, i)}
-              onMouseOver={(marker) => onMarkerHover(marker, place)}
-              onMouseOut={onMarkerExitHover}
-              position={{
-                lat: Number(place.latitude),
-                lng: Number(place.longitude),
-              }}
-              clusterer={clusterer}
-              key={i}
-            />
+            <>
+              <Marker
+                onLoad={(marker) => onMarkerLoad(marker)}
+                onClick={(marker) => onMarkerClick(marker, place, i)}
+                onMouseOver={(marker) => onMarkerHover(marker, place)}
+                onMouseOut={onMarkerExitHover}
+                options={markerOptions(place)}
+                clusterer={clusterer}
+                key={i}
+              />
+
+              {hoveredMarker &&
+                places.indexOf(hoveredMarker.place) ===
+                  places.indexOf(place) && (
+                  <InfoWindow options={infoWindowOptions}>
+                    <div className={styles['info-window']}>
+                      <p>{hoveredMarker.place.name}</p>
+                      <p>{hoveredMarker.place.address}</p>
+                    </div>
+                  </InfoWindow>
+                )}
+            </>
           ))
         }
       </MarkerClusterer>
+      {selectedPlace && (
+        <InfoWindow options={infoWindowOptions}>
+          <div className={styles['info-window']}>
+            <p>selected</p>
+            <p>{selectedPlace.place.name}</p>
+            <p>{selectedPlace.place.address}</p>
+          </div>
+        </InfoWindow>
+      )}
 
-      {hoveredMarker && (
-        <InfoWindow
-          onLoad={(InfoWindow) => {
-            console.log(InfoWindow);
-          }}
-          options={infoWindowOptions}
-        >
+      {/* {hoveredMarker && (
+        <InfoWindow options={infoWindowOptions}>
           <div className={styles['info-window']}>
             <p>{hoveredMarker.place.name}</p>
             <p>{hoveredMarker.place.address}</p>
           </div>
         </InfoWindow>
-      )}
+      )} */}
     </GoogleMap>
   );
 };

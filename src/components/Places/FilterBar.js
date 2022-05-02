@@ -1,7 +1,5 @@
 import styles from './FilterBar.module.css';
 
-import PriceRange from '../input/PriceRange/PriceRange';
-
 const FilterBar = ({ onCategoryChange }) => {
   return (
     <aside className={`${styles['filter-bar']}`}>
