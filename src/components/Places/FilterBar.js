@@ -16,7 +16,6 @@ const FilterBar = ({ onCategoryChange }) => {
           <option value='attraction'>Attractions</option>
         </select>
       </div>
-      <PriceRange />
       <h3 className={styles['places-heading']}>Popular in this area:</h3>
     </aside>
   );
