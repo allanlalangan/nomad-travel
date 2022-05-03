@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { PlacesContextProvider } from './store/PlacesContextProvider';
 import { useLoadScript } from '@react-google-maps/api';
 import { getPlaces } from './api/placesAPI';
 // styles and ui
@@ -40,7 +41,7 @@ function App() {
   }, [center, category, bounds]);
 
   return (
-    <div>
+    <PlacesContextProvider>
       <Header />
       <main>
         <section className={`${styles['places-section']}`}>
@@ -70,7 +71,7 @@ function App() {
           )}
         </section>
       </main>
-    </div>
+    </PlacesContextProvider>
   );
 }
 

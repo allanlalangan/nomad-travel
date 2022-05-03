@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useContext } from 'react';
+import { PlacesContext } from '../../store/PlacesContextProvider';
 import {
   GoogleMap,
   Marker,
@@ -19,6 +20,7 @@ const Map = ({
   center,
   setCenter,
 }) => {
+  const { hoveredMarker: hovered } = useContext(PlacesContext);
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -81,8 +83,9 @@ const Map = ({
       setHoveredMarker({ marker, place });
       console.log('markers = ', markers);
       console.log('Hovering place:', places.indexOf(place), place);
+      console.log(hovered);
     },
-    [markers, places]
+    [markers, places, hovered]
   );
 
   const onMarkerClick = useCallback(

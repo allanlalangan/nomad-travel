@@ -4,6 +4,7 @@ import { getPlaces } from '../api/placesAPI';
 export const PlacesContext = createContext();
 
 export const PlacesContextProvider = ({ children }) => {
+  // state
   const initStatus = {
     isLoading: false,
     isError: false,
@@ -13,13 +14,13 @@ export const PlacesContextProvider = ({ children }) => {
   const [status, setStatus] = useState(initStatus);
   const [places, setPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [hoveredMarker, setHoveredMarker] = useState(null);
+  const [hoveredPlace, setHoveredPlace] = useState(null);
 
   const context = {
     status,
     places,
     selectedPlace,
-    hoveredMarker,
+    hoveredPlace,
     fetchPlaces: (bounds, category) => {
       setStatus({
         isLoading: true,
@@ -32,8 +33,8 @@ export const PlacesContextProvider = ({ children }) => {
     scrollToPlaceCard: (place) => {
       setSelectedPlace(place);
     },
-    hoverMarkerPreview: (place) => {
-      setHoveredMarker(place);
+    hoverPlacePreview: (place) => {
+      setHoveredPlace(place);
     },
     reset() {
       setStatus(initStatus);
