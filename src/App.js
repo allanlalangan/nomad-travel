@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { PlacesContextProvider } from './store/PlacesContextProvider';
+import { PlacesContext } from './store/PlacesContextProvider';
+import { MapContextProvider } from './store/MapContextProvider';
+import { MapContext } from './store/MapContextProvider';
 import { useLoadScript } from '@react-google-maps/api';
 import { getPlaces } from './api/placesAPI';
 // styles and ui
@@ -11,6 +14,7 @@ import Places from './components/Places/Places';
 import Map from './components/Map/Map';
 
 function App() {
+  const { fetchPlaces } = useContext(PlacesContext);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
   });
@@ -41,37 +45,39 @@ function App() {
   }, [center, category, bounds]);
 
   return (
-    <PlacesContextProvider>
-      <Header />
-      <main>
-        <section className={`${styles['places-section']}`}>
-          <FilterBar onCategoryChange={setCategory} />
-          <Places
-            placeRefs={placeRefs}
-            setPlaceRefs={setPlaceRefs}
-            category={category}
-            places={places}
-          />
-        </section>
-        <section className={`${styles['map-section']}`}>
-          {isLoaded ? (
-            <Map
+    <MapContextProvider>
+      <PlacesContextProvider>
+        <Header />
+        <main>
+          <section className={`${styles['places-section']}`}>
+            <FilterBar onCategoryChange={setCategory} />
+            <Places
               placeRefs={placeRefs}
               setPlaceRefs={setPlaceRefs}
-              selectedPlace={selectedPlace}
-              setSelectedPlace={setSelectedPlace}
-              setPlaces={setPlaces}
+              category={category}
               places={places}
-              setBounds={setBounds}
-              center={center}
-              setCenter={setCenter}
             />
-          ) : (
-            <h1>Loading...</h1>
-          )}
-        </section>
-      </main>
-    </PlacesContextProvider>
+          </section>
+          <section className={`${styles['map-section']}`}>
+            {isLoaded ? (
+              <Map
+                placeRefs={placeRefs}
+                setPlaceRefs={setPlaceRefs}
+                selectedPlace={selectedPlace}
+                setSelectedPlace={setSelectedPlace}
+                setPlaces={setPlaces}
+                places={places}
+                setBounds={setBounds}
+                center={center}
+                setCenter={setCenter}
+              />
+            ) : (
+              <h1>Loading...</h1>
+            )}
+          </section>
+        </main>
+      </PlacesContextProvider>
+    </MapContextProvider>
   );
 }
 

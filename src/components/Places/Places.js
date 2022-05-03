@@ -1,10 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useContext } from 'react';
+import { PlacesContext } from '../../store/PlacesContextProvider';
 // styles and ui
 import styles from './Places.module.css';
 // components
 import PlaceCard from './PlaceCard/PlaceCard';
 
 const Places = ({ places, placeRefs, setPlaceRefs }) => {
+  const placesContext = useContext(PlacesContext);
   const liRefs = useRef([]);
 
   // create new array of Place refs and setPlaceRefs state

@@ -14,13 +14,13 @@ export const PlacesContextProvider = ({ children }) => {
   const [status, setStatus] = useState(initStatus);
   const [places, setPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [hoveredPlace, setHoveredPlace] = useState(null);
+  const [hoveredMarker, setHoveredMarker] = useState(null);
 
   const context = {
     status,
     places,
     selectedPlace,
-    hoveredPlace,
+    hoveredMarker,
     fetchPlaces: (bounds, category) => {
       setStatus({
         isLoading: true,
@@ -34,7 +34,7 @@ export const PlacesContextProvider = ({ children }) => {
       setSelectedPlace(place);
     },
     hoverPlacePreview: (place) => {
-      setHoveredPlace(place);
+      setHoveredMarker(place);
     },
     reset() {
       setStatus(initStatus);
