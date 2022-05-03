@@ -12,7 +12,7 @@ export const getPlaces = async (bounds, category) => {
     },
     headers: {
       'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
-      'X-RapidAPI-Key': process.env.REACT_APP_TRAVEL_API_KEY,
+      'X-RapidAPI-Key': process.env.REACT_APP_TRAVEL_API_KE,
     },
   };
   try {

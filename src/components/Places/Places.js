@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-
 import { useEffect, useRef } from 'react';
 // styles and ui
 import styles from './Places.module.css';

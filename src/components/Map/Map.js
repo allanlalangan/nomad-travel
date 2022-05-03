@@ -116,16 +116,6 @@ const Map = ({
     },
   });
 
-  const markerShape = (place) => ({
-    coords: [
-      Number(place.longitude) - 0.01,
-      Number(place.latitude) + 0.01,
-      Number(place.longitude) + 0.01,
-      Number(place.latitude) - 0.01,
-    ],
-    type: 'rect',
-  });
-
   const infoWindowOptions = {
     pixelOffset: new window.google.maps.Size(0, -35),
     // disableAutoPan: true,
