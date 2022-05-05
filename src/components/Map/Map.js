@@ -30,6 +30,7 @@ const Map = () => {
 
   useEffect(() => {
     console.log(bounds);
+    console.log(coordinates);
   }, [bounds]);
   // re-render and print hoveredMarker
   useEffect(() => {
@@ -44,16 +45,16 @@ const Map = () => {
   const onIdle = useCallback(() => {
     const {
       Ab: { h: bl_latitude },
+      Ab: { j: tr_latitude },
       Va: { h: bl_longitude },
       Va: { j: tr_longitude },
-      Ab: { j: tr_latitude },
     } = mapRef.current.getBounds();
 
     setBounds({
       bl_latitude,
+      tr_latitude,
       bl_longitude,
       tr_longitude,
-      tr_latitude,
     });
   }, [setBounds]);
 
@@ -102,9 +103,10 @@ const Map = () => {
                     block: 'start',
                   });
                 }}
-                onMouseOver={(place) => setHoveredMarker(place)}
+                onMouseOver={(marker) => {
+                  setHoveredMarker({ marker, place });
+                }}
                 onMouseOut={() => setHoveredMarker(null)}
-                // options={markerOptions(place)}
                 position={{
                   lat: Number(place.latitude),
                   lng: Number(place.longitude),

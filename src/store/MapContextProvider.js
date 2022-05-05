@@ -26,9 +26,7 @@ const MapContextProvider = ({ children }) => {
     bounds,
     hoveredMarker,
     // functions
-    setHoveredMarker: (marker) => {
-      setHoveredMarker(marker);
-    },
+    setHoveredMarker,
     setCoordinates: (coordinates) => {
       setStatus({
         isLoading: true,

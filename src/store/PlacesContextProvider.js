@@ -24,13 +24,10 @@ const PlacesContextProvider = ({ children }) => {
     selectedPlace,
     placeCardRefs,
     // functions
-    setPlaceCardRefs: (refs) => {
-      setPlaceCardRefs(refs);
-    },
-
-    selectCategory: (category) => {
-      setCategory(category);
-    },
+    setStatus,
+    setCategory,
+    setPlaces,
+    setPlaceCardRefs,
 
     fetchPlaces: (bounds, category) => {
       setStatus({
@@ -40,13 +37,14 @@ const PlacesContextProvider = ({ children }) => {
         message: 'Fetching places',
       });
 
-      getPlaces(bounds, category).then((data) => setPlaces(data));
-
-      setStatus({
-        isLoading: false,
-        isError: false,
-        isSuccess: true,
-        message: 'Fetch Success',
+      getPlaces(bounds, category).then((data) => {
+        setPlaces(data);
+        setStatus({
+          isLoading: false,
+          isError: false,
+          isSuccess: true,
+          message: 'Fetch Success',
+        });
       });
     },
 

@@ -1,15 +1,15 @@
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { PlacesContext } from '../../store/PlacesContextProvider';
 import styles from './FilterBar.module.css';
 
 const FilterBar = ({ onCategoryChange }) => {
-  const { category, selectCategory } = useContext(PlacesContext);
+  const { category, setCategory } = useContext(PlacesContext);
   return (
     <aside className={`${styles['filter-bar']}`}>
       <div className={`${styles['category-select-container']}`}>
         <select
           value={category}
-          onChange={(e) => selectCategory(e.target.value)}
+          onChange={(e) => setCategory(e.target.value)}
           className={`${styles['category-select']}`}
         >
           <option value={''}>Select a category</option>

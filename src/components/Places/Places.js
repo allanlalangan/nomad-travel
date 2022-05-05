@@ -1,15 +1,25 @@
 import { useEffect, useRef, useContext } from 'react';
 import { PlacesContext } from '../../store/PlacesContextProvider';
 import { MapContext } from '../../store/MapContextProvider';
-// styles and ui
-import styles from './Places.module.css';
+// api
+import { getPlaces } from '../../api/placesAPI';
 // components
 import PlaceCard from './PlaceCard/PlaceCard';
+// styles and ui
+import styles from './Places.module.css';
 
 const Places = () => {
-  const { category, places, fetchPlaces, placeCardRefs, setPlaceCardRefs } =
-    useContext(PlacesContext);
-  const { bounds } = useContext(MapContext);
+  const {
+    status,
+    category,
+    places,
+    setPlaces,
+    setStatus,
+    fetchPlaces,
+    placeCardRefs,
+    setPlaceCardRefs,
+  } = useContext(PlacesContext);
+  const { status: mapStatus, bounds } = useContext(MapContext);
   const liRefs = useRef([]);
 
   // context useEffect
@@ -18,22 +28,27 @@ const Places = () => {
     if (category !== '' && bounds) {
       fetchPlaces(bounds, category);
     }
-  }, [fetchPlaces, category, bounds]);
+  }, [category, bounds]);
 
-  // useEffect(() => {
-  //   const refs = [];
-  //   // if (places.length > 0) {
-  //   places.forEach((place, i) => {
-  //     refs.push(liRefs.current[i]);
-  //   });
-  //   setPlaceCardRefs(refs);
-  //   // }
-  // }, [places, setPlaceCardRefs]);
+  useEffect(() => {
+    const refs = [];
+    places?.forEach((place, i) => {
+      refs.push(liRefs.current[i]);
+    });
+    setPlaceCardRefs(refs);
+  }, [places, setPlaceCardRefs]);
 
   // print placeRefs state on update
   useEffect(() => {
-    console.log(places);
-  }, [places]);
+    console.log(placeCardRefs);
+  }, [placeCardRefs]);
+  // print status state on update
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
+  useEffect(() => {
+    console.log(mapStatus);
+  }, [mapStatus]);
 
   return (
     <ul className={`${styles['places-list']}`}>
