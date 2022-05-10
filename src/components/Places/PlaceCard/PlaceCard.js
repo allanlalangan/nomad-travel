@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import styles from './PlaceCard.module.css';
+import StarRating from '../../StarRating/StarRating';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
   return (
@@ -17,7 +18,10 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         ) : (
           <span>Image unavailable</span>
         )}
-        <h3 className={styles['place-heading']}>{place.name}</h3>
+        <div className={styles['place-heading']}>
+          <h3>{place.name}</h3>
+          <StarRating />
+        </div>
       </div>
       <div className={`${styles['place-summary']}`}>
         <div className={styles['place-details']}>
