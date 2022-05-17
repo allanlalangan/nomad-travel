@@ -11,9 +11,9 @@ main {
   display: flex;
   flex-direction: column;
   width: 25%;
-  z-index: 2;
+  z-index: 1;
   position: relative;
-  box-shadow: var(--box-shadow);
+  box-shadow: 0.25rem 0.05rem 10px 1px rgba(0, 0, 0, 0.3);
 }
 
 .map-section {

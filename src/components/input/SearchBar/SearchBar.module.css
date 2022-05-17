@@ -1,21 +1,20 @@
 .container {
+  margin-left: 1rem;
+  width: calc(20% - 2rem);
   display: flex;
-  padding: 0 1rem;
-  /* width: 25%; */
-  position: absolute;
-  left: calc(25% + 1rem);
-  width: 25%;
+  /* margin: auto; */
+  position: relative;
 }
 
 .input {
   border: none;
-  border-radius: 0.25rem 0 0 0.25rem;
+  border-radius: 0 0 0 0.25rem;
+  padding: 0.25rem 2rem;
   width: 100%;
 }
 
 .input::placeholder {
   font-family: inherit;
-  padding: 0 1rem;
   letter-spacing: 1px;
 }
 
@@ -24,8 +23,14 @@
   color: var(--light-text);
 }
 
+.search_icon {
+  position: absolute;
+  left: 0.5rem;
+  height: 100%;
+}
+
 .search-btn {
-  width: 25%;
+  background-color: var(--light-text);
   border-radius: 0 0.25rem 0.25rem 0;
 
   padding: 0.25rem 0.5rem;

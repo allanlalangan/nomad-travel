@@ -39,16 +39,16 @@ const Places = () => {
   }, [places, setPlaceCardRefs]);
 
   // print placeRefs state on update
-  useEffect(() => {
-    console.log(placeCardRefs);
-  }, [placeCardRefs]);
+  // useEffect(() => {
+  //   console.log(placeCardRefs);
+  // }, [placeCardRefs]);
   // print status state on update
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
-  useEffect(() => {
-    console.log(mapStatus);
-  }, [mapStatus]);
+  // useEffect(() => {
+  //   console.log(status);
+  // }, [status]);
+  // useEffect(() => {
+  //   console.log(mapStatus);
+  // }, [mapStatus]);
 
   return (
     <ul className={`${styles['places-list']}`}>

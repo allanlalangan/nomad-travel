@@ -5,7 +5,7 @@ import MapContextProvider from './store/MapContextProvider';
 import { useLoadScript } from '@react-google-maps/api';
 // components
 import Header from './components/Header/Header';
-import FilterBar from './components/Places/FilterBar';
+import FilterMenu from './components/Places/FilterMenu/FilterMenu';
 import Places from './components/Places/Places';
 import Map from './components/Map/Map';
 // styles and ui
@@ -22,8 +22,8 @@ const App = () => {
         <Header />
         <main>
           <section className={`${styles['places-section']}`}>
-            <FilterBar />
             <Places />
+            <FilterMenu />
           </section>
           <section className={`${styles['map-section']}`}>
             {isLoaded ? <Map /> : <h1>Loading...</h1>}

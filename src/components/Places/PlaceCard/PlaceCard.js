@@ -20,7 +20,6 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         )}
         <div className={styles['place-heading']}>
           <h3>{place.name}</h3>
-          <StarRating />
         </div>
       </div>
       <div className={`${styles['place-summary']}`}>
