@@ -5,7 +5,7 @@ import styles from './FilterBar.module.css';
 const FilterBar = ({ onCategoryChange }) => {
   const { category, setCategory } = useContext(PlacesContext);
   return (
-    <aside className={`${styles['filter-bar']}`}>
+    <div className={`${styles['filter-bar']}`}>
       <div className={`${styles['category-select-container']}`}>
         <select
           value={category}
@@ -18,8 +18,8 @@ const FilterBar = ({ onCategoryChange }) => {
           <option value='attraction'>Attractions</option>
         </select>
       </div>
-      <h3 className={styles['places-heading']}>Popular in this area:</h3>
-    </aside>
+      <h3 className={styles['places-heading']}>Filters</h3>
+    </div>
   );
 };
 export default FilterBar;

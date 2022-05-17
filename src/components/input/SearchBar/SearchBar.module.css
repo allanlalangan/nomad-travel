@@ -1,10 +1,22 @@
 .container {
   display: flex;
   padding: 0 1rem;
+  /* width: 25%; */
+  position: absolute;
+  left: calc(25% + 1rem);
+  width: 25%;
 }
 
 .input {
   border: none;
+  border-radius: 0.25rem 0 0 0.25rem;
+  width: 100%;
+}
+
+.input::placeholder {
+  font-family: inherit;
+  padding: 0 1rem;
+  letter-spacing: 1px;
 }
 
 .search-heading {
@@ -13,5 +25,8 @@
 }
 
 .search-btn {
-  padding: 0.25rem;
+  width: 25%;
+  border-radius: 0 0.25rem 0.25rem 0;
+
+  padding: 0.25rem 0.5rem;
 }

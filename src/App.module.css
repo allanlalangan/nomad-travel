@@ -10,9 +10,12 @@ main {
   font-size: 0.9rem;
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 25%;
+  z-index: 2;
+  position: relative;
+  box-shadow: var(--box-shadow);
 }
 
 .map-section {
-  width: 70%;
+  width: 75%;
 }

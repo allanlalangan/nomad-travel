@@ -100,7 +100,7 @@ const Map = () => {
                 onClick={() => {
                   placeCardRefs[i].scrollIntoView({
                     behavior: 'smooth',
-                    block: 'start',
+                    block: 'center',
                   });
                 }}
                 onMouseOver={(marker) => {
