@@ -11,9 +11,15 @@ const FilterContextProvider = ({ children }) => {
   };
   // states
   const [status, setStatus] = useState(initStatus);
+  const [chips, setChips] = useState([]);
+  const [diets, setDiets] = useState([]);
   // global Places state
   const context = {
     status,
+    chips,
+    diets,
+    setChips,
+    setDiets,
     reset: () => {
       setStatus(initStatus);
     },

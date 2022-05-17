@@ -1,6 +1,7 @@
 // context
 import PlacesContextProvider from './store/PlacesContextProvider';
 import MapContextProvider from './store/MapContextProvider';
+import FilterContextProvider from './store/FilterContextProvider';
 // google maps api
 import { useLoadScript } from '@react-google-maps/api';
 // components
@@ -18,18 +19,20 @@ const App = () => {
 
   return (
     <MapContextProvider>
-      <PlacesContextProvider>
-        <Header />
-        <main>
-          <section className={`${styles['places-section']}`}>
-            <Places />
-            <FilterMenu />
-          </section>
-          <section className={`${styles['map-section']}`}>
-            {isLoaded ? <Map /> : <h1>Loading...</h1>}
-          </section>
-        </main>
-      </PlacesContextProvider>
+      <FilterContextProvider>
+        <PlacesContextProvider>
+          <Header />
+          <main>
+            <section className={`${styles['places-section']}`}>
+              <Places />
+              <FilterMenu />
+            </section>
+            <section className={`${styles['map-section']}`}>
+              {isLoaded ? <Map /> : <h1>Loading...</h1>}
+            </section>
+          </main>
+        </PlacesContextProvider>
+      </FilterContextProvider>
     </MapContextProvider>
   );
 };

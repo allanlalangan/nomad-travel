@@ -1,43 +1,47 @@
 import { useContext, useEffect, useMemo } from 'react';
+import { FilterContext } from '../../../store/FilterContextProvider';
 import { PlacesContext } from '../../../store/PlacesContextProvider';
 
 import Chip from './Chip/Chip';
 import styles from './FilterMenu.module.css';
 
-const FilterMenu = ({ onCategoryChange }) => {
+const FilterMenu = () => {
   const { category, setCategory, places } = useContext(PlacesContext);
+  const { chips, setChips, diets, setDiets } = useContext(FilterContext);
 
-  const cuisinesData = useMemo(() => [], [places]);
-  if (category === 'restaurant' && places.length >= 1) {
-    places.forEach((place) => {
-      place.cuisine.forEach((cuisine) => {
-        if (!cuisinesData.includes(cuisine.name)) {
-          cuisinesData.push(cuisine.name);
-        }
+  useEffect(() => {
+    // const cuisinesData = useMemo(() => [], [places]);
+    const cuisinesData = [];
+    if (category === 'restaurant' && places.length >= 1) {
+      places.forEach((place) => {
+        place.cuisine?.forEach((cuisine) => {
+          if (!cuisinesData.includes(cuisine.name)) {
+            cuisinesData.push(cuisine.name);
+          }
+        });
       });
-    });
+    }
 
     createFilters();
-  }
+    function createFilters() {
+      const cuisines = cuisinesData.filter(
+        (cuisine) =>
+          !cuisine.toLowerCase().includes('vegan') &&
+          !cuisine.toLowerCase().includes('vegetarian') &&
+          !cuisine.toLowerCase().includes('gluten')
+      );
 
-  function createFilters() {
-    const cuisines = cuisinesData.filter(
-      (cuisine) =>
-        !cuisine.toLowerCase().includes('vegan') &&
-        !cuisine.toLowerCase().includes('vegetarian') &&
-        !cuisine.toLowerCase().includes('gluten')
-    );
+      const diets = cuisinesData.filter(
+        (cuisine) =>
+          cuisine.toLowerCase().includes('vegan') ||
+          cuisine.toLowerCase().includes('vegetarian') ||
+          cuisine.toLowerCase().includes('gluten')
+      );
 
-    const diets = cuisinesData.filter(
-      (cuisine) =>
-        cuisine.toLowerCase().includes('vegan') ||
-        cuisine.toLowerCase().includes('vegetarian') ||
-        cuisine.toLowerCase().includes('gluten')
-    );
-
-    console.log(cuisines);
-    console.log(diets);
-  }
+      setChips(cuisines);
+      setDiets(diets);
+    }
+  }, [category, setChips, setDiets, places]);
 
   return (
     <div className={`${styles['filter-menu']}`}>
@@ -55,43 +59,6 @@ const FilterMenu = ({ onCategoryChange }) => {
       </div>
 
       <h3 className={styles['places-heading']}>Filters</h3>
-
-      <fieldset className={`${styles['category_filter']} ${styles['filter']}`}>
-        <h4>Category</h4>
-        <div
-          className={`${styles['category_filter-checkbox']} ${styles['filter-checkbox']}`}
-        >
-          <label htmlFor='restaurant'>Restaurant</label>
-          <input
-            type='checkbox'
-            id='restaurant'
-            name='category'
-            value='restaurants'
-          ></input>
-        </div>
-        <div
-          className={`${styles['category_filter-checkbox']} ${styles['filter-checkbox']}`}
-        >
-          <label htmlFor='hotel'>Hotel</label>
-          <input
-            type='checkbox'
-            id='hotel'
-            name='category'
-            value='hotels'
-          ></input>
-        </div>
-        <div
-          className={`${styles['category_filter-checkbox']} ${styles['filter-checkbox']}`}
-        >
-          <label htmlFor='attraction'>Attraction</label>
-          <input
-            type='checkbox'
-            id='attraction'
-            name='category'
-            value='attractions'
-          ></input>
-        </div>
-      </fieldset>
 
       {category === 'restaurant' && (
         <>
@@ -129,8 +96,14 @@ const FilterMenu = ({ onCategoryChange }) => {
           <fieldset
             className={`${styles['cuisine_filter']} ${styles['filter']}`}
           >
-            <h4>Cuisine</h4>
-            <div
+            <h4>Tags</h4>
+            <ul className={styles['chips-list']}>
+              {chips?.map((chip) => (
+                <Chip cuisine={chip} />
+              ))}
+            </ul>
+
+            {/* <div
               className={`${styles['cuisine_filter-checkbox']} ${styles['filter-checkbox']}`}
             >
               <label htmlFor='asian'>Asian</label>
@@ -140,7 +113,7 @@ const FilterMenu = ({ onCategoryChange }) => {
                 name='cuisine'
                 value='asian'
               ></input>
-            </div>
+            </div> */}
           </fieldset>
         </>
       )}

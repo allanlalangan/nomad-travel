@@ -1,6 +1,7 @@
 .container {
   margin-left: 1rem;
-  width: calc(20% - 2rem);
+  /* width: calc(20% - 2rem); */
+  width: 25%;
   display: flex;
   /* margin: auto; */
   position: relative;
