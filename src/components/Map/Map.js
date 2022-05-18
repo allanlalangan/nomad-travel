@@ -13,14 +13,14 @@ import { mapStyles } from './mapStyles';
 import { getPlaces } from '../../api/placesAPI';
 import axios from 'axios';
 
-const Map = () => {
+const Map = ({ isLoaded }) => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
   }, []);
 
   const {
-    setIsLoading,
+    status: mapStatus,
     setIsSuccess,
     coordinates,
     setCoordinates,
@@ -31,6 +31,7 @@ const Map = () => {
   } = useContext(MapContext);
 
   const {
+    status: placesStatus,
     setIsLoading: setPlacesIsLoading,
     setIsSuccess: setPlacesIsSuccess,
     category,
@@ -39,14 +40,27 @@ const Map = () => {
     setPlaces,
   } = useContext(PlacesContext);
 
+  // set map context status when googlemaps isLoaded
+  useEffect(() => {
+    isLoaded && setIsSuccess();
+  }, [isLoaded]);
+
+  // print status state on update
+  useEffect(() => {
+    console.log(placesStatus);
+  }, [placesStatus]);
+  useEffect(() => {
+    console.log(mapStatus);
+  }, [mapStatus]);
+
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
-      setIsLoading();
-      getPlaces(bounds, category, source).then((data) => setPlaces(data));
       setPlacesIsLoading();
-      setIsSuccess();
-      setPlacesIsSuccess();
+      getPlaces(bounds, category, source).then((data) => {
+        setPlaces(data);
+        setPlacesIsSuccess();
+      });
     }
 
     return () => {
@@ -105,7 +119,7 @@ const Map = () => {
       zoom={15}
     >
       {places && (
-        <MarkerClusterer>
+        <MarkerClusterer key={Math.random()} averageCenter={true}>
           {(clusterer) =>
             places?.map((place, i) => (
               <>
@@ -125,7 +139,7 @@ const Map = () => {
                     lng: Number(place.longitude),
                   }}
                   clusterer={clusterer}
-                  key={i}
+                  key={place.location_id}
                 />
 
                 {hoveredMarker &&
@@ -137,8 +151,12 @@ const Map = () => {
                         lng: Number(place.longitude),
                       }}
                       options={infoWindowOptions}
+                      key={place.location_id}
                     >
-                      <div className={styles['info-window']}>
+                      <div
+                        key={place.location_id}
+                        className={styles['info-window']}
+                      >
                         <p>{hoveredMarker.place.name}</p>
                         <p>{hoveredMarker.place.address}</p>
                       </div>

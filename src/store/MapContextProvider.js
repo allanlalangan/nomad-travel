@@ -4,10 +4,10 @@ export const MapContext = createContext({});
 
 const MapContextProvider = ({ children }) => {
   const initStatus = {
-    isLoading: false,
+    isLoading: true,
     isError: false,
     isSuccess: false,
-    message: '',
+    message: 'Loading Map',
   };
   const defaultCenter = {
     lat: 45.5252,
@@ -31,7 +31,7 @@ const MapContextProvider = ({ children }) => {
         isLoading: true,
         isError: false,
         isSuccess: false,
-        message: 'Fetching places',
+        message: 'Loading Map',
       });
     },
     setIsSuccess: () => {
@@ -39,12 +39,15 @@ const MapContextProvider = ({ children }) => {
         isLoading: false,
         isError: false,
         isSuccess: true,
-        message: 'Fetch Success',
+        message: 'Map Loaded Successfully',
       });
     },
     setHoveredMarker,
     setCoordinates,
     setBounds,
+    reset: () => {
+      setStatus(initStatus);
+    },
   };
   return <MapContext.Provider value={context}>{children}</MapContext.Provider>;
 };

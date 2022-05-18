@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from 'react';
+import { useContext, useEffect } from 'react';
 import { FilterContext } from '../../../store/FilterContextProvider';
 import { PlacesContext } from '../../../store/PlacesContextProvider';
 
@@ -98,22 +98,10 @@ const FilterMenu = () => {
           >
             <h4>Tags</h4>
             <ul className={styles['chips-list']}>
-              {chips?.map((chip) => (
-                <Chip cuisine={chip} />
+              {chips?.map((chip, i) => (
+                <Chip key={i} cuisine={chip} />
               ))}
             </ul>
-
-            {/* <div
-              className={`${styles['cuisine_filter-checkbox']} ${styles['filter-checkbox']}`}
-            >
-              <label htmlFor='asian'>Asian</label>
-              <input
-                type='checkbox'
-                id='asian'
-                name='cuisine'
-                value='asian'
-              ></input>
-            </div> */}
           </fieldset>
         </>
       )}

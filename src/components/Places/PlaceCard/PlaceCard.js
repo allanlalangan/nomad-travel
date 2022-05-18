@@ -1,6 +1,5 @@
 import { forwardRef } from 'react';
 import styles from './PlaceCard.module.css';
-import StarRating from '../../StarRating/StarRating';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
   return (

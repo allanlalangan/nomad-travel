@@ -28,7 +28,7 @@ const App = () => {
               <FilterMenu />
             </section>
             <section className={`${styles['map-section']}`}>
-              {isLoaded ? <Map /> : <h1>Loading...</h1>}
+              {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}
             </section>
           </main>
         </PlacesContextProvider>
