@@ -26,37 +26,25 @@ const MapContextProvider = ({ children }) => {
     bounds,
     hoveredMarker,
     // functions
+    setIsLoading: () => {
+      setStatus({
+        isLoading: true,
+        isError: false,
+        isSuccess: false,
+        message: 'Fetching places',
+      });
+    },
+    setIsSuccess: () => {
+      setStatus({
+        isLoading: false,
+        isError: false,
+        isSuccess: true,
+        message: 'Fetch Success',
+      });
+    },
     setHoveredMarker,
-    setCoordinates: (coordinates) => {
-      setStatus({
-        isLoading: true,
-        isError: false,
-        isSuccess: false,
-        message: 'Setting coordinates',
-      });
-      setCoordinates(coordinates);
-      setStatus({
-        isLoading: false,
-        isError: false,
-        isSuccess: true,
-        message: `Displaying map at ${coordinates.lat}, ${coordinates.lng}`,
-      });
-    },
-    setBounds: (bounds) => {
-      setStatus({
-        isLoading: true,
-        isError: false,
-        isSuccess: false,
-        message: 'Setting bounds',
-      });
-      setBounds(bounds);
-      setStatus({
-        isLoading: false,
-        isError: false,
-        isSuccess: true,
-        message: `Bounds set for center: ${coordinates.lat}, ${coordinates.lng}`,
-      });
-    },
+    setCoordinates,
+    setBounds,
   };
   return <MapContext.Provider value={context}>{children}</MapContext.Provider>;
 };

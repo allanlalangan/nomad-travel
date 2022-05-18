@@ -12,7 +12,7 @@ const FilterMenu = () => {
   useEffect(() => {
     // const cuisinesData = useMemo(() => [], [places]);
     const cuisinesData = [];
-    if (category === 'restaurant' && places.length >= 1) {
+    if (category === 'restaurant' && places && places.length >= 1) {
       places.forEach((place) => {
         place.cuisine?.forEach((cuisine) => {
           if (!cuisinesData.includes(cuisine.name)) {

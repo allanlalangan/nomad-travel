@@ -10,6 +10,8 @@ import {
 // styles and ui
 import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
+import { getPlaces } from '../../api/placesAPI';
+import axios from 'axios';
 
 const Map = () => {
   const mapRef = useRef();
@@ -18,6 +20,8 @@ const Map = () => {
   }, []);
 
   const {
+    setIsLoading,
+    setIsSuccess,
     coordinates,
     setCoordinates,
     bounds,
@@ -26,21 +30,29 @@ const Map = () => {
     setHoveredMarker,
   } = useContext(MapContext);
 
-  const { places, placeCardRefs } = useContext(PlacesContext);
+  const {
+    setIsLoading: setPlacesIsLoading,
+    setIsSuccess: setPlacesIsSuccess,
+    category,
+    places,
+    placeCardRefs,
+    setPlaces,
+  } = useContext(PlacesContext);
 
   useEffect(() => {
-    console.log(bounds);
-    console.log(coordinates);
-  }, [bounds]);
-  // re-render and print hoveredMarker
-  useEffect(() => {
-    console.log('hoveredMarker = ', hoveredMarker);
-  }, [hoveredMarker]);
+    const source = axios.CancelToken.source();
+    if (category !== '' && bounds) {
+      setIsLoading();
+      getPlaces(bounds, category, source).then((data) => setPlaces(data));
+      setPlacesIsLoading();
+      setIsSuccess();
+      setPlacesIsSuccess();
+    }
 
-  // print places and markers in boundsd
-  useEffect(() => {
-    console.log('Places:', places);
-  }, [places]);
+    return () => {
+      source.cancel();
+    };
+  }, [category, bounds, setPlaces]);
 
   const onIdle = useCallback(() => {
     const {
@@ -92,49 +104,51 @@ const Map = () => {
       options={options}
       zoom={15}
     >
-      <MarkerClusterer>
-        {(clusterer) =>
-          places?.map((place, i) => (
-            <>
-              <Marker
-                onClick={() => {
-                  placeCardRefs[i].scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center',
-                  });
-                }}
-                onMouseOver={(marker) => {
-                  setHoveredMarker({ marker, place });
-                }}
-                onMouseOut={() => setHoveredMarker(null)}
-                position={{
-                  lat: Number(place.latitude),
-                  lng: Number(place.longitude),
-                }}
-                clusterer={clusterer}
-                key={i}
-              />
+      {places && (
+        <MarkerClusterer>
+          {(clusterer) =>
+            places?.map((place, i) => (
+              <>
+                <Marker
+                  onClick={() => {
+                    placeCardRefs[i].scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'center',
+                    });
+                  }}
+                  onMouseOver={(marker) => {
+                    setHoveredMarker({ marker, place });
+                  }}
+                  onMouseOut={() => setHoveredMarker(null)}
+                  position={{
+                    lat: Number(place.latitude),
+                    lng: Number(place.longitude),
+                  }}
+                  clusterer={clusterer}
+                  key={i}
+                />
 
-              {hoveredMarker &&
-                places.indexOf(hoveredMarker.place) ===
-                  places.indexOf(place) && (
-                  <InfoWindow
-                    position={{
-                      lat: Number(place.latitude),
-                      lng: Number(place.longitude),
-                    }}
-                    options={infoWindowOptions}
-                  >
-                    <div className={styles['info-window']}>
-                      <p>{hoveredMarker.place.name}</p>
-                      <p>{hoveredMarker.place.address}</p>
-                    </div>
-                  </InfoWindow>
-                )}
-            </>
-          ))
-        }
-      </MarkerClusterer>
+                {hoveredMarker &&
+                  places.indexOf(hoveredMarker.place) ===
+                    places.indexOf(place) && (
+                    <InfoWindow
+                      position={{
+                        lat: Number(place.latitude),
+                        lng: Number(place.longitude),
+                      }}
+                      options={infoWindowOptions}
+                    >
+                      <div className={styles['info-window']}>
+                        <p>{hoveredMarker.place.name}</p>
+                        <p>{hoveredMarker.place.address}</p>
+                      </div>
+                    </InfoWindow>
+                  )}
+              </>
+            ))
+          }
+        </MarkerClusterer>
+      )}
     </GoogleMap>
   );
 };

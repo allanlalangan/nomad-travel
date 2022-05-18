@@ -1,8 +1,9 @@
 // IMPORT
 import axios from 'axios';
 
-export const getPlaces = async (bounds, category) => {
+export const getPlaces = async (bounds, category, source) => {
   const config = {
+    cancelToken: source.token,
     method: 'GET',
     url: `https://travel-advisor.p.rapidapi.com/${category}s/list-in-boundary`,
     params: {
@@ -22,7 +23,11 @@ export const getPlaces = async (bounds, category) => {
     const places = await data.filter((place) => place.name);
     return places;
   } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
+    if (axios.isCancel(error)) {
+      console.log('request cancelled');
+    } else {
+      console.log(error);
+      throw new Error(error.message);
+    }
   }
 };

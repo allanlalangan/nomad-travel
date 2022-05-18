@@ -15,43 +15,32 @@ const PlacesContextProvider = ({ children }) => {
   const [category, setCategory] = useState('');
   const [places, setPlaces] = useState([]);
   const [placeCardRefs, setPlaceCardRefs] = useState([]);
-  const [selectedPlace, setSelectedPlace] = useState(null);
   // global Places state
   const context = {
     status,
     category,
     places,
-    selectedPlace,
     placeCardRefs,
     // functions
-    setStatus,
-    setCategory,
-    setPlaces,
-    setPlaceCardRefs,
-
-    fetchPlaces: (bounds, category) => {
+    setIsLoading: () => {
       setStatus({
         isLoading: true,
         isError: false,
         isSuccess: false,
         message: 'Fetching places',
       });
-
-      getPlaces(bounds, category).then((data) => {
-        setPlaces(data);
-        setStatus({
-          isLoading: false,
-          isError: false,
-          isSuccess: true,
-          message: 'Fetch Success',
-        });
+    },
+    setIsSuccess: () => {
+      setStatus({
+        isLoading: false,
+        isError: false,
+        isSuccess: true,
+        message: 'Fetch Success',
       });
     },
-
-    scrollToPlaceCard: (place) => {
-      setSelectedPlace(place);
-    },
-
+    setCategory,
+    setPlaces,
+    setPlaceCardRefs,
     reset: () => {
       setStatus(initStatus);
     },

@@ -10,25 +10,17 @@ import styles from './Places.module.css';
 
 const Places = () => {
   const {
-    status,
-    category,
+    // status,
+    // category,
     places,
-    setPlaces,
-    setStatus,
-    fetchPlaces,
+    // setPlaces,
+    setIsLoading: setPlacesIsLoading,
+    setIsSuccess: setPlacesIsSuccess,
+    // fetchPlaces,
     placeCardRefs,
     setPlaceCardRefs,
   } = useContext(PlacesContext);
-  const { status: mapStatus, bounds } = useContext(MapContext);
   const liRefs = useRef([]);
-
-  // context useEffect
-  // create new array of Place refs and setPlaceRefs state
-  useEffect(() => {
-    if (category !== '' && bounds) {
-      fetchPlaces(bounds, category);
-    }
-  }, [category, bounds]);
 
   useEffect(() => {
     const refs = [];
