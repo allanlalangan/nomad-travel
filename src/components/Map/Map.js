@@ -14,13 +14,15 @@ import { getPlaces } from '../../api/placesAPI';
 import axios from 'axios';
 
 const Map = ({ isLoaded }) => {
+  console.log('render');
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+    setIsSuccess();
   }, []);
 
   const {
-    status: mapStatus,
+    status,
     setIsSuccess,
     coordinates,
     setCoordinates,
@@ -40,19 +42,7 @@ const Map = ({ isLoaded }) => {
     setPlaces,
   } = useContext(PlacesContext);
 
-  // set map context status when googlemaps isLoaded
-  useEffect(() => {
-    isLoaded && setIsSuccess();
-  }, [isLoaded]);
-
-  // print status state on update
-  useEffect(() => {
-    console.log(placesStatus);
-  }, [placesStatus]);
-  useEffect(() => {
-    console.log(mapStatus);
-  }, [mapStatus]);
-
+  // request function with cancel
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
@@ -68,12 +58,20 @@ const Map = ({ isLoaded }) => {
     };
   }, [category, bounds, setPlaces]);
 
+  // print status state on update
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
+  useEffect(() => {
+    console.log(bounds);
+  }, [bounds]);
+
   const onIdle = useCallback(() => {
     const {
-      Ab: { h: bl_latitude },
-      Ab: { j: tr_latitude },
-      Va: { h: bl_longitude },
-      Va: { j: tr_longitude },
+      yb: { h: bl_latitude },
+      yb: { j: tr_latitude },
+      Ta: { h: bl_longitude },
+      Ta: { j: tr_longitude },
     } = mapRef.current.getBounds();
 
     setBounds({
@@ -97,6 +95,9 @@ const Map = ({ isLoaded }) => {
     disableDefaultUI: true,
     zoomControl: true,
   };
+  const markerOptions = {
+    optimized: true,
+  };
 
   const mapContainerStyle = {
     width: '100%',
@@ -110,7 +111,7 @@ const Map = ({ isLoaded }) => {
 
   return (
     <GoogleMap
-      onLoad={onMapLoad}
+      onLoad={(map) => onMapLoad(map)}
       onIdle={onIdle}
       onDragEnd={onDragEnd}
       mapContainerStyle={mapContainerStyle}
@@ -118,55 +119,49 @@ const Map = ({ isLoaded }) => {
       options={options}
       zoom={15}
     >
-      {places && (
-        <MarkerClusterer key={Math.random()} averageCenter={true}>
-          {(clusterer) =>
-            places?.map((place, i) => (
-              <>
-                <Marker
-                  onClick={() => {
-                    placeCardRefs[i].scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'center',
-                    });
-                  }}
-                  onMouseOver={(marker) => {
-                    setHoveredMarker({ marker, place });
-                  }}
-                  onMouseOut={() => setHoveredMarker(null)}
+      {places &&
+        places.length >= 1 &&
+        places?.map((place, i) => (
+          <>
+            <Marker
+              onClick={() => {
+                placeCardRefs[i].scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'center',
+                });
+              }}
+              onMouseOver={(marker) =>
+                setHoveredMarker({ marker: marker, place: place })
+              }
+              position={{
+                lat: Number(place.latitude),
+                lng: Number(place.longitude),
+              }}
+              options={markerOptions}
+              key={place.location_id + Math.random()}
+            />
+
+            {hoveredMarker?.place.name === place.name &&
+              places.indexOf(hoveredMarker.place) === places.indexOf(place) && (
+                <InfoWindow
                   position={{
                     lat: Number(place.latitude),
                     lng: Number(place.longitude),
                   }}
-                  clusterer={clusterer}
-                  key={place.location_id}
-                />
-
-                {hoveredMarker &&
-                  places.indexOf(hoveredMarker.place) ===
-                    places.indexOf(place) && (
-                    <InfoWindow
-                      position={{
-                        lat: Number(place.latitude),
-                        lng: Number(place.longitude),
-                      }}
-                      options={infoWindowOptions}
-                      key={place.location_id}
-                    >
-                      <div
-                        key={place.location_id}
-                        className={styles['info-window']}
-                      >
-                        <p>{hoveredMarker.place.name}</p>
-                        <p>{hoveredMarker.place.address}</p>
-                      </div>
-                    </InfoWindow>
-                  )}
-              </>
-            ))
-          }
-        </MarkerClusterer>
-      )}
+                  options={infoWindowOptions}
+                  key={place.location_id + Math.random()}
+                >
+                  <div
+                    key={place.location_id + Math.random()}
+                    className={styles['info-window']}
+                  >
+                    <p>{hoveredMarker.place.name}</p>
+                    <p>{hoveredMarker.place.address}</p>
+                  </div>
+                </InfoWindow>
+              )}
+          </>
+        ))}
     </GoogleMap>
   );
 };

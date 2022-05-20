@@ -6,7 +6,8 @@ import PlaceCard from './PlaceCard/PlaceCard';
 import styles from './Places.module.css';
 
 const Places = () => {
-  const { places, placeCardRefs, setPlaceCardRefs } = useContext(PlacesContext);
+  const { status, places, placeCardRefs, setPlaceCardRefs } =
+    useContext(PlacesContext);
   const liRefs = useRef([]);
 
   useEffect(() => {
@@ -14,18 +15,22 @@ const Places = () => {
   }, [places]);
 
   useEffect(() => {
-    const refs = [];
-    places?.forEach((place, i) => {
-      refs.push(liRefs.current[i]);
-    });
-    setPlaceCardRefs(refs);
+    if (places && places.length >= 1) {
+      const refs = [];
+      places.forEach((place, i) => {
+        refs.push(liRefs.current[i]);
+      });
+      setPlaceCardRefs(refs);
+    }
   }, [places, setPlaceCardRefs]);
 
   // print placeRefs state on update
   useEffect(() => {
     console.log(placeCardRefs);
   }, [placeCardRefs]);
-
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
   return (
     <ul className={`${styles['places-list']}`}>
       {places?.map((place, i) => (
