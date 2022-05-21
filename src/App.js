@@ -17,6 +17,7 @@ const App = () => {
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
   });
 
+  console.log('render');
   return (
     <MapContextProvider>
       <FilterContextProvider>

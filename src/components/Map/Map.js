@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef, useContext } from 'react';
+import { useEffect, useCallback, useRef, useContext, useMemo } from 'react';
 import { MapContext } from '../../store/MapContextProvider';
 import { PlacesContext } from '../../store/PlacesContextProvider';
 import {
@@ -12,6 +12,7 @@ import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
 import { getPlaces } from '../../api/placesAPI';
 import axios from 'axios';
+import { GiConsoleController } from 'react-icons/gi';
 
 const Map = ({ isLoaded }) => {
   const {
@@ -21,6 +22,8 @@ const Map = ({ isLoaded }) => {
     setCoordinates,
     bounds,
     setBounds,
+    markerRefs: mapMarkerRefs,
+    setMarkerRefs,
     hoveredMarker,
     setHoveredMarker,
   } = useContext(MapContext);
@@ -44,6 +47,8 @@ const Map = ({ isLoaded }) => {
     [setIsSuccess]
   );
 
+  const markerRefs = useRef([]);
+
   // request function with cancel
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -60,13 +65,13 @@ const Map = ({ isLoaded }) => {
     };
   }, [category, bounds, setPlaces]);
 
-  // print status state on update
   useEffect(() => {
-    console.log(status);
-  }, [status]);
-  useEffect(() => {
-    console.log(bounds);
-  }, [bounds]);
+    const refs = [];
+    places?.forEach((place, i) => {
+      refs.push(markerRefs.current[i]);
+    });
+    setMarkerRefs(refs);
+  }, [places]);
 
   const onIdle = useCallback(() => {
     const {
@@ -101,9 +106,19 @@ const Map = ({ isLoaded }) => {
     optimized: true,
   };
 
-  const onMarkerHover = useCallback((marker, place) => {
-    console.log({ marker: marker, place: place });
-  }, []);
+  const onMarkerLoad = useCallback((marker) => {
+    console.log(marker);
+  });
+
+  const onMarkerHover = useCallback(
+    (marker, place) => {
+      if (hoveredMarker === null || hoveredMarker.place !== place) {
+        setHoveredMarker({ marker: marker, place: place });
+      }
+    },
+    [hoveredMarker]
+  );
+
   const mapContainerStyle = {
     width: '100%',
     height: '100%',
@@ -124,47 +139,49 @@ const Map = ({ isLoaded }) => {
       options={options}
       zoom={15}
     >
-      {places &&
-        places.length >= 1 &&
-        places?.map((place, i) => (
-          <>
-            <Marker
-              onClick={() => {
-                placeCardRefs[i].scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'center',
-                });
-              }}
-              onMouseOver={(marker) => onMarkerHover({ marker, place })}
-              position={{
-                lat: Number(place.latitude),
-                lng: Number(place.longitude),
-              }}
-              options={markerOptions}
-              key={place.location_id + Math.random()}
-            />
+      {places?.map((place, i) => (
+        <>
+          <Marker
+            ref={(element) => {
+              markerRefs.current[i] = element;
+            }}
+            onLoad={(marker) => onMarkerLoad(marker)}
+            onClick={() => {
+              placeCardRefs[i].scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+              });
+            }}
+            onMouseOver={(marker) => onMarkerHover(marker, place)}
+            onMouseOut={() => setHoveredMarker(null)}
+            position={{
+              lat: Number(place.latitude),
+              lng: Number(place.longitude),
+            }}
+            options={markerOptions}
+            key={place.location_id + Math.random()}
+          />
 
-            {hoveredMarker &&
-              hoveredMarker.place &&
-              places.indexOf(hoveredMarker.place) === places.indexOf(place) && (
-                <InfoWindow
-                  position={{
-                    lat: Number(place.latitude),
-                    lng: Number(place.longitude),
-                  }}
-                  options={infoWindowOptions}
+          {hoveredMarker?.place &&
+            places.indexOf(hoveredMarker.place) === places.indexOf(place) && (
+              <InfoWindow
+                position={{
+                  lat: Number(place.latitude),
+                  lng: Number(place.longitude),
+                }}
+                options={infoWindowOptions}
+              >
+                <div
+                  key={place.location_id + Math.random()}
+                  className={styles['info-window']}
                 >
-                  <div
-                    key={place.location_id + Math.random()}
-                    className={styles['info-window']}
-                  >
-                    <p>{hoveredMarker.place.name}</p>
-                    <p>{hoveredMarker.place.address}</p>
-                  </div>
-                </InfoWindow>
-              )}
-          </>
-        ))}
+                  <p>{hoveredMarker.place.name}</p>
+                  <p>{hoveredMarker.place.address}</p>
+                </div>
+              </InfoWindow>
+            )}
+        </>
+      ))}
     </GoogleMap>
   );
 };
