@@ -35,7 +35,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
       <div className={`${styles['place-summary']}`}>
         <div className={styles['_summary-customers']}>
           <p className={styles['place-ranking']}>{place.ranking}</p>
-          {place.num_reviews ? (
+          {Number(place.num_reviews) >= 1 ? (
             <>
               <p>{`${place.rating} out of 5 stars`}</p>
               <span>
