@@ -1,10 +1,23 @@
 import { forwardRef } from 'react';
 import styles from './PlaceCard.module.css';
+import { FaAward, FaMapMarkerAlt } from 'react-icons/fa';
+import { MdMail } from 'react-icons/md';
+import { BsTelephoneFill } from 'react-icons/bs';
+
+import Chip from '../FilterMenu/Chip/Chip';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
   return (
     <li ref={ref} className={`${styles['place-card']}`}>
       <div className={`${styles['image-container']}`}>
+        <div className={styles['place-heading']}>
+          <h3>{place.name}</h3>
+          <div className={styles['place-contact_info']}>
+            <BsTelephoneFill className={styles['contact_info-icon']} />
+            <MdMail className={styles['contact_info-icon']} />
+            <FaMapMarkerAlt className={styles['contact_info-icon']} />
+          </div>
+        </div>
         {place.photo &&
         place.photo.images &&
         place.photo.images.large &&
@@ -17,15 +30,29 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         ) : (
           <span>Image unavailable</span>
         )}
-        <div className={styles['place-heading']}>
-          <h3>{place.name}</h3>
-        </div>
       </div>
-      <div className={`${styles['place-summary']}`}>
-        <div className={styles['place-details']}>
-          <p>{`${place.rating} out of 5 stars`}</p>
-          <p>{place.ranking}</p>
 
+      <div className={`${styles['place-summary']}`}>
+        <div className={styles['_summary-customers']}>
+          <p className={styles['place-ranking']}>{place.ranking}</p>
+          {place.num_reviews ? (
+            <>
+              <p>{`${place.rating} out of 5 stars`}</p>
+              <span>
+                {Number(place.num_reviews) +
+                  ' ' +
+                  (Number(place.num_reviews) === 1 ? 'review' : 'reviews')}
+              </span>
+            </>
+          ) : (
+            <span>
+              Hmm...this place doesn't appear to have any reviews. Would you
+              like to leave a review?
+            </span>
+          )}
+        </div>
+
+        <div className={styles['_summary-address']}>
           {place.address_obj &&
           place.address_obj &&
           place.address_obj.street1 &&
@@ -43,6 +70,16 @@ const PlaceCard = forwardRef(({ place }, ref) => {
           ) : (
             ''
           )}
+        </div>
+
+        <div className={styles['_summary-tags']}>
+          <ul className={styles['_tags-list']}>
+            {place.cuisine &&
+              place.cuisine.length >= 1 &&
+              place.cuisine.map((cuisine) => (
+                <Chip className={styles['tag']} cuisine={cuisine.name} />
+              ))}
+          </ul>
         </div>
       </div>
     </li>

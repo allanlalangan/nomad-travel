@@ -18,14 +18,14 @@ const MapContextProvider = ({ children }) => {
   const [status, setStatus] = useState(initStatus);
   const [coordinates, setCoordinates] = useState(defaultCenter);
   const [bounds, setBounds] = useState(null);
-  const [markerRefs, setMarkerRefs] = useState([]);
+  const [markers, setMarkers] = useState([]);
   const [hoveredMarker, setHoveredMarker] = useState(null);
   // global Map state
   const context = {
     status,
     coordinates,
     bounds,
-    markerRefs,
+    markers,
     hoveredMarker,
     // functions
     setIsLoading: () => {
@@ -44,7 +44,7 @@ const MapContextProvider = ({ children }) => {
         message: 'Map Loaded Successfully',
       });
     },
-    setMarkerRefs,
+    setMarkers,
     setHoveredMarker,
     setCoordinates,
     setBounds,

@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef, useContext, useMemo } from 'react';
+import { useEffect, useCallback, useRef, useContext } from 'react';
 import { MapContext } from '../../store/MapContextProvider';
 import { PlacesContext } from '../../store/PlacesContextProvider';
 import {
@@ -23,22 +23,26 @@ const Map = ({ isLoaded }) => {
     setCoordinates,
     bounds,
     setBounds,
-    markerRefs: mapMarkerRefs,
-    setMarkerRefs,
+    markers,
+    setMarkers,
     hoveredMarker,
     setHoveredMarker,
   } = useContext(MapContext);
+
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
 
   const {
     setIsLoading: setPlacesIsLoading,
     setIsSuccess: setPlacesIsSuccess,
     category,
     places,
+    fetchPlaces,
     placeCardRefs,
     setPlaces,
   } = useContext(PlacesContext);
 
-  console.log('render');
   const mapRef = useRef();
   const onMapLoad = useCallback(
     (map) => {
@@ -48,31 +52,15 @@ const Map = ({ isLoaded }) => {
     [setIsSuccess]
   );
 
-  const markerRefs = useRef([]);
-
-  // request function with cancel
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
-      setPlacesIsLoading();
-      getPlaces(bounds, category, source).then((data) => {
-        setPlaces(data);
-        setPlacesIsSuccess();
-      });
-    }
-
+      fetchPlaces(bounds, category, source);
+    } else return;
     return () => {
       source.cancel();
     };
-  }, [category, bounds, setPlaces]);
-
-  useEffect(() => {
-    const refs = [];
-    places?.forEach((place, i) => {
-      refs.push(markerRefs.current[i]);
-    });
-    setMarkerRefs(refs);
-  }, [places]);
+  }, [bounds, category]);
 
   const onIdle = useCallback(() => {
     const {
@@ -103,18 +91,10 @@ const Map = ({ isLoaded }) => {
     disableDefaultUI: true,
     zoomControl: true,
   };
+
   const markerOptions = {
     optimized: true,
   };
-
-  const onMarkerHover = useCallback(
-    (marker, place) => {
-      if (hoveredMarker === null || hoveredMarker.place !== place) {
-        setHoveredMarker({ marker: marker, place: place });
-      }
-    },
-    [hoveredMarker]
-  );
 
   const mapContainerStyle = {
     width: '100%',
@@ -158,6 +138,7 @@ const Map = ({ isLoaded }) => {
                   }}
                   clusterer={clusterer}
                   key={place.location_id}
+                  options={markerOptions}
                 />
 
                 {hoveredMarker &&
@@ -169,10 +150,10 @@ const Map = ({ isLoaded }) => {
                         lng: Number(place.longitude),
                       }}
                       options={infoWindowOptions}
-                      key={place.location_id}
+                      key={Math.random()}
                     >
                       <div
-                        key={place.location_id}
+                        key={Math.random()}
                         className={styles['info-window']}
                       >
                         <p>{hoveredMarker.place.name}</p>

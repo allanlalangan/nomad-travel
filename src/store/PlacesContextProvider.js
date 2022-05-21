@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { getPlaces } from '../api/placesAPI';
 
 export const PlacesContext = createContext({});
 
@@ -36,6 +37,24 @@ const PlacesContextProvider = ({ children }) => {
         isSuccess: true,
         message: 'Fetch Success',
       });
+    },
+    fetchPlaces: (bounds, category, source) => {
+      setStatus({
+        isLoading: true,
+        isError: false,
+        isSuccess: false,
+        message: 'Fetching places',
+      });
+      getPlaces(bounds, category, source)
+        .then((data) => setPlaces(data))
+        .then(() => {
+          setStatus({
+            isLoading: false,
+            isError: false,
+            isSuccess: true,
+            message: 'Fetch Success',
+          });
+        });
     },
     setCategory,
     setPlaces,
