@@ -14,13 +14,6 @@ import { getPlaces } from '../../api/placesAPI';
 import axios from 'axios';
 
 const Map = ({ isLoaded }) => {
-  console.log('render');
-  const mapRef = useRef();
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map;
-    setIsSuccess();
-  }, []);
-
   const {
     status,
     setIsSuccess,
@@ -33,7 +26,6 @@ const Map = ({ isLoaded }) => {
   } = useContext(MapContext);
 
   const {
-    status: placesStatus,
     setIsLoading: setPlacesIsLoading,
     setIsSuccess: setPlacesIsSuccess,
     category,
@@ -41,6 +33,16 @@ const Map = ({ isLoaded }) => {
     placeCardRefs,
     setPlaces,
   } = useContext(PlacesContext);
+
+  console.log('render');
+  const mapRef = useRef();
+  const onMapLoad = useCallback(
+    (map) => {
+      mapRef.current = map;
+      setIsSuccess();
+    },
+    [setIsSuccess]
+  );
 
   // request function with cancel
   useEffect(() => {
@@ -99,6 +101,9 @@ const Map = ({ isLoaded }) => {
     optimized: true,
   };
 
+  const onMarkerHover = useCallback((marker, place) => {
+    console.log({ marker: marker, place: place });
+  }, []);
   const mapContainerStyle = {
     width: '100%',
     height: '100%',
@@ -130,9 +135,7 @@ const Map = ({ isLoaded }) => {
                   block: 'center',
                 });
               }}
-              onMouseOver={(marker) =>
-                setHoveredMarker({ marker: marker, place: place })
-              }
+              onMouseOver={(marker) => onMarkerHover({ marker, place })}
               position={{
                 lat: Number(place.latitude),
                 lng: Number(place.longitude),
@@ -141,7 +144,8 @@ const Map = ({ isLoaded }) => {
               key={place.location_id + Math.random()}
             />
 
-            {hoveredMarker?.place.name === place.name &&
+            {hoveredMarker &&
+              hoveredMarker.place &&
               places.indexOf(hoveredMarker.place) === places.indexOf(place) && (
                 <InfoWindow
                   position={{
@@ -149,7 +153,6 @@ const Map = ({ isLoaded }) => {
                     lng: Number(place.longitude),
                   }}
                   options={infoWindowOptions}
-                  key={place.location_id + Math.random()}
                 >
                   <div
                     key={place.location_id + Math.random()}
