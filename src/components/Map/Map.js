@@ -5,8 +5,9 @@ import {
   GoogleMap,
   Marker,
   InfoWindow,
-  MarkerClusterer,
+  GoogleMarkerClusterer,
 } from '@react-google-maps/api';
+
 // styles and ui
 import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
@@ -106,10 +107,6 @@ const Map = ({ isLoaded }) => {
     optimized: true,
   };
 
-  const onMarkerLoad = useCallback((marker) => {
-    console.log(marker);
-  });
-
   const onMarkerHover = useCallback(
     (marker, place) => {
       if (hoveredMarker === null || hoveredMarker.place !== place) {
@@ -139,49 +136,55 @@ const Map = ({ isLoaded }) => {
       options={options}
       zoom={15}
     >
-      {places?.map((place, i) => (
-        <>
-          <Marker
-            ref={(element) => {
-              markerRefs.current[i] = element;
-            }}
-            onLoad={(marker) => onMarkerLoad(marker)}
-            onClick={() => {
-              placeCardRefs[i].scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-              });
-            }}
-            onMouseOver={(marker) => onMarkerHover(marker, place)}
-            onMouseOut={() => setHoveredMarker(null)}
-            position={{
-              lat: Number(place.latitude),
-              lng: Number(place.longitude),
-            }}
-            options={markerOptions}
-            key={place.location_id + Math.random()}
-          />
+      {places && places.length >= 1 && (
+        <GoogleMarkerClusterer averageCenter={true}>
+          {(clusterer) =>
+            places.map((place, i) => (
+              <>
+                <Marker
+                  onClick={() => {
+                    placeCardRefs[i].scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'center',
+                    });
+                  }}
+                  onMouseOver={(marker) => {
+                    setHoveredMarker({ marker: marker, place: place });
+                  }}
+                  onMouseOut={() => setHoveredMarker(null)}
+                  position={{
+                    lat: Number(place.latitude),
+                    lng: Number(place.longitude),
+                  }}
+                  clusterer={clusterer}
+                  key={place.location_id}
+                />
 
-          {hoveredMarker?.place &&
-            places.indexOf(hoveredMarker.place) === places.indexOf(place) && (
-              <InfoWindow
-                position={{
-                  lat: Number(place.latitude),
-                  lng: Number(place.longitude),
-                }}
-                options={infoWindowOptions}
-              >
-                <div
-                  key={place.location_id + Math.random()}
-                  className={styles['info-window']}
-                >
-                  <p>{hoveredMarker.place.name}</p>
-                  <p>{hoveredMarker.place.address}</p>
-                </div>
-              </InfoWindow>
-            )}
-        </>
-      ))}
+                {hoveredMarker &&
+                  places.indexOf(hoveredMarker.place) ===
+                    places.indexOf(place) && (
+                    <InfoWindow
+                      position={{
+                        lat: Number(place.latitude),
+                        lng: Number(place.longitude),
+                      }}
+                      options={infoWindowOptions}
+                      key={place.location_id}
+                    >
+                      <div
+                        key={place.location_id}
+                        className={styles['info-window']}
+                      >
+                        <p>{hoveredMarker.place.name}</p>
+                        <p>{hoveredMarker.place.address}</p>
+                      </div>
+                    </InfoWindow>
+                  )}
+              </>
+            ))
+          }
+        </GoogleMarkerClusterer>
+      )}
     </GoogleMap>
   );
 };
