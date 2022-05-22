@@ -1,9 +1,10 @@
 import { forwardRef } from 'react';
-import styles from './PlaceCard.module.css';
 import { FaAward, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdMail } from 'react-icons/md';
 import { BsTelephoneFill } from 'react-icons/bs';
 
+import styles from './PlaceCard.module.css';
+import StarRating from '../../StarRating/StarRating';
 import Chip from '../FilterMenu/Chip/Chip';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
@@ -37,6 +38,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
           <p className={styles['place-ranking']}>{place.ranking}</p>
           {Number(place.num_reviews) >= 1 ? (
             <>
+              {place.rating && <StarRating rating={place.rating} />}
               <p>{`${place.rating} out of 5 stars`}</p>
               <span>
                 {Number(place.num_reviews) +
