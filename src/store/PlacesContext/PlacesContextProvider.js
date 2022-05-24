@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { getPlaces } from '../api/placesAPI';
+import { getPlaces } from '../../api/placesAPI';
 
 export const PlacesContext = createContext({});
 

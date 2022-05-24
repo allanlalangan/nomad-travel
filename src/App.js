@@ -1,14 +1,11 @@
 // context
-import PlacesContextProvider from './store/PlacesContextProvider';
-import MapContextProvider from './store/MapContextProvider';
-import FilterContextProvider from './store/FilterContextProvider';
+import PlacesContextProvider from './store/PlacesContext/PlacesContextProvider';
+import MapContextProvider from './store/MapContext/MapContextProvider';
+import FilterContextProvider from './store/FilterContext/FilterContextProvider';
 // google maps api
 import { useLoadScript } from '@react-google-maps/api';
 // components
-import Header from './components/Header/Header';
-import FilterMenu from './components/Places/FilterMenu/FilterMenu';
-import Places from './components/Places/Places';
-import Map from './components/Map/Map';
+import { Header, Places, FilterMenu, Map } from './components';
 // styles and ui
 import styles from './App.module.css';
 

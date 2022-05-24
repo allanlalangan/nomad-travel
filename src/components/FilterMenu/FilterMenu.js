@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { FilterContext } from '../../../store/FilterContextProvider';
-import { PlacesContext } from '../../../store/PlacesContextProvider';
+import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
+import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 
 import Chip from './Chip/Chip';
 import styles from './FilterMenu.module.css';

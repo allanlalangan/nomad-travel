@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useRef, useContext } from 'react';
-import { MapContext } from '../../store/MapContextProvider';
-import { PlacesContext } from '../../store/PlacesContextProvider';
+import { MapContext } from '../../store/MapContext/MapContextProvider';
+import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 import {
   GoogleMap,
   Marker,
@@ -11,9 +11,7 @@ import {
 // styles and ui
 import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
-import { getPlaces } from '../../api/placesAPI';
 import axios from 'axios';
-import { GiConsoleController } from 'react-icons/gi';
 
 const Map = ({ isLoaded }) => {
   const {
@@ -23,8 +21,6 @@ const Map = ({ isLoaded }) => {
     setCoordinates,
     bounds,
     setBounds,
-    markers,
-    setMarkers,
     hoveredMarker,
     setHoveredMarker,
   } = useContext(MapContext);
@@ -33,15 +29,8 @@ const Map = ({ isLoaded }) => {
     console.log(status);
   }, [status]);
 
-  const {
-    setIsLoading: setPlacesIsLoading,
-    setIsSuccess: setPlacesIsSuccess,
-    category,
-    places,
-    fetchPlaces,
-    placeCardRefs,
-    setPlaces,
-  } = useContext(PlacesContext);
+  const { category, places, fetchPlaces, placeCardRefs } =
+    useContext(PlacesContext);
 
   const mapRef = useRef();
   const onMapLoad = useCallback(

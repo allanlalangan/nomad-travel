@@ -1,5 +1,5 @@
 import { useEffect, useRef, useContext } from 'react';
-import { PlacesContext } from '../../store/PlacesContextProvider';
+import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 // components
 import PlaceCard from './PlaceCard/PlaceCard';
 // styles and ui

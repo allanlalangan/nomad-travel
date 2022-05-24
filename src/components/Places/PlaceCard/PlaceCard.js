@@ -5,7 +5,7 @@ import { BsTelephoneFill } from 'react-icons/bs';
 
 import styles from './PlaceCard.module.css';
 import StarRating from '../../StarRating/StarRating';
-import Chip from '../FilterMenu/Chip/Chip';
+import Chip from '../../FilterMenu/Chip/Chip';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
   return (
