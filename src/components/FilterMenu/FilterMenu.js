@@ -10,9 +10,8 @@ const FilterMenu = () => {
   const { chips, setChips, diets, setDiets } = useContext(FilterContext);
 
   useEffect(() => {
-    // const cuisinesData = useMemo(() => [], [places]);
-    const cuisinesData = [];
     if (category === 'restaurant' && places && places.length >= 1) {
+      const cuisinesData = [];
       places.forEach((place) => {
         place.cuisine?.forEach((cuisine) => {
           if (!cuisinesData.includes(cuisine.name)) {
@@ -20,26 +19,27 @@ const FilterMenu = () => {
           }
         });
       });
-    }
 
-    createFilters();
-    function createFilters() {
-      const cuisines = cuisinesData.filter(
-        (cuisine) =>
-          !cuisine.toLowerCase().includes('vegan') &&
-          !cuisine.toLowerCase().includes('vegetarian') &&
-          !cuisine.toLowerCase().includes('gluten')
-      );
+      const createFilters = () => {
+        const cuisines = cuisinesData.filter(
+          (cuisine) =>
+            !cuisine.toLowerCase().includes('vegan') &&
+            !cuisine.toLowerCase().includes('vegetarian') &&
+            !cuisine.toLowerCase().includes('gluten')
+        );
 
-      const diets = cuisinesData.filter(
-        (cuisine) =>
-          cuisine.toLowerCase().includes('vegan') ||
-          cuisine.toLowerCase().includes('vegetarian') ||
-          cuisine.toLowerCase().includes('gluten')
-      );
+        const diets = cuisinesData.filter(
+          (cuisine) =>
+            cuisine.toLowerCase().includes('vegan') ||
+            cuisine.toLowerCase().includes('vegetarian') ||
+            cuisine.toLowerCase().includes('gluten')
+        );
 
-      setChips(cuisines);
-      setDiets(diets);
+        setChips(cuisines);
+        setDiets(diets);
+      };
+
+      createFilters();
     }
   }, [category, setChips, setDiets, places]);
 

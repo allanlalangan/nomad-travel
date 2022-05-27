@@ -1,56 +1,58 @@
-import React, { useState, createContext } from 'react';
+import React, { useReducer, createContext } from 'react';
+import mapReducer from './mapReducer';
 
-export const MapContext = createContext({});
+export const MapContext = createContext();
 
-const MapContextProvider = ({ children }) => {
-  const initStatus = {
+const initState = {
+  status: {
     isLoading: true,
     isError: false,
     isSuccess: false,
     message: 'Loading Map',
+  },
+  coordinates: {},
+  bounds: {},
+  places: [],
+  placeCardRefs: [],
+  hoveredMarker: null,
+};
+
+const MapContextProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(mapReducer, initState);
+
+  const setIsUpdating = () => {
+    dispatch({ type: 'IS_UPDATING' });
   };
-  const defaultCenter = {
-    lat: 45.5252,
-    lng: -122.6584,
+  const setIsError = (message) => {
+    dispatch({ type: 'IS_ERROR', payload: { message } });
+  };
+  const setIsSuccess = () => {
+    dispatch({ type: 'IS_LOADED' });
   };
 
-  // states
-  const [status, setStatus] = useState(initStatus);
-  const [coordinates, setCoordinates] = useState(defaultCenter);
-  const [bounds, setBounds] = useState(null);
-  const [markers, setMarkers] = useState([]);
-  const [hoveredMarker, setHoveredMarker] = useState(null);
-  // global Map state
+  const setCoordinates = (coordinates) => {
+    dispatch({ type: 'SET_COORDINATES', payload: { coordinates } });
+  };
+
+  const setBounds = (bounds) => {
+    dispatch({ type: 'SET_BOUNDS', payload: { bounds } });
+  };
+
+  const setHoveredMarker = (hovered) => {
+    dispatch({ type: 'SET_HOVERED_MARKER', payload: { hovered } });
+  };
+
   const context = {
-    status,
-    coordinates,
-    bounds,
-    markers,
-    hoveredMarker,
+    status: state.status,
+    coordinates: state.coordinates,
+    bounds: state.bounds,
+    hoveredMarker: state.hoveredMarker,
     // functions
-    setIsLoading: () => {
-      setStatus({
-        isLoading: true,
-        isError: false,
-        isSuccess: false,
-        message: 'Loading Map',
-      });
-    },
-    setIsSuccess: () => {
-      setStatus({
-        isLoading: false,
-        isError: false,
-        isSuccess: true,
-        message: 'Map Loaded Successfully',
-      });
-    },
-    setMarkers,
-    setHoveredMarker,
     setCoordinates,
     setBounds,
-    reset: () => {
-      setStatus(initStatus);
-    },
+    setHoveredMarker,
+    setIsUpdating,
+    setIsSuccess,
   };
   return <MapContext.Provider value={context}>{children}</MapContext.Provider>;
 };

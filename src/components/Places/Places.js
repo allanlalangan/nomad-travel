@@ -8,6 +8,7 @@ import styles from './Places.module.css';
 const Places = () => {
   const { status, places, placeCardRefs, setPlaceCardRefs } =
     useContext(PlacesContext);
+
   const liRefs = useRef([]);
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const Places = () => {
   useEffect(() => {
     console.log(status);
   }, [status]);
+
   return (
     <ul className={`${styles['places-list']}`}>
       {places?.map((place, i) => (
@@ -38,7 +40,7 @@ const Places = () => {
           ref={(element) => {
             liRefs.current[i] = element;
           }}
-          liRef={placeCardRefs[i]}
+          liRef={placeCardRefs.length >= 1 ? placeCardRefs[i] : null}
           key={i}
           place={place}
         />

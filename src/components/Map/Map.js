@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef, useContext } from 'react';
 import { MapContext } from '../../store/MapContext/MapContextProvider';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
+import { getPlaces } from '../../api/placesAPI';
 import {
   GoogleMap,
   Marker,
@@ -13,15 +14,16 @@ import styles from './Map.module.css';
 import { mapStyles } from './mapStyles';
 import axios from 'axios';
 
-const Map = ({ isLoaded }) => {
+const Map = () => {
   const {
     status,
-    setIsSuccess,
+    setIsUpdating: setMapIsUpdating,
+    setIsSuccess: setMapIsSuccess,
     coordinates,
-    setCoordinates,
     bounds,
-    setBounds,
     hoveredMarker,
+    setCoordinates,
+    setBounds,
     setHoveredMarker,
   } = useContext(MapContext);
 
@@ -29,22 +31,32 @@ const Map = ({ isLoaded }) => {
     console.log(status);
   }, [status]);
 
-  const { category, places, fetchPlaces, placeCardRefs } =
-    useContext(PlacesContext);
+  const {
+    category,
+    places,
+    setIsLoading: fetchPlacesLoading,
+    setIsError: fetchPlacesError,
+    fetchSuccess: fetchPlacesSuccess,
+    placeCardRefs,
+  } = useContext(PlacesContext);
 
   const mapRef = useRef();
-  const onMapLoad = useCallback(
-    (map) => {
-      mapRef.current = map;
-      setIsSuccess();
-    },
-    [setIsSuccess]
-  );
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+    setMapIsSuccess();
+  }, []);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
-      fetchPlaces(bounds, category, source);
+      fetchPlacesLoading();
+      getPlaces(bounds, category, source)
+        .then((data) => {
+          fetchPlacesSuccess(data);
+        })
+        .catch((error) => {
+          fetchPlacesError(error.message);
+        });
     } else return;
     return () => {
       source.cancel();
@@ -52,11 +64,12 @@ const Map = ({ isLoaded }) => {
   }, [bounds, category]);
 
   const onIdle = useCallback(() => {
+    setMapIsUpdating();
     const {
-      yb: { h: bl_latitude },
-      yb: { j: tr_latitude },
-      Ta: { h: bl_longitude },
-      Ta: { j: tr_longitude },
+      Ab: { h: bl_latitude },
+      Ab: { j: tr_latitude },
+      Ua: { h: bl_longitude },
+      Ua: { j: tr_longitude },
     } = mapRef.current.getBounds();
 
     setBounds({
@@ -65,13 +78,16 @@ const Map = ({ isLoaded }) => {
       bl_longitude,
       tr_longitude,
     });
+    setMapIsSuccess();
   }, [setBounds]);
 
   const onDragEnd = () => {
+    setMapIsUpdating();
     setCoordinates({
       lat: mapRef.current.center.lat(),
       lng: mapRef.current.center.lng(),
     });
+    setMapIsSuccess();
   };
 
   const options = {

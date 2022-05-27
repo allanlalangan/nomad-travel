@@ -1,67 +1,54 @@
-import React, { createContext, useState } from 'react';
-import { getPlaces } from '../../api/placesAPI';
+import React, { createContext, useReducer } from 'react';
+import placesReducer from './placesReducer';
 
-export const PlacesContext = createContext({});
+export const PlacesContext = createContext();
 
-const PlacesContextProvider = ({ children }) => {
-  const initStatus = {
+const initState = {
+  status: {
     isLoading: false,
     isError: false,
     isSuccess: false,
     message: '',
+  },
+  category: '',
+  places: [],
+  placeCardRefs: [],
+};
+
+const PlacesContextProvider = ({ children }) => {
+  // useReducer
+  const [state, dispatch] = useReducer(placesReducer, initState);
+
+  const setCategory = (category) => {
+    dispatch({ type: 'SELECT_CATEGORY', payload: { category } });
   };
-  // states
-  const [status, setStatus] = useState(initStatus);
-  const [category, setCategory] = useState('');
-  const [places, setPlaces] = useState([]);
-  const [placeCardRefs, setPlaceCardRefs] = useState([]);
-  // global Places state
+
+  const setIsLoading = () => {
+    dispatch({ type: 'IS_LOADING' });
+  };
+
+  const setIsError = (message) => {
+    dispatch({ type: 'IS_ERROR', payload: { message } });
+  };
+
+  const fetchSuccess = (data) => {
+    dispatch({ type: 'IS_SUCCESS', payload: { places: data } });
+  };
+
+  const setPlaceCardRefs = (refs) => {
+    dispatch({ type: 'SET_PLACE_CARD_REFS', payload: { refs } });
+  };
+
   const context = {
-    status,
-    category,
-    places,
-    placeCardRefs,
-    // functions
-    setIsLoading: () => {
-      setStatus({
-        isLoading: true,
-        isError: false,
-        isSuccess: false,
-        message: 'Fetching places',
-      });
-    },
-    setIsSuccess: () => {
-      setStatus({
-        isLoading: false,
-        isError: false,
-        isSuccess: true,
-        message: 'Fetch Success',
-      });
-    },
-    fetchPlaces: (bounds, category, source) => {
-      setStatus({
-        isLoading: true,
-        isError: false,
-        isSuccess: false,
-        message: 'Fetching places',
-      });
-      getPlaces(bounds, category, source)
-        .then((data) => setPlaces(data))
-        .then(() => {
-          setStatus({
-            isLoading: false,
-            isError: false,
-            isSuccess: true,
-            message: 'Fetch Success',
-          });
-        });
-    },
+    status: state.status,
+    category: state.category,
+    places: state.places,
+    placeCardRefs: state.placeCardRefs,
     setCategory,
-    setPlaces,
+    setIsLoading,
+    setIsError,
+    fetchSuccess,
     setPlaceCardRefs,
-    reset: () => {
-      setStatus(initStatus);
-    },
   };
 
   return (
