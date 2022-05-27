@@ -6,7 +6,7 @@ import Chip from './Chip/Chip';
 import styles from './FilterMenu.module.css';
 
 const FilterMenu = () => {
-  const { category, setCategory, places } = useContext(PlacesContext);
+  const { category, selectCategory, places } = useContext(PlacesContext);
   const { tags, setTags, diets, setDiets } = useContext(FilterContext);
 
   useEffect(() => {
@@ -44,12 +44,13 @@ const FilterMenu = () => {
     }
   }, [category, setTags, setDiets, places]);
 
+  console.log(category);
   return (
     <div className={`${styles['filter-menu']}`}>
       <div className={`${styles['category-select-container']}`}>
         <select
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => selectCategory(e.target.value)}
           className={`${styles['category-select']}`}
         >
           <option value={''}>Select a category</option>

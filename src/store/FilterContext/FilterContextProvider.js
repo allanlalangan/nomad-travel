@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useCallback } from 'react';
 import filterReducer from './filterReducer';
 export const FilterContext = createContext();
 
@@ -13,13 +13,13 @@ const FilterContextProvider = ({ children }) => {
   // useReducer
   const [state, dispatch] = useReducer(filterReducer, initState);
 
-  const setTags = (tags) => {
+  const setTags = useCallback((tags) => {
     dispatch({ type: 'SET_TAGS', payload: { tags } });
-  };
+  }, []);
 
-  const setDiets = (diets) => {
+  const setDiets = useCallback((diets) => {
     dispatch({ type: 'SET_DIETS', payload: { diets } });
-  };
+  }, []);
 
   const context = {
     tags: state.tags,

@@ -2,57 +2,57 @@ const mapReducer = (state, { type, payload }) => {
   switch (type) {
     case 'IS_UPDATING':
       return {
+        ...state,
         status: {
           isLoading: true,
           isError: false,
           isSuccess: false,
           message: 'Updating map',
         },
-        ...state,
       };
     //
     case 'IS_ERROR':
       const errorMessage = payload.message;
       return {
+        ...state,
         status: {
           isLoading: false,
           isError: true,
           isSuccess: false,
           message: errorMessage,
         },
-        ...state,
       };
     //
     case 'IS_LOADED':
       return {
+        ...state,
         status: {
           isLoading: true,
           isError: false,
           isSuccess: false,
           message: 'Successfully updated map',
         },
-        ...state,
       };
     //
     case 'SET_COORDINATES':
       const coords = payload.coordinates;
       return {
-        coordinates: coords,
         ...state,
+        coordinates: coords,
       };
     //
     case 'SET_BOUNDS':
       const updatedBounds = payload.bounds;
       return {
-        bounds: updatedBounds,
         ...state,
+        bounds: updatedBounds,
       };
     //
     case 'SET_HOVERED_MARKER':
       const hovered = payload.hovered;
       return {
-        hoveredMarker: hovered,
         ...state,
+        hoveredMarker: hovered,
       };
     //
     default:

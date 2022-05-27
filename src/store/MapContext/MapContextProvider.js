@@ -10,8 +10,11 @@ const initState = {
     isSuccess: false,
     message: 'Loading Map',
   },
-  coordinates: {},
-  bounds: {},
+  coordinates: {
+    lat: 45.5252,
+    lng: -122.6584,
+  },
+  bounds: null,
   places: [],
   placeCardRefs: [],
   hoveredMarker: null,

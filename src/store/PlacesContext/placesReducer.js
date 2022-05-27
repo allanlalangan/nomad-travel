@@ -2,30 +2,31 @@ const placesReducer = (state, { type, payload }) => {
   switch (type) {
     case 'IS_LOADING':
       return {
+        ...state,
         status: {
           isLoading: true,
           isError: false,
           isSuccess: false,
           message: 'Fetching places',
         },
-        ...state,
       };
     //
     case 'IS_ERROR':
       const message = payload.message;
       return {
+        ...state,
         status: {
           isLoading: false,
           isError: true,
           isSuccess: false,
           message,
         },
-        ...state,
       };
     //
     case 'IS_SUCCESS':
       const places = payload.places;
       return {
+        ...state,
         status: {
           isLoading: false,
           isError: false,
@@ -33,26 +34,26 @@ const placesReducer = (state, { type, payload }) => {
           message: 'Successfully fetched places',
         },
         places,
-        ...state,
       };
     //
     case 'SELECT_CATEGORY':
-      let category;
-      if (state.category !== payload.category) {
-        category = payload.category;
-      } else {
-        return state;
-      }
+      // let category;
+      // if (state.category !== payload.category) {
+      //   category = payload.category;
+      // } else {
+      //   return state;
+      // }
+
       return {
-        category,
         ...state,
+        category: payload.category,
       };
     //
     case 'SET_PLACE_CARD_REFS':
       const refs = payload.refs;
       return {
-        placeCardRefs: refs,
         ...state,
+        placeCardRefs: refs,
       };
     //
     default:

@@ -3,13 +3,14 @@ const filterReducer = (state, { type, payload }) => {
     case 'SET_TAGS':
       const availableTags = payload.tags;
       return {
+        ...state,
         tags: availableTags,
       };
     case 'SET_DIETS':
       const availableDiets = payload.diets;
       return {
-        diets: availableDiets,
         ...state,
+        diets: availableDiets,
       };
     default:
       throw new Error(`No case for ${type}`);

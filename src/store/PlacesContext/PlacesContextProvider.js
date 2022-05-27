@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useCallback } from 'react';
 import placesReducer from './placesReducer';
 
 export const PlacesContext = createContext();
@@ -23,28 +23,28 @@ const PlacesContextProvider = ({ children }) => {
     dispatch({ type: 'SELECT_CATEGORY', payload: { category } });
   };
 
-  const setIsLoading = () => {
+  const setIsLoading = useCallback(() => {
     dispatch({ type: 'IS_LOADING' });
-  };
+  }, []);
 
-  const setIsError = (message) => {
+  const setIsError = useCallback((message) => {
     dispatch({ type: 'IS_ERROR', payload: { message } });
-  };
+  }, []);
 
-  const fetchSuccess = (data) => {
+  const fetchSuccess = useCallback((data) => {
     dispatch({ type: 'IS_SUCCESS', payload: { places: data } });
-  };
+  }, []);
 
-  const setPlaceCardRefs = (refs) => {
+  const setPlaceCardRefs = useCallback((refs) => {
     dispatch({ type: 'SET_PLACE_CARD_REFS', payload: { refs } });
-  };
+  }, []);
 
   const context = {
     status: state.status,
     category: state.category,
     places: state.places,
     placeCardRefs: state.placeCardRefs,
-    setCategory,
+    selectCategory: setCategory,
     setIsLoading,
     setIsError,
     fetchSuccess,

@@ -18,7 +18,7 @@ const Map = () => {
   const {
     status,
     setIsUpdating: setMapIsUpdating,
-    setIsSuccess: setMapIsSuccess,
+    setIsSuccess: setMapUpdateSuccess,
     coordinates,
     bounds,
     hoveredMarker,
@@ -43,7 +43,6 @@ const Map = () => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-    setMapIsSuccess();
   }, []);
 
   useEffect(() => {
@@ -61,9 +60,15 @@ const Map = () => {
     return () => {
       source.cancel();
     };
-  }, [bounds, category]);
+  }, [
+    bounds,
+    fetchPlacesLoading,
+    fetchPlacesError,
+    fetchPlacesSuccess,
+    category,
+  ]);
 
-  const onIdle = useCallback(() => {
+  const onIdle = () => {
     setMapIsUpdating();
     const {
       Ab: { h: bl_latitude },
@@ -78,8 +83,8 @@ const Map = () => {
       bl_longitude,
       tr_longitude,
     });
-    setMapIsSuccess();
-  }, [setBounds]);
+    setMapUpdateSuccess();
+  };
 
   const onDragEnd = () => {
     setMapIsUpdating();
@@ -87,7 +92,7 @@ const Map = () => {
       lat: mapRef.current.center.lat(),
       lng: mapRef.current.center.lng(),
     });
-    setMapIsSuccess();
+    setMapUpdateSuccess();
   };
 
   const options = {
