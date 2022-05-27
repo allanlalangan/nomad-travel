@@ -7,10 +7,11 @@ import styles from './FilterMenu.module.css';
 
 const FilterMenu = () => {
   const { category, setCategory, places } = useContext(PlacesContext);
-  const { chips, setChips, diets, setDiets } = useContext(FilterContext);
+  const { tags, setTags, diets, setDiets } = useContext(FilterContext);
 
   useEffect(() => {
     if (category === 'restaurant' && places && places.length >= 1) {
+      // consolidate all cuisines from Places
       const cuisinesData = [];
       places.forEach((place) => {
         place.cuisine?.forEach((cuisine) => {
@@ -19,7 +20,7 @@ const FilterMenu = () => {
           }
         });
       });
-
+      // remove duplicates and create filter tags
       const createFilters = () => {
         const cuisines = cuisinesData.filter(
           (cuisine) =>
@@ -34,14 +35,14 @@ const FilterMenu = () => {
             cuisine.toLowerCase().includes('vegetarian') ||
             cuisine.toLowerCase().includes('gluten')
         );
-
-        setChips(cuisines);
+        // update FilterContext state
+        setTags(cuisines);
         setDiets(diets);
       };
 
       createFilters();
     }
-  }, [category, setChips, setDiets, places]);
+  }, [category, setTags, setDiets, places]);
 
   return (
     <div className={`${styles['filter-menu']}`}>
@@ -98,8 +99,8 @@ const FilterMenu = () => {
           >
             <h4>Tags</h4>
             <ul className={styles['chips-list']}>
-              {chips?.map((chip, i) => (
-                <Chip key={i} cuisine={chip} />
+              {tags?.map((tag, i) => (
+                <Chip key={i} cuisine={tag} />
               ))}
             </ul>
           </fieldset>

@@ -1,28 +1,31 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useReducer } from 'react';
+import filterReducer from './filterReducer';
+export const FilterContext = createContext();
 
-export const FilterContext = createContext({});
+const initState = {
+  tags: [],
+  selectedTags: [],
+  diets: [],
+  selectedDiets: [],
+};
 
 const FilterContextProvider = ({ children }) => {
-  const initStatus = {
-    isLoading: false,
-    isError: false,
-    isSuccess: false,
-    message: '',
+  // useReducer
+  const [state, dispatch] = useReducer(filterReducer, initState);
+
+  const setTags = (tags) => {
+    dispatch({ type: 'SET_TAGS', payload: { tags } });
   };
-  // states
-  const [status, setStatus] = useState(initStatus);
-  const [chips, setChips] = useState([]);
-  const [diets, setDiets] = useState([]);
-  // global Places state
+
+  const setDiets = (diets) => {
+    dispatch({ type: 'SET_DIETS', payload: { diets } });
+  };
+
   const context = {
-    status,
-    chips,
-    diets,
-    setChips,
+    tags: state.tags,
+    diets: state.diets,
+    setTags,
     setDiets,
-    reset: () => {
-      setStatus(initStatus);
-    },
   };
 
   return (
