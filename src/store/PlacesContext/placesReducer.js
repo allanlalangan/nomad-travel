@@ -37,13 +37,6 @@ const placesReducer = (state, { type, payload }) => {
       };
     //
     case 'SELECT_CATEGORY':
-      // let category;
-      // if (state.category !== payload.category) {
-      //   category = payload.category;
-      // } else {
-      //   return state;
-      // }
-
       return {
         ...state,
         category: payload.category,
