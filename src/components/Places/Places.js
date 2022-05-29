@@ -6,14 +6,9 @@ import PlaceCard from './PlaceCard/PlaceCard';
 import styles from './Places.module.css';
 
 const Places = () => {
-  const { status, places, placeCardRefs, setPlaceCardRefs } =
-    useContext(PlacesContext);
+  const { places, placeCardRefs, setPlaceCardRefs } = useContext(PlacesContext);
 
   const liRefs = useRef([]);
-
-  useEffect(() => {
-    console.log(places);
-  }, [places]);
 
   useEffect(() => {
     if (places && places.length >= 1) {
@@ -24,14 +19,6 @@ const Places = () => {
       setPlaceCardRefs(refs);
     }
   }, [places, setPlaceCardRefs]);
-
-  // print placeRefs state on update
-  useEffect(() => {
-    console.log(placeCardRefs);
-  }, [placeCardRefs]);
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
 
   return (
     <ul className={`${styles['places-list']}`}>

@@ -44,7 +44,6 @@ const FilterMenu = () => {
     }
   }, [category, setTags, setDiets, places]);
 
-  console.log(category);
   return (
     <div className={`${styles['filter-menu']}`}>
       <div className={`${styles['category-select-container']}`}>

@@ -16,7 +16,6 @@ import axios from 'axios';
 
 const Map = () => {
   const {
-    status,
     setIsUpdating: setMapIsUpdating,
     setIsSuccess: setMapUpdateSuccess,
     coordinates,
@@ -26,10 +25,6 @@ const Map = () => {
     setBounds,
     setHoveredMarker,
   } = useContext(MapContext);
-
-  useEffect(() => {
-    console.log(status);
-  }, [status]);
 
   const {
     category,
