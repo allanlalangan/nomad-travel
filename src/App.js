@@ -6,7 +6,7 @@ import FilterContextProvider from './store/FilterContext/FilterContextProvider';
 import { useLoadScript } from '@react-google-maps/api';
 // components
 import { Header, Places, FilterMenu, Map } from './components';
-import { Container, ThemeProvider } from '@mui/material';
+import { Box, Container, ThemeProvider } from '@mui/material';
 import theme from './theme';
 // styles and ui
 import styles from './App.module.css';
@@ -23,16 +23,18 @@ const App = () => {
       <FilterContextProvider>
         <PlacesContextProvider>
           <ThemeProvider theme={theme}>
-            <Header />
-            <Container sx={style.mainContent} component='main'>
-              <Container sx={style.places}>
-                <Places />
-                <FilterMenu />
+            <Box component='div' sx={style.wrapper}>
+              <Header />
+              <Container sx={style.mainContent} component='main'>
+                <Container component='section' sx={style.places}>
+                  <Places />
+                  {/* <FilterMenu /> */}
+                </Container>
+                <Container component='section' sx={style.map}>
+                  {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}
+                </Container>
               </Container>
-              <Container sx={style.map}>
-                {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}
-              </Container>
-            </Container>
+            </Box>
           </ThemeProvider>
         </PlacesContextProvider>
       </FilterContextProvider>

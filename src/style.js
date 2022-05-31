@@ -1,6 +1,13 @@
 const style = {
-  mainContent: {
+  wrapper: {
     width: '100vw',
+    display: 'flex',
+    backgroundColor: (theme) => theme.palette.background.default,
+  },
+  mainContent: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
     height: (theme) => `calc(100vh - ${theme.layout.appBarHeight}vh)`,
     marginTop: (theme) => `${theme.layout.appBarHeight}vh`,
   },
@@ -9,10 +16,12 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
+    width: '25%',
   },
 
   map: {
     width: '75%',
+    height: '100%',
   },
 };
 
