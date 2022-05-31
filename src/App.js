@@ -6,8 +6,11 @@ import FilterContextProvider from './store/FilterContext/FilterContextProvider';
 import { useLoadScript } from '@react-google-maps/api';
 // components
 import { Header, Places, FilterMenu, Map } from './components';
+import { Container, ThemeProvider } from '@mui/material';
+import theme from './theme';
 // styles and ui
 import styles from './App.module.css';
+import style from './style';
 
 const App = () => {
   const { isLoaded } = useLoadScript({
@@ -19,16 +22,18 @@ const App = () => {
     <MapContextProvider>
       <FilterContextProvider>
         <PlacesContextProvider>
-          <Header />
-          <main>
-            <section className={`${styles['places-section']}`}>
-              <Places />
-              <FilterMenu />
-            </section>
-            <section className={`${styles['map-section']}`}>
-              {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}
-            </section>
-          </main>
+          <ThemeProvider theme={theme}>
+            <Header />
+            <Container sx={style.mainContent} component='main'>
+              <Container sx={style.places}>
+                <Places />
+                <FilterMenu />
+              </Container>
+              <Container sx={style.map}>
+                {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}
+              </Container>
+            </Container>
+          </ThemeProvider>
         </PlacesContextProvider>
       </FilterContextProvider>
     </MapContextProvider>

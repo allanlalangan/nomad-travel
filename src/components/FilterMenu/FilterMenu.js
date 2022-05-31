@@ -4,6 +4,8 @@ import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 
 import Chip from './Chip/Chip';
 import styles from './FilterMenu.module.css';
+import style from './style';
+import { Box } from '@mui/material';
 
 const FilterMenu = () => {
   const { category, selectCategory, places } = useContext(PlacesContext);
@@ -45,7 +47,7 @@ const FilterMenu = () => {
   }, [category, setTags, setDiets, places]);
 
   return (
-    <div className={`${styles['filter-menu']}`}>
+    <Box sx={style.filterMenu}>
       <div className={`${styles['category-select-container']}`}>
         <select
           value={category}
@@ -106,7 +108,7 @@ const FilterMenu = () => {
           </fieldset>
         </>
       )}
-    </div>
+    </Box>
   );
 };
 export default FilterMenu;
