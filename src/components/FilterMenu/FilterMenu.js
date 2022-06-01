@@ -5,7 +5,19 @@ import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 import Chip from './Chip/Chip';
 import styles from './FilterMenu.module.css';
 import style from './style';
-import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import {
+  Paper,
+  Box,
+  Divider,
+  FormGroup,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  Checkbox,
+  Select,
+  MenuItem,
+  Typography,
+} from '@mui/material';
 
 const FilterMenu = () => {
   const { category, selectCategory, places } = useContext(PlacesContext);
@@ -48,26 +60,19 @@ const FilterMenu = () => {
 
   return (
     <Box sx={style.filterMenu}>
-      <Box sx={{ minWidth: 120 }}>
+      <Box sx={style.categorySelect}>
         <FormControl fullWidth>
-          <InputLabel
-            disableAnimation={true}
-            shrink={false}
-            id='demo-simple-select-label'
-          >
-            Age
-          </InputLabel>
+          <InputLabel id='demo-simple-select-label'>Category</InputLabel>
           <Select
-            notched={false}
             labelId='demo-simple-select-label'
             id='demo-simple-select'
-            // value={age}
-            // label='Age'
-            // onChange={handleChange}
+            label='Category'
+            value={category}
+            onChange={(e) => selectCategory(e.target.value)}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={'restaurant'}>Restaurants</MenuItem>
+            <MenuItem value={'hotel'}>Hotels</MenuItem>
+            <MenuItem value={'attraction'}>Attractions</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -84,53 +89,47 @@ const FilterMenu = () => {
         </select>
       </div> */}
 
-      <h3 className={styles['places-heading']}>Filters</h3>
-
-      {category === 'restaurant' && (
-        <>
-          <fieldset className={`${styles['diet_filter']} ${styles['filter']}`}>
-            <h4>Dietary Restrictions</h4>
-            <div
-              className={`${styles['diet_filter-checkbox']} ${styles['filter-checkbox']}`}
-            >
-              <label htmlFor='vegetarian'>Vegetarian Friendly</label>
-              <input
-                type='checkbox'
-                id='vegetarian'
-                name='diet'
-                value='vegetarian'
-              ></input>
-            </div>
-            <div
-              className={`${styles['diet_filter-checkbox']} ${styles['filter-checkbox']}`}
-            >
-              <label htmlFor='vegetarian'>Vegan Options</label>
-              <input
-                type='checkbox'
-                id='vegan'
-                name='diet'
-                value='vegan'
-              ></input>
-            </div>
-            <div
-              className={`${styles['diet_filter-checkbox']} ${styles['filter-checkbox']}`}
-            >
-              <label htmlFor='vegetarian'>Gluten Free Options</label>
-              <input type='checkbox' id='gf' name='diet' value='gf'></input>
-            </div>
-          </fieldset>
-          <fieldset
-            className={`${styles['cuisine_filter']} ${styles['filter']}`}
-          >
-            <h4>Tags</h4>
-            <ul className={styles['chips-list']}>
-              {tags?.map((tag, i) => (
-                <Chip key={i} cuisine={tag} />
+      <Typography variant='h5' className={styles['places-heading']}>
+        Filters
+      </Typography>
+      <Divider />
+      {/* {category === 'restaurant' && ( */}
+      <>
+        <Box>
+          <Typography variant='h6'>Dietary Restrictions</Typography>
+          <ul className={styles['diets-list']}>
+            <FormGroup>
+              {diets?.map((diet, i) => (
+                <>
+                  <FormControlLabel
+                    key={i}
+                    control={<Checkbox />}
+                    label={diet}
+                  />
+                </>
               ))}
-            </ul>
-          </fieldset>
-        </>
-      )}
+            </FormGroup>
+          </ul>
+        </Box>
+        <Divider />
+        <Box>
+          <Typography variant='h6'>Tags</Typography>
+          <ul className={styles['chips-list']}>
+            <FormGroup>
+              {tags?.map((tag, i) => (
+                <>
+                  <FormControlLabel
+                    key={i}
+                    control={<Checkbox />}
+                    label={tag}
+                  />
+                </>
+              ))}
+            </FormGroup>
+          </ul>
+        </Box>
+      </>
+      {/* )} */}
     </Box>
   );
 };

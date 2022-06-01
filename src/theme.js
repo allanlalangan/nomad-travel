@@ -16,7 +16,6 @@ const theme = createTheme({
     },
   },
   components: {
-    // Name of the component
     MuiContainer: {
       defaultProps: {
         disableGutters: true,
@@ -27,25 +26,10 @@ const theme = createTheme({
         disableGutters: true,
       },
     },
-    MuiOutlinedInput: {
-      root: {
-        // Hover state
-        '&:hover $notchedOutline': {
-          borderColor: 'pink',
-        },
-        // Focused state
-        '&$focused $notchedOutline': {
-          borderColor: 'yellow',
-        },
-      },
-      // Default State
-      notchedOutline: {
-        borderColor: 'green',
-      },
-    },
   },
   typography: {
     fontFamily: 'Barlow',
+    fontSize: 12,
   },
   layout: {
     appBarHeight: 8,

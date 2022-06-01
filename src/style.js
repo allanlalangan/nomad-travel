@@ -17,6 +17,8 @@ const style = {
     flexDirection: 'column',
     position: 'relative',
     width: '25%',
+    zIndex: 1000,
+    boxShadow: (theme) => theme.shadows[8],
   },
 
   map: {
