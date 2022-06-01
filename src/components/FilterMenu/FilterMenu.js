@@ -7,6 +7,7 @@ import styles from './FilterMenu.module.css';
 import style from './style';
 import {
   Paper,
+  Button,
   Box,
   Divider,
   FormGroup,
@@ -76,22 +77,14 @@ const FilterMenu = () => {
           </Select>
         </FormControl>
       </Box>
-      {/* <div className={`${styles['category-select-container']}`}>
-        <select
-          value={category}
-          onChange={(e) => selectCategory(e.target.value)}
-          className={`${styles['category-select']}`}
-        >
-          <option value={''}>Select a category</option>
-          <option value='restaurant'>Restaurants</option>
-          <option value='hotel'>Hotels</option>
-          <option value='attraction'>Attractions</option>
-        </select>
-      </div> */}
 
       <Typography variant='h5' className={styles['places-heading']}>
         Filters
       </Typography>
+      <Box sx={style.filterButtons}>
+        <Button variant='container'>Apply Filters</Button>
+        <Button variant='outlined'>Reset</Button>
+      </Box>
       <Divider />
       {/* {category === 'restaurant' && ( */}
       <>

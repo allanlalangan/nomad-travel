@@ -4,6 +4,8 @@ import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 import PlaceCard from './PlaceCard/PlaceCard';
 // styles and ui
 import styles from './Places.module.css';
+import style from './style';
+import { List } from '@mui/material';
 
 const Places = () => {
   const { places, placeCardRefs, setPlaceCardRefs } = useContext(PlacesContext);
@@ -21,7 +23,7 @@ const Places = () => {
   }, [places, setPlaceCardRefs]);
 
   return (
-    <ul className={`${styles['places-list']}`}>
+    <List disablePadding sx={style.placesList}>
       {places?.map((place, i) => (
         <PlaceCard
           ref={(element) => {
@@ -32,7 +34,7 @@ const Places = () => {
           place={place}
         />
       ))}
-    </ul>
+    </List>
   );
 };
 

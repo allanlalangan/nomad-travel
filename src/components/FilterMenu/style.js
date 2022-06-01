@@ -16,6 +16,12 @@ const style = {
   categorySelect: {
     width: `calc(100% - 2rem)`,
   },
+
+  filterButtons: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 };
 
 export default style;

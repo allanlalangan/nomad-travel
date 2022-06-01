@@ -4,21 +4,24 @@ import { MdMail } from 'react-icons/md';
 import { BsTelephoneFill } from 'react-icons/bs';
 
 import styles from './PlaceCard.module.css';
+import style from './style';
 import StarRating from '../../StarRating/StarRating';
-import Chip from '../../FilterMenu/Chip/Chip';
+// import Chip from '../../FilterMenu/Chip/Chip';
+
+import { Box, List, ListItem, Typography, Rating, Chip } from '@mui/material';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
   return (
-    <li ref={ref} className={`${styles['place-card']}`}>
-      <div className={`${styles['image-container']}`}>
-        <div className={styles['place-heading']}>
-          <h3>{place.name}</h3>
-          <div className={styles['place-contact_info']}>
+    <ListItem disableGutters disablePadding ref={ref} sx={style.placeCard}>
+      <Box sx={style.imageContainer}>
+        <Box sx={style.placeHeading}>
+          <Typography variant='h5'>{place.name}</Typography>
+          <Box sx={style.contactInfo}>
             <BsTelephoneFill className={styles['contact_info-icon']} />
             <MdMail className={styles['contact_info-icon']} />
             <FaMapMarkerAlt className={styles['contact_info-icon']} />
-          </div>
-        </div>
+          </Box>
+        </Box>
         {place.photo &&
         place.photo.images &&
         place.photo.images.large &&
@@ -29,62 +32,69 @@ const PlaceCard = forwardRef(({ place }, ref) => {
             alt={`Place card img of ${place.name}`}
           />
         ) : (
-          <span>Image unavailable</span>
+          <Typography variant='body2'>Image unavailable</Typography>
         )}
-      </div>
+      </Box>
 
-      <div className={`${styles['place-summary']}`}>
-        <div className={styles['_summary-customers']}>
-          <p className={styles['place-ranking']}>{place.ranking}</p>
+      <Box sx={style.placeSummary}>
+        <Box sx={style.summaryCustomers}>
+          <Typography variant='body1' sx={style.placeRanking}>
+            {place.ranking}
+          </Typography>
           {Number(place.num_reviews) >= 1 ? (
             <>
-              {place.rating && <StarRating rating={place.rating} />}
-              <p>{`${place.rating} out of 5 stars`}</p>
-              <span>
+              {place.rating && (
+                <Rating
+                  name='half-rating-read'
+                  value={place.rating}
+                  precision={0.5}
+                  readOnly
+                />
+              )}
+              <Typography variant='body1'>{`${place.rating} out of 5 stars`}</Typography>
+              <Typography variant='body1'>
                 {Number(place.num_reviews) +
                   ' ' +
                   (Number(place.num_reviews) === 1 ? 'review' : 'reviews')}
-              </span>
+              </Typography>
             </>
           ) : (
-            <span>
+            <Typography variant='body2'>
               Hmm...this place doesn't appear to have any reviews. Would you
               like to leave a review?
-            </span>
+            </Typography>
           )}
-        </div>
+        </Box>
 
-        <div className={styles['_summary-address']}>
+        <Box sx={style.summaryAddress}>
           {place.address_obj &&
           place.address_obj &&
           place.address_obj.street1 &&
           place.address_obj.city &&
           place.address_obj.state &&
           place.address_obj.postalcode ? (
-            <div className={styles['place-contact']}>
-              <p
-                className={styles['address-field']}
-              >{`${place.address_obj.street1}`}</p>
-              <p
-                className={styles['address-field']}
-              >{`${place.address_obj.city}, ${place.address_obj.state} ${place.address_obj.postalcode}`}</p>
-            </div>
+            <Box sx={style.addressStreet}>
+              <Typography variant='body1'>{`${place.address_obj.street1}`}</Typography>
+              <Typography variant='body1'>{`${place.address_obj.city}, ${place.address_obj.state} ${place.address_obj.postalcode}`}</Typography>
+            </Box>
           ) : (
             ''
           )}
-        </div>
+        </Box>
 
-        <div className={styles['_summary-tags']}>
-          <ul className={styles['_tags-list']}>
+        <Box sx={style.summaryTags}>
+          <List sx={style.tagsList}>
             {place.cuisine &&
               place.cuisine.length >= 1 &&
               place.cuisine.map((cuisine) => (
-                <Chip className={styles['tag']} cuisine={cuisine.name} />
+                <ListItem disablePadding disableGutters>
+                  <Chip label={cuisine.name} />
+                </ListItem>
               ))}
-          </ul>
-        </div>
-      </div>
-    </li>
+          </List>
+        </Box>
+      </Box>
+    </ListItem>
   );
 });
 
