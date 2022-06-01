@@ -22,6 +22,11 @@ const theme = createTheme({
         disableGutters: true,
       },
     },
+    MuiToolbar: {
+      defaultProps: {
+        disableGutters: true,
+      },
+    },
   },
   typography: {
     fontFamily: 'Barlow',

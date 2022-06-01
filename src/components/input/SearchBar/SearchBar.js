@@ -6,8 +6,16 @@ import style from './style';
 
 const SearchBar = () => {
   return (
-    <Box className={styles.container}>
-      <TextField size='small' id='search' label='Search' variant='outlined' />
+    <Box sx={style.container}>
+      <TextField
+        // InputProps={{ sx: style.textField }}
+        sx={style.textField}
+        size='small'
+        id='search'
+        label='Search'
+        InputLabelProps={{ sx: style.label }}
+        variant='filled'
+      />
     </Box>
   );
 };

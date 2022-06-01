@@ -6,7 +6,8 @@ import FilterContextProvider from './store/FilterContext/FilterContextProvider';
 import { useLoadScript } from '@react-google-maps/api';
 // components
 import { Header, Places, FilterMenu, Map } from './components';
-import { Box, Container, ThemeProvider } from '@mui/material';
+import { CssBaseline, Box, Container, ThemeProvider } from '@mui/material';
+import { makeStyles } from '@mui/material';
 import theme from './theme';
 // styles and ui
 import styles from './App.module.css';
@@ -22,6 +23,7 @@ const App = () => {
     <MapContextProvider>
       <FilterContextProvider>
         <PlacesContextProvider>
+          <CssBaseline />
           <ThemeProvider theme={theme}>
             <Box component='div' sx={style.wrapper}>
               <Header />

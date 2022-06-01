@@ -22,13 +22,19 @@ const style = {
   mainTitle: {
     width: '100%',
     fontFamily: 'Righteous',
-    fontSize: '2rem',
+    fontSize: (theme) => `calc((${theme.layout.appBarHeight}vh) - 1rem)`,
     fontWeight: '700',
+    lineHeight: '1',
     letterSpacing: '-1px',
     textTransform: 'uppercase',
     zIndex: '0',
 
     color: (theme) => theme.palette.secondary.main,
+
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '0 1rem',
   },
 };
 
