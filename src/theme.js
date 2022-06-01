@@ -27,6 +27,22 @@ const theme = createTheme({
         disableGutters: true,
       },
     },
+    MuiOutlinedInput: {
+      root: {
+        // Hover state
+        '&:hover $notchedOutline': {
+          borderColor: 'pink',
+        },
+        // Focused state
+        '&$focused $notchedOutline': {
+          borderColor: 'yellow',
+        },
+      },
+      // Default State
+      notchedOutline: {
+        borderColor: 'green',
+      },
+    },
   },
   typography: {
     fontFamily: 'Barlow',

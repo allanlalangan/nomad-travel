@@ -5,7 +5,7 @@ import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 import Chip from './Chip/Chip';
 import styles from './FilterMenu.module.css';
 import style from './style';
-import { Box } from '@mui/material';
+import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const FilterMenu = () => {
   const { category, selectCategory, places } = useContext(PlacesContext);
@@ -48,7 +48,30 @@ const FilterMenu = () => {
 
   return (
     <Box sx={style.filterMenu}>
-      <div className={`${styles['category-select-container']}`}>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel
+            disableAnimation={true}
+            shrink={false}
+            id='demo-simple-select-label'
+          >
+            Age
+          </InputLabel>
+          <Select
+            notched={false}
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            // value={age}
+            // label='Age'
+            // onChange={handleChange}
+          >
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      {/* <div className={`${styles['category-select-container']}`}>
         <select
           value={category}
           onChange={(e) => selectCategory(e.target.value)}
@@ -59,7 +82,7 @@ const FilterMenu = () => {
           <option value='hotel'>Hotels</option>
           <option value='attraction'>Attractions</option>
         </select>
-      </div>
+      </div> */}
 
       <h3 className={styles['places-heading']}>Filters</h3>
 

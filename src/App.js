@@ -30,7 +30,7 @@ const App = () => {
               <Container sx={style.mainContent} component='main'>
                 <Container component='section' sx={style.places}>
                   <Places />
-                  {/* <FilterMenu /> */}
+                  <FilterMenu />
                 </Container>
                 <Container component='section' sx={style.map}>
                   {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}

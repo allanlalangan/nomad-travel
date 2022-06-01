@@ -11,6 +11,16 @@ const style = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textField: {
+    '& .MuiInputBase-input': {
+      color: (theme) => theme.palette.primary.dark,
+      borderRadius: 1,
+      backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
+    },
+    '&.MuiOutlinedInput-notchedOutline': {
+      color: 'orange',
+    },
+  },
 };
 
 export default style;
