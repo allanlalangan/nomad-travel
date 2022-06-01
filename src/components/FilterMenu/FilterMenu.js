@@ -6,10 +6,11 @@ import Chip from './Chip/Chip';
 import styles from './FilterMenu.module.css';
 import style from './style';
 import {
-  Paper,
   Button,
   Box,
   Divider,
+  List,
+  ListItemButton,
   FormGroup,
   FormControl,
   FormControlLabel,
@@ -90,36 +91,42 @@ const FilterMenu = () => {
       <>
         <Box>
           <Typography variant='h6'>Dietary Restrictions</Typography>
-          <ul className={styles['diets-list']}>
+          <List sx={style.dietsList}>
             <FormGroup>
               {diets?.map((diet, i) => (
                 <>
-                  <FormControlLabel
-                    key={i}
-                    control={<Checkbox />}
-                    label={diet}
-                  />
+                  <ListItemButton dense sx={style.diet} disableGutters>
+                    <FormControlLabel
+                      sx={style.dietLabel}
+                      key={i}
+                      control={<Checkbox disableRipple />}
+                      label={diet}
+                    />
+                  </ListItemButton>
                 </>
               ))}
             </FormGroup>
-          </ul>
+          </List>
         </Box>
         <Divider />
         <Box>
           <Typography variant='h6'>Tags</Typography>
-          <ul className={styles['chips-list']}>
+          <List sx={style.dietsList}>
             <FormGroup>
               {tags?.map((tag, i) => (
                 <>
-                  <FormControlLabel
-                    key={i}
-                    control={<Checkbox />}
-                    label={tag}
-                  />
+                  <ListItemButton dense sx={style.diet} disableGutters>
+                    <FormControlLabel
+                      sx={style.dietLabel}
+                      key={i}
+                      control={<Checkbox disableRipple />}
+                      label={tag}
+                    />
+                  </ListItemButton>
                 </>
               ))}
             </FormGroup>
-          </ul>
+          </List>
         </Box>
       </>
       {/* )} */}

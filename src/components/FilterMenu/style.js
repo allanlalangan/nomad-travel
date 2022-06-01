@@ -22,6 +22,21 @@ const style = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  dietsList: {
+    width: '100%',
+  },
+
+  diet: {
+    width: '100%',
+    height: '100%',
+    padding: 0,
+  },
+  dietLabel: {
+    width: '100%',
+    height: '100%',
+    margin: 0,
+  },
 };
 
 export default style;
