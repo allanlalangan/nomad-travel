@@ -8,11 +8,12 @@ import {
   InfoWindow,
   GoogleMarkerClusterer,
 } from '@react-google-maps/api';
+import axios from 'axios';
 
 // styles and ui
-import styles from './Map.module.css';
+import style from './style';
 import { mapStyles } from './mapStyles';
-import axios from 'axios';
+import { Paper, Typography } from '@mui/material/';
 
 const Map = () => {
   const {
@@ -157,13 +158,14 @@ const Map = () => {
                       options={infoWindowOptions}
                       key={Math.random()}
                     >
-                      <div
-                        key={Math.random()}
-                        className={styles['info-window']}
-                      >
-                        <p>{hoveredMarker.place.name}</p>
-                        <p>{hoveredMarker.place.address}</p>
-                      </div>
+                      <Paper sx={style.hoverInfo} key={i + Math.random()}>
+                        <Typography variant='body1'>
+                          {hoveredMarker.place.name}
+                        </Typography>
+                        <Typography variant='body1'>
+                          {hoveredMarker.place.address}
+                        </Typography>
+                      </Paper>
                     </InfoWindow>
                   )}
               </>
