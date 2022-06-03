@@ -10,6 +10,10 @@ import { List } from '@mui/material';
 const Places = () => {
   const { places, placeCardRefs, setPlaceCardRefs } = useContext(PlacesContext);
 
+  useEffect(() => {
+    console.log(places);
+  }, [places]);
+
   const liRefs = useRef([]);
 
   useEffect(() => {

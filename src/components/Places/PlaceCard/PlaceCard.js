@@ -46,7 +46,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
               {place.rating && (
                 <Rating
                   name='half-rating-read'
-                  value={place.rating}
+                  value={Number(place.rating)}
                   precision={0.5}
                   readOnly
                 />
