@@ -21,7 +21,7 @@ import {
   Typography,
 } from '@mui/material';
 
-const FilterMenu = () => {
+const FilterMenu = ({ isLoaded }) => {
   const { category, selectCategory, places } = useContext(PlacesContext);
   const { tags, setTags, diets, setDiets } = useContext(FilterContext);
 
@@ -71,6 +71,7 @@ const FilterMenu = () => {
             label='Category'
             value={category}
             onChange={(e) => selectCategory(e.target.value)}
+            disabled={!isLoaded}
           >
             <MenuItem value={'restaurant'}>Restaurants</MenuItem>
             <MenuItem value={'hotel'}>Hotels</MenuItem>
@@ -83,8 +84,12 @@ const FilterMenu = () => {
         Filters
       </Typography>
       <Box sx={style.filterButtons}>
-        <Button variant='container'>Apply Filters</Button>
-        <Button variant='outlined'>Reset</Button>
+        <Button variant='container' disabled={!isLoaded}>
+          Apply Filters
+        </Button>
+        <Button variant='outlined' disabled={!isLoaded}>
+          Reset
+        </Button>
       </Box>
       <Divider />
       {/* {category === 'restaurant' && ( */}

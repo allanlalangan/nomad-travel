@@ -21,6 +21,10 @@
   --header-height: calc(100vh - var(--main-content-height));
 }
 
+.pac-container {
+  z-index: 99999999;
+}
+
 * {
   margin: 0;
   padding: 0;

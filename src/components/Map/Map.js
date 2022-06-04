@@ -120,7 +120,7 @@ const Map = () => {
       mapContainerStyle={mapContainerStyle}
       center={coordinates}
       options={options}
-      zoom={15}
+      zoom={14}
     >
       {places && places.length >= 1 && (
         <GoogleMarkerClusterer averageCenter={true}>

@@ -5,7 +5,7 @@ import { GiCompass } from 'react-icons/gi';
 import { Box, AppBar, Toolbar, Typography } from '@mui/material';
 import style from './style';
 
-const Header = () => {
+const Header = ({ isLoaded }) => {
   return (
     <AppBar sx={style.appBar}>
       <Toolbar sx={style.toolBar}>
@@ -14,7 +14,7 @@ const Header = () => {
             Nomad
           </Typography>
         </Box>
-        <SearchBar />
+        {isLoaded ? <SearchBar /> : ''}
       </Toolbar>
     </AppBar>
   );
