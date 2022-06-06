@@ -24,7 +24,6 @@ export default function PriceSlider({ priceLevels }) {
   const [value, setValue] = useState([1, 4]);
   const [marks, setMarks] = useState(null);
   useEffect(() => {
-    console.log(priceLevels);
     if (priceLevels && priceLevels.length >= 1) {
       const currentMarks = priceLevels.map((price) => ({
         value: price.length,

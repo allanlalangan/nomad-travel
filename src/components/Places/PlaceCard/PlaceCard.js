@@ -45,7 +45,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
             <Box sx={style.ratingContainer}>
               {place.rating && (
                 <Rating
-                  name='half-rating-read'
+                  name='place-rating'
                   value={Number(place.rating)}
                   precision={0.5}
                   readOnly

@@ -13,10 +13,11 @@ import axios from 'axios';
 // styles and ui
 import style from './style';
 import { mapStyles } from './mapStyles';
-import { Paper, Typography } from '@mui/material/';
+import { Paper, Typography, Rating } from '@mui/material/';
 
 const Map = () => {
   const {
+    status: mapStatus,
     setIsUpdating: setMapIsUpdating,
     setIsSuccess: setMapUpdateSuccess,
     coordinates,
@@ -28,6 +29,7 @@ const Map = () => {
   } = useContext(MapContext);
 
   const {
+    status: placesStatus,
     category,
     places,
     setIsLoading: fetchPlacesLoading,
@@ -35,6 +37,14 @@ const Map = () => {
     fetchSuccess: fetchPlacesSuccess,
     placeCardRefs,
   } = useContext(PlacesContext);
+
+  useEffect(() => {
+    console.log(mapStatus);
+  }, [mapStatus]);
+
+  useEffect(() => {
+    console.log(placesStatus);
+  }, [placesStatus]);
 
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
@@ -108,8 +118,9 @@ const Map = () => {
   };
 
   const infoWindowOptions = {
-    pixelOffset: new window.google.maps.Size(0, -35),
+    pixelOffset: new window.google.maps.Size(-1, -25),
     maxWidth: 200,
+    disableAutoPan: true,
   };
 
   return (
@@ -162,6 +173,13 @@ const Map = () => {
                         <Typography variant='body1'>
                           {hoveredMarker.place.name}
                         </Typography>
+                        <Rating
+                          name='place-rating'
+                          value={Number(hoveredMarker.place.rating)}
+                          precision={0.5}
+                          readOnly
+                          sx={style.starRating}
+                        />
                         <Typography variant='body1'>
                           {hoveredMarker.place.address}
                         </Typography>

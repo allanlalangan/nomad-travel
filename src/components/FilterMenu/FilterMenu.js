@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 
 import PriceSlider from './PriceSlider/PriceSlider';
+import SortButton from './SortButton/SortButton';
 import useFilter from '../../hooks/useFilter';
 
 const FilterMenu = ({ isLoaded }) => {
@@ -29,7 +30,7 @@ const FilterMenu = ({ isLoaded }) => {
   return (
     <Box component='section' sx={style.filterMenu}>
       <Box component='fieldset' sx={style.categorySelect}>
-        <FormControl fullWidth>
+        <FormControl fullWidth sx={style.categorySelectInput}>
           <InputLabel id='category-select-label'>Category</InputLabel>
           <Select
             labelId='category-select-label'
@@ -44,6 +45,20 @@ const FilterMenu = ({ isLoaded }) => {
             <MenuItem value={'attraction'}>Attractions</MenuItem>
           </Select>
         </FormControl>
+        <FormControl fullWidth sx={style.categorySelectInput}>
+          <InputLabel id='sortBy-select-label'>Sort By</InputLabel>
+          <Select
+            labelId='sortBy-select-label'
+            id='sortBy-select'
+            label='Sort By'
+            disabled={!isLoaded}
+          >
+            <MenuItem value={'hotel'}>Rating</MenuItem>
+            <MenuItem value={'restaurant'}>Rank</MenuItem>
+            <MenuItem value={'attraction'}>Price</MenuItem>
+          </Select>
+        </FormControl>
+        <SortButton />
       </Box>
 
       <Typography variant='h5'>Filters</Typography>

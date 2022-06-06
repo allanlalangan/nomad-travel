@@ -5,7 +5,7 @@ const style = {
   },
 
   hoverInfo: {
-    zIndex: 2000,
+    zIndex: 9999,
   },
 };
 

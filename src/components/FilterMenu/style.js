@@ -14,9 +14,13 @@ const style = {
   },
 
   categorySelect: {
-    width: `calc(100% - 2rem)`,
-    margin: '0 auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    // width: `calc(100% - 2rem)`,
   },
+
+  sortByButton: {},
 
   filterButtons: {
     display: 'flex',
