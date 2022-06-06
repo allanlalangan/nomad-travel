@@ -52,10 +52,11 @@ const FilterMenu = ({ isLoaded }) => {
             id='sortBy-select'
             label='Sort By'
             disabled={!isLoaded}
+            defaultValue='rank'
           >
-            <MenuItem value={'hotel'}>Rating</MenuItem>
-            <MenuItem value={'restaurant'}>Rank</MenuItem>
-            <MenuItem value={'attraction'}>Price</MenuItem>
+            <MenuItem value={'rank'}>Rank</MenuItem>
+            <MenuItem value={'rating'}>Rating</MenuItem>
+            <MenuItem value={'price'}>Price</MenuItem>
           </Select>
         </FormControl>
         <SortButton />
@@ -101,7 +102,20 @@ const FilterMenu = ({ isLoaded }) => {
                     <FormControlLabel
                       sx={style.checkboxLabel}
                       key={i}
-                      control={<Checkbox sx={style.checkbox} disableRipple />}
+                      control={
+                        <Checkbox
+                          onChange={(e) =>
+                            console.log(
+                              diet,
+                              e.target.checked,
+                              e.target.labels[0].textContent
+                            )
+                          }
+                          value={diet}
+                          sx={style.checkbox}
+                          disableRipple
+                        />
+                      }
                       label={diet}
                     />
                   </ListItemButton>
@@ -125,7 +139,19 @@ const FilterMenu = ({ isLoaded }) => {
                     <FormControlLabel
                       sx={style.checkboxLabel}
                       key={i}
-                      control={<Checkbox sx={style.checkbox} disableRipple />}
+                      control={
+                        <Checkbox
+                          onChange={(e) =>
+                            console.log(
+                              e.target.checked,
+                              e.target.labels[0].textContent
+                            )
+                          }
+                          value={tag}
+                          sx={style.checkbox}
+                          disableRipple
+                        />
+                      }
                       label={tag}
                     />
                   </ListItemButton>

@@ -24,7 +24,7 @@ export const getPlaces = async (bounds, category, source) => {
     return places;
   } catch (error) {
     if (axios.isCancel(error)) {
-      console.log('request cancelled');
+      console.log('Reinitializing request');
     } else {
       console.log(error);
       throw new Error(error.message);

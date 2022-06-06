@@ -12,7 +12,6 @@ const useFilter = () => {
       const availablePrices = [];
 
       places.forEach((place) => {
-        console.log(place.price_level);
         if (place.price_level && place.price_level.includes('-')) {
           const placesPrices = place.price_level.split(' - ');
           placesPrices.forEach((price) => {
@@ -27,10 +26,6 @@ const useFilter = () => {
 
       const priceRange = availablePrices.sort((a, b) => a.length - b.length);
       setPriceLevels(priceRange);
-
-      priceRange.forEach((price) => {
-        console.log(price.length);
-      });
     }
   }, [places, setPriceLevels]);
 

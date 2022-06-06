@@ -57,7 +57,9 @@ const Map = () => {
       fetchPlacesLoading();
       getPlaces(bounds, category, source)
         .then((data) => {
-          fetchPlacesSuccess(data);
+          if (typeof data === 'object') {
+            fetchPlacesSuccess(data);
+          } else return;
         })
         .catch((error) => {
           fetchPlacesError(error.message);
@@ -122,76 +124,95 @@ const Map = () => {
     maxWidth: 200,
     disableAutoPan: true,
   };
+  const loadingInfoWindowOptions = {
+    pixelOffset: new window.google.maps.Size(-1, -25),
+    maxWidth: 200,
+    disableAutoPan: true,
+  };
 
   return (
-    <GoogleMap
-      onLoad={(map) => onMapLoad(map)}
-      onIdle={onIdle}
-      onDragEnd={onDragEnd}
-      mapContainerStyle={mapContainerStyle}
-      center={coordinates}
-      options={options}
-      zoom={14}
-    >
-      {places && places.length >= 1 && (
-        <GoogleMarkerClusterer averageCenter={true}>
-          {(clusterer) =>
-            places.map((place, i) => (
-              <>
-                <Marker
-                  onClick={() => {
-                    placeCardRefs[i].scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'center',
-                    });
-                  }}
-                  onMouseOver={(marker) => {
-                    setHoveredMarker({ marker: marker, place: place });
-                  }}
-                  onMouseOut={() => setHoveredMarker(null)}
-                  position={{
-                    lat: Number(place.latitude),
-                    lng: Number(place.longitude),
-                  }}
-                  clusterer={clusterer}
-                  key={place.location_id}
-                  options={markerOptions}
-                />
-
-                {hoveredMarker &&
-                  places.indexOf(hoveredMarker.place) ===
-                    places.indexOf(place) && (
-                    <InfoWindow
-                      position={{
-                        lat: Number(place.latitude),
-                        lng: Number(place.longitude),
-                      }}
-                      options={infoWindowOptions}
-                      key={Math.random()}
-                    >
-                      <Paper sx={style.hoverInfo} key={i + Math.random()}>
-                        <Typography variant='body1'>
-                          {hoveredMarker.place.name}
-                        </Typography>
-                        <Rating
-                          name='place-rating'
-                          value={Number(hoveredMarker.place.rating)}
-                          precision={0.5}
-                          readOnly
-                          sx={style.starRating}
-                        />
-                        <Typography variant='body1'>
-                          {hoveredMarker.place.address}
-                        </Typography>
-                      </Paper>
-                    </InfoWindow>
-                  )}
-              </>
-            ))
-          }
-        </GoogleMarkerClusterer>
+    <>
+      {placesStatus.isLoading && (
+        <Paper sx={style.statusMessage}>
+          <Typography variant='body1'>
+            Loading {JSON.stringify(placesStatus)}
+          </Typography>
+        </Paper>
       )}
-    </GoogleMap>
+      {placesStatus.isError && (
+        <Paper sx={style.statusMessage}>
+          <Typography variant='body1'>{placesStatus.message}</Typography>
+        </Paper>
+      )}
+      <GoogleMap
+        onLoad={(map) => onMapLoad(map)}
+        onIdle={onIdle}
+        onDragEnd={onDragEnd}
+        mapContainerStyle={mapContainerStyle}
+        center={coordinates}
+        options={options}
+        zoom={14}
+      >
+        {placesStatus.isSuccess && places && places.length >= 1 && (
+          <GoogleMarkerClusterer averageCenter={true}>
+            {(clusterer) =>
+              places.map((place, i) => (
+                <>
+                  <Marker
+                    onClick={() => {
+                      placeCardRefs[i].scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                      });
+                    }}
+                    onMouseOver={(marker) => {
+                      setHoveredMarker({ marker: marker, place: place });
+                    }}
+                    onMouseOut={() => setHoveredMarker(null)}
+                    position={{
+                      lat: Number(place.latitude),
+                      lng: Number(place.longitude),
+                    }}
+                    clusterer={clusterer}
+                    key={place.location_id}
+                    options={markerOptions}
+                  />
+
+                  {hoveredMarker &&
+                    places.indexOf(hoveredMarker.place) ===
+                      places.indexOf(place) && (
+                      <InfoWindow
+                        position={{
+                          lat: Number(place.latitude),
+                          lng: Number(place.longitude),
+                        }}
+                        options={infoWindowOptions}
+                        key={Math.random()}
+                      >
+                        <Paper sx={style.hoverInfo} key={i + Math.random()}>
+                          <Typography variant='body1'>
+                            {hoveredMarker.place.name}
+                          </Typography>
+                          <Rating
+                            name='place-rating'
+                            value={Number(hoveredMarker.place.rating)}
+                            precision={0.5}
+                            readOnly
+                            sx={style.starRating}
+                          />
+                          <Typography variant='body1'>
+                            {hoveredMarker.place.address}
+                          </Typography>
+                        </Paper>
+                      </InfoWindow>
+                    )}
+                </>
+              ))
+            }
+          </GoogleMarkerClusterer>
+        )}
+      </GoogleMap>
+    </>
   );
 };
 
