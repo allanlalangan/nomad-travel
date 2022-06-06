@@ -46,27 +46,36 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     padding: '1rem',
   },
 
   summaryCustomers: {
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
+  },
+
+  ratingContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   summaryAddress: {
     display: 'flex',
     flexDirection: 'column',
+
+    width: '100%',
   },
 
   tagsList: {
     display: 'flex',
     flexWrap: 'wrap',
-  },
-  summaryTags: {
-    width: '100%',
     overflowY: 'scroll',
+
+    width: '100%',
+    height: '40%',
   },
 };
 

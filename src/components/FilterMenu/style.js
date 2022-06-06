@@ -15,6 +15,7 @@ const style = {
 
   categorySelect: {
     width: `calc(100% - 2rem)`,
+    margin: '0 auto',
   },
 
   filterButtons: {
@@ -23,16 +24,16 @@ const style = {
     justifyContent: 'center',
   },
 
-  dietsList: {
+  filterField: {
     width: '100%',
   },
 
-  diet: {
+  checkboxLiItem: {
     width: '100%',
     height: '100%',
     padding: 0,
   },
-  dietLabel: {
+  checkboxLabel: {
     width: '100%',
     height: '100%',
     margin: 0,

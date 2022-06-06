@@ -2,7 +2,6 @@ import { useContext, useEffect } from 'react';
 import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 
-import Chip from './Chip/Chip';
 import styles from './FilterMenu.module.css';
 import style from './style';
 import {
@@ -80,9 +79,7 @@ const FilterMenu = ({ isLoaded }) => {
         </FormControl>
       </Box>
 
-      <Typography variant='h5' className={styles['places-heading']}>
-        Filters
-      </Typography>
+      <Typography variant='h5'>Filters</Typography>
       <Box sx={style.filterButtons}>
         <Button variant='container' disabled={!isLoaded}>
           Apply Filters
@@ -96,15 +93,19 @@ const FilterMenu = ({ isLoaded }) => {
       <>
         <Box>
           <Typography variant='h6'>Dietary Restrictions</Typography>
-          <List sx={style.dietsList}>
+          <List sx={style.filterField}>
             <FormGroup>
               {diets?.map((diet, i) => (
                 <>
-                  <ListItemButton dense sx={style.diet} disableGutters>
+                  <ListItemButton
+                    dense
+                    sx={style.checkboxLiItem}
+                    disableGutters
+                  >
                     <FormControlLabel
-                      sx={style.dietLabel}
+                      sx={style.checkboxLabel}
                       key={i}
-                      control={<Checkbox disableRipple />}
+                      control={<Checkbox sx={style.checkbox} disableRipple />}
                       label={diet}
                     />
                   </ListItemButton>
@@ -116,15 +117,19 @@ const FilterMenu = ({ isLoaded }) => {
         <Divider />
         <Box>
           <Typography variant='h6'>Tags</Typography>
-          <List sx={style.dietsList}>
+          <List sx={style.filterField}>
             <FormGroup>
               {tags?.map((tag, i) => (
                 <>
-                  <ListItemButton dense sx={style.diet} disableGutters>
+                  <ListItemButton
+                    dense
+                    sx={style.checkboxLiItem}
+                    disableGutters
+                  >
                     <FormControlLabel
-                      sx={style.dietLabel}
+                      sx={style.checkboxLabel}
                       key={i}
-                      control={<Checkbox disableRipple />}
+                      control={<Checkbox sx={style.checkbox} disableRipple />}
                       label={tag}
                     />
                   </ListItemButton>
