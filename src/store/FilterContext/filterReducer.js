@@ -1,5 +1,8 @@
 const filterReducer = (state, { type, payload }) => {
   switch (type) {
+    case 'SET_PRICE_LEVELS':
+      const availablePriceLevels = payload.prices;
+      return { ...state, priceLevels: payload.prices };
     case 'SET_TAGS':
       const availableTags = payload.tags;
       return {

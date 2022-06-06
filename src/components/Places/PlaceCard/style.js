@@ -23,6 +23,13 @@ const style = {
     zIndex: -1,
   },
 
+  placeImage: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '0.5rem 0.5rem 0 0',
+  },
+
   placeHeading: {
     width: '100%',
     /* height: 25%, */

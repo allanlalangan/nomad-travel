@@ -1,14 +1,14 @@
 import { forwardRef } from 'react';
-import { FaAward, FaMapMarkerAlt } from 'react-icons/fa';
-import { MdMail } from 'react-icons/md';
-import { BsTelephoneFill } from 'react-icons/bs';
-
-import styles from './PlaceCard.module.css';
 import style from './style';
-import StarRating from '../../StarRating/StarRating';
-// import Chip from '../../FilterMenu/Chip/Chip';
-
-import { Box, List, ListItem, Typography, Rating, Chip } from '@mui/material';
+import {
+  CardMedia,
+  Box,
+  List,
+  ListItem,
+  Typography,
+  Rating,
+  Chip,
+} from '@mui/material';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
   return (
@@ -25,8 +25,9 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         place.photo.images &&
         place.photo.images.large &&
         place.photo.images.large.url ? (
-          <img
-            className={`${styles['place-image']}`}
+          <CardMedia
+            component='img'
+            sx={style.placeImage}
             src={place.photo.images.large.url}
             alt={`Place card img of ${place.name}`}
           />
@@ -70,11 +71,12 @@ const PlaceCard = forwardRef(({ place }, ref) => {
           place.address_obj &&
           place.address_obj.street1 &&
           place.address_obj.city &&
-          place.address_obj.state &&
           place.address_obj.postalcode ? (
             <Box sx={style.addressStreet}>
               <Typography variant='body1'>{`${place.address_obj.street1}`}</Typography>
-              <Typography variant='body1'>{`${place.address_obj.city}, ${place.address_obj.state} ${place.address_obj.postalcode}`}</Typography>
+              <Typography variant='body1'>{`${place.address_obj.city}, ${
+                place.address_obj.state ? place.address_obj.state : ''
+              } ${place.address_obj.postalcode}`}</Typography>
             </Box>
           ) : (
             ''

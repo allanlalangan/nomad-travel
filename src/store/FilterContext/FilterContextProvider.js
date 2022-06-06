@@ -1,12 +1,13 @@
 import React, { createContext, useReducer, useCallback } from 'react';
 import filterReducer from './filterReducer';
+
 export const FilterContext = createContext();
 
 const initState = {
+  rating: null,
+  pricesLevels: null,
   tags: [],
-  selectedTags: [],
   diets: [],
-  selectedDiets: [],
 };
 
 const FilterContextProvider = ({ children }) => {
@@ -21,11 +22,17 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'SET_DIETS', payload: { diets } });
   }, []);
 
+  const setPriceLevels = useCallback((prices) => {
+    dispatch({ type: 'SET_PRICE_LEVELS', payload: { prices } });
+  }, []);
+
   const context = {
     tags: state.tags,
     diets: state.diets,
+    priceLevels: state.priceLevels,
     setTags,
     setDiets,
+    setPriceLevels,
   };
 
   return (

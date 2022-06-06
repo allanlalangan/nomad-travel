@@ -1,8 +1,6 @@
-import { useContext, useEffect } from 'react';
-import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
+import { useContext } from 'react';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 
-import styles from './FilterMenu.module.css';
 import style from './style';
 import {
   Button,
@@ -13,6 +11,7 @@ import {
   FormGroup,
   FormControl,
   FormControlLabel,
+  Rating,
   InputLabel,
   Checkbox,
   Select,
@@ -20,53 +19,21 @@ import {
   Typography,
 } from '@mui/material';
 
+import PriceSlider from './PriceSlider/PriceSlider';
+import useFilter from '../../hooks/useFilter';
+
 const FilterMenu = ({ isLoaded }) => {
-  const { category, selectCategory, places } = useContext(PlacesContext);
-  const { tags, setTags, diets, setDiets } = useContext(FilterContext);
-
-  useEffect(() => {
-    if (category === 'restaurant' && places && places.length >= 1) {
-      // consolidate all cuisines from Places
-      const cuisinesData = [];
-      places.forEach((place) => {
-        place.cuisine?.forEach((cuisine) => {
-          if (!cuisinesData.includes(cuisine.name)) {
-            cuisinesData.push(cuisine.name);
-          }
-        });
-      });
-      // remove duplicates and create filter tags
-      const createFilters = () => {
-        const cuisines = cuisinesData.filter(
-          (cuisine) =>
-            !cuisine.toLowerCase().includes('vegan') &&
-            !cuisine.toLowerCase().includes('vegetarian') &&
-            !cuisine.toLowerCase().includes('gluten')
-        );
-
-        const diets = cuisinesData.filter(
-          (cuisine) =>
-            cuisine.toLowerCase().includes('vegan') ||
-            cuisine.toLowerCase().includes('vegetarian') ||
-            cuisine.toLowerCase().includes('gluten')
-        );
-        // update FilterContext state
-        setTags(cuisines);
-        setDiets(diets);
-      };
-
-      createFilters();
-    }
-  }, [category, setTags, setDiets, places]);
+  const { category, selectCategory } = useContext(PlacesContext);
+  const { tags, diets, priceLevels } = useFilter();
 
   return (
-    <Box sx={style.filterMenu}>
-      <Box sx={style.categorySelect}>
+    <Box component='section' sx={style.filterMenu}>
+      <Box component='fieldset' sx={style.categorySelect}>
         <FormControl fullWidth>
-          <InputLabel id='demo-simple-select-label'>Category</InputLabel>
+          <InputLabel id='category-select-label'>Category</InputLabel>
           <Select
-            labelId='demo-simple-select-label'
-            id='demo-simple-select'
+            labelId='category-select-label'
+            id='category-select'
             label='Category'
             value={category}
             onChange={(e) => selectCategory(e.target.value)}
@@ -91,7 +58,21 @@ const FilterMenu = ({ isLoaded }) => {
       <Divider />
       {/* {category === 'restaurant' && ( */}
       <>
-        <Box>
+        <Box component='fieldset'>
+          <Typography variant='h6'>Rating</Typography>
+          <Box sx={style.filterField}>
+            <Rating name='placeRating' precision={0.5} />
+          </Box>
+        </Box>
+        <Divider />
+        <Box component='fieldset'>
+          <Typography variant='h6'>Price Range</Typography>
+          <Box sx={style.filterField}>
+            <PriceSlider priceLevels={priceLevels} />
+          </Box>
+        </Box>
+        <Divider />
+        <Box component='fieldset'>
           <Typography variant='h6'>Dietary Restrictions</Typography>
           <List sx={style.filterField}>
             <FormGroup>
@@ -115,7 +96,7 @@ const FilterMenu = ({ isLoaded }) => {
           </List>
         </Box>
         <Divider />
-        <Box>
+        <Box component='fieldset'>
           <Typography variant='h6'>Tags</Typography>
           <List sx={style.filterField}>
             <FormGroup>
