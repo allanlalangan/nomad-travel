@@ -15,7 +15,7 @@ const theme = createTheme({
     },
     background: {
       default: 'hsl(190, 50%, 95%)',
-      appBar: 'hsl(205, 60%, 20%)',
+      appBar: 'hsl(205, 25%, 20%)',
     },
   },
   components: {
@@ -31,8 +31,8 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Barlow',
-    fontSize: 12,
+    fontFamily: 'Raleway',
+    fontSize: '11',
   },
   layout: {
     appBarHeight: 8,
