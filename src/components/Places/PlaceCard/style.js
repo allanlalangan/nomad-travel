@@ -9,52 +9,83 @@ const style = {
 
     position: 'relative',
 
-    boxShadow: (theme) => theme.shadows[2],
+    boxShadow: (theme) => theme.shadows[3],
 
-    borderRadius: 1,
+    borderRadius: 2,
   },
+
   imageContainer: {
     width: '100%',
     height: '50%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative',
-    zIndex: -1,
+    zIndex: -99,
+    boxShadow: (theme) => theme.shadows[1],
+    borderRadius: 2,
   },
 
   placeImage: {
+    borderRadius: 2,
     width: '100%',
     height: '100%',
-    objectFit: 'cover',
-    borderRadius: '0.5rem 0.5rem 0 0',
+    // objectFit: 'cover',
+    zIndex: -99,
   },
 
   placeHeading: {
-    width: '100%',
-    /* height: 25%, */
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-
-    position: 'absolute',
-    bottom: 0,
     color: 'white',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+    display: 'flex',
+
+    borderRadius: 2,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    boxShadow: (theme) => theme.shadows[2],
+  },
+
+  placeTitle: {
+    width: '100%',
     padding: '1rem',
-    zIndex: 100,
+    display: 'flex',
+  },
+
+  contactInfo: {
+    color: 'white',
+    position: 'absolute',
+    bottom: '100%',
+    width: '100%',
+    marginLeft: '-1rem',
+    padding: '1rem',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+
+    borderRadius: 2,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+  },
+
+  contactInfoEntry: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    overflowX: 'hidden',
+    padding: 0,
   },
 
   placeSummary: {
     height: '50%',
-    margin: 'auto',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-evenly',
+
     padding: '1rem',
+    position: 'relative',
   },
 
   summaryCustomers: {

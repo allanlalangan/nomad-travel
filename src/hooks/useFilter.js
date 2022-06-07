@@ -4,8 +4,16 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
 const useFilter = () => {
   const { category, places } = useContext(PlacesContext);
-  const { tags, setTags, diets, setDiets, priceLevels, setPriceLevels } =
-    useContext(FilterContext);
+  const {
+    priceLevels,
+    tagFilterOptions,
+    dietFilterOptions,
+    reserveFilterOptions,
+    setPriceLevels,
+    setTagFilter,
+    setDietFilter,
+    setReserveFilter,
+  } = useContext(FilterContext);
 
   useEffect(() => {
     if (places && places.length >= 1) {
@@ -33,13 +41,20 @@ const useFilter = () => {
     if (category === 'restaurant' && places && places.length >= 1) {
       // consolidate all cuisines from Places
       const cuisinesData = [];
+      const reservationData = [];
       places.forEach((place) => {
         place.cuisine?.forEach((cuisine) => {
-          if (!cuisinesData.includes(cuisine.name)) {
+          !cuisinesData.includes(cuisine.name) &&
             cuisinesData.push(cuisine.name);
-          }
         });
+
+        if (place.reserve_info) {
+          console.log(place.reserve_info.button_text);
+          !reservationData.includes(place.reserve_info.button_text) &&
+            reservationData.push(place.reserve_info.button_text);
+        }
       });
+
       // remove duplicates and create filter tags
       const createFilters = () => {
         const cuisines = cuisinesData.filter(
@@ -55,16 +70,23 @@ const useFilter = () => {
             cuisine.toLowerCase().includes('vegetarian') ||
             cuisine.toLowerCase().includes('gluten')
         );
+
         // update FilterContext state
-        setTags(cuisines);
-        setDiets(diets);
+        setTagFilter(cuisines);
+        setDietFilter(diets);
+        setReserveFilter(reservationData);
       };
 
       createFilters();
     }
-  }, [category, setTags, setDiets, places]);
+  }, [category, setTagFilter, setDietFilter, setReserveFilter, places]);
 
-  return { tags, diets, priceLevels };
+  return {
+    tagFilterOptions,
+    dietFilterOptions,
+    reserveFilterOptions,
+    priceLevels,
+  };
 };
 
 export default useFilter;

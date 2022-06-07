@@ -1,4 +1,4 @@
-import { useEffect, useRef, useContext } from 'react';
+import { useEffect, useRef, useContext, lazy, Suspense } from 'react';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 // components
 import PlaceCard from './PlaceCard/PlaceCard';
@@ -34,7 +34,7 @@ const Places = () => {
             liRefs.current[i] = element;
           }}
           liRef={placeCardRefs.length >= 1 ? placeCardRefs[i] : null}
-          key={i}
+          key={place.location_id}
           place={place}
         />
       ))}

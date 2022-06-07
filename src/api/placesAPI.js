@@ -9,7 +9,7 @@ export const getPlaces = async (bounds, category, source) => {
     params: {
       ...bounds,
       limit: '30',
-      // currency: 'USD',
+      currency: 'USD',
     },
     headers: {
       'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',

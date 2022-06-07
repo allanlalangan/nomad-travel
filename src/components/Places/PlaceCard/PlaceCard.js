@@ -5,22 +5,23 @@ import {
   Box,
   List,
   ListItem,
+  ListItemButton,
   Typography,
   Rating,
   Chip,
 } from '@mui/material';
 
+import { LocalPhone, Email, Language } from '@mui/icons-material';
+
 const PlaceCard = forwardRef(({ place }, ref) => {
   return (
     <ListItem disableGutters disablePadding ref={ref} sx={style.placeCard}>
+      <Box sx={style.placeHeading}>
+        <Typography sx={style.placeTitle} variant='h5'>
+          {place.name}
+        </Typography>
+      </Box>
       <Box component='figure' sx={style.imageContainer}>
-        <Box sx={style.placeHeading}>
-          <Typography variant='h5'>{place.name}</Typography>
-          <Box sx={style.contactInfo}>
-            <Typography variant='subtitle1'>{place.phone}</Typography>
-            <Typography variant='subtitle1'>{place.email}</Typography>
-          </Box>
-        </Box>
         {place.photo &&
         place.photo.images &&
         place.photo.images.large &&
@@ -37,6 +38,41 @@ const PlaceCard = forwardRef(({ place }, ref) => {
       </Box>
 
       <Box component='article' sx={style.placeSummary}>
+        <Box component='article' sx={style.contactInfo}>
+          {place.phone && (
+            <ListItemButton dense disableGutters sx={style.contactInfoEntry}>
+              <LocalPhone />
+              <Typography sx={style.entryText} variant='body1'>
+                {place.phone}
+              </Typography>
+            </ListItemButton>
+          )}
+          {place.email && (
+            <ListItemButton dense disableGutters sx={style.contactInfoEntry}>
+              <Email />
+              <Typography sx={style.entryText} variant='body1'>
+                {place.email.toLowerCase()}
+              </Typography>
+            </ListItemButton>
+          )}
+          {place.website && (
+            <ListItemButton dense disableGutters sx={style.contactInfoEntry}>
+              <Language />
+              <Typography sx={style.entryText} variant='body1'>
+                {(place.website.toLowerCase().includes('https://') &&
+                  place.website
+                    .toLowerCase()
+                    .replace('https://', '')
+                    .replace('/', '')) ||
+                  (place.website.toLowerCase().includes('http://') &&
+                    place.website
+                      .toLowerCase()
+                      .replace('http://', '')
+                      .replace('/', ''))}
+              </Typography>
+            </ListItemButton>
+          )}
+        </Box>
         <Box sx={style.summaryCustomers}>
           <Typography variant='body1' sx={style.placeRanking}>
             {place.ranking}
@@ -45,6 +81,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
             <Box sx={style.ratingContainer}>
               {place.rating && (
                 <Rating
+                  key={place.location_id}
                   name='place-rating'
                   value={Number(place.rating)}
                   precision={0.5}

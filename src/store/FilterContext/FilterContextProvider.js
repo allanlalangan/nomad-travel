@@ -4,35 +4,49 @@ import filterReducer from './filterReducer';
 export const FilterContext = createContext();
 
 const initState = {
-  rating: null,
+  active: false,
+  ratingFilter: null,
   pricesLevels: null,
-  tags: [],
-  diets: [],
+  tagFilterOptions: [],
+  dietFilterOptions: [],
+  reserveFilterOptions: [],
 };
 
 const FilterContextProvider = ({ children }) => {
   // useReducer
   const [state, dispatch] = useReducer(filterReducer, initState);
 
-  const setTags = useCallback((tags) => {
-    dispatch({ type: 'SET_TAGS', payload: { tags } });
+  const resetFilter = useCallback(() => {
+    dispatch({ type: 'RESET' });
   }, []);
 
-  const setDiets = useCallback((diets) => {
-    dispatch({ type: 'SET_DIETS', payload: { diets } });
+  const setTagFilter = useCallback((tags) => {
+    dispatch({ type: 'SET_TAG_FILTER', payload: { tags } });
+  }, []);
+
+  const setDietFilter = useCallback((diets) => {
+    dispatch({ type: 'SET_DIET_FILTER', payload: { diets } });
   }, []);
 
   const setPriceLevels = useCallback((prices) => {
     dispatch({ type: 'SET_PRICE_LEVELS', payload: { prices } });
   }, []);
 
+  const setReserveFilter = useCallback((options) => {
+    dispatch({ type: 'SET_RESERVE_FILTER', payload: { options } });
+  }, []);
+
   const context = {
-    tags: state.tags,
-    diets: state.diets,
+    active: state.active,
+    ratingFilter: state.ratingFilter,
     priceLevels: state.priceLevels,
-    setTags,
-    setDiets,
+    tagFilterOptions: state.tagFilterOptions,
+    dietFilterOptions: state.dietFilterOptions,
+    reserveFilterOptions: state.reserveFilterOptions,
+    setTagFilter,
+    setDietFilter,
     setPriceLevels,
+    setReserveFilter,
   };
 
   return (

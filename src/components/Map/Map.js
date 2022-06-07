@@ -124,11 +124,6 @@ const Map = () => {
     maxWidth: 200,
     disableAutoPan: true,
   };
-  const loadingInfoWindowOptions = {
-    pixelOffset: new window.google.maps.Size(-1, -25),
-    maxWidth: 200,
-    disableAutoPan: true,
-  };
 
   return (
     <>

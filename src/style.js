@@ -19,6 +19,7 @@ const style = {
     width: '25%',
     zIndex: 1000,
     boxShadow: (theme) => theme.shadows[8],
+    overFlowX: 'hidden',
   },
 
   map: {
