@@ -1,14 +1,14 @@
-import { useEffect, useRef, useContext, lazy, Suspense } from 'react';
+import { useEffect, useRef, useContext } from 'react';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 // components
 import PlaceCard from './PlaceCard/PlaceCard';
 // styles and ui
-import styles from './Places.module.css';
 import style from './style';
 import { List } from '@mui/material';
 
 const Places = () => {
-  const { places, placeCardRefs, setPlaceCardRefs } = useContext(PlacesContext);
+  const { status, places, placeCardRefs, setPlaceCardRefs } =
+    useContext(PlacesContext);
 
   useEffect(() => {
     console.log(places);
@@ -27,18 +27,20 @@ const Places = () => {
   }, [places, setPlaceCardRefs]);
 
   return (
-    <List disablePadding sx={style.placesList}>
-      {places?.map((place, i) => (
-        <PlaceCard
-          ref={(element) => {
-            liRefs.current[i] = element;
-          }}
-          liRef={placeCardRefs.length >= 1 ? placeCardRefs[i] : null}
-          key={place.location_id}
-          place={place}
-        />
-      ))}
-    </List>
+    status.isSuccess && (
+      <List disablePadding sx={style.placesList}>
+        {places?.map((place, i) => (
+          <PlaceCard
+            ref={(element) => {
+              liRefs.current[i] = element;
+            }}
+            liRef={placeCardRefs.length >= 1 ? placeCardRefs[i] : null}
+            key={place.location_id}
+            place={place}
+          />
+        ))}
+      </List>
+    )
   );
 };
 

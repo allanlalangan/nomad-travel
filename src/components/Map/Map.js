@@ -17,7 +17,6 @@ import { Paper, Typography, Rating } from '@mui/material/';
 
 const Map = () => {
   const {
-    status: mapStatus,
     setIsUpdating: setMapIsUpdating,
     setIsSuccess: setMapUpdateSuccess,
     coordinates,
@@ -37,10 +36,6 @@ const Map = () => {
     fetchSuccess: fetchPlacesSuccess,
     placeCardRefs,
   } = useContext(PlacesContext);
-
-  useEffect(() => {
-    console.log(mapStatus);
-  }, [mapStatus]);
 
   useEffect(() => {
     console.log(placesStatus);
@@ -148,7 +143,7 @@ const Map = () => {
         options={options}
         zoom={14}
       >
-        {placesStatus.isSuccess && places && places.length >= 1 && (
+        {placesStatus.isSuccess && (
           <GoogleMarkerClusterer averageCenter={true}>
             {(clusterer) =>
               places.map((place, i) => (
