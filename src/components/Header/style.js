@@ -3,6 +3,7 @@ const style = {
     width: '100%',
     height: (theme) => `${theme.layout.appBarHeight}vh`,
     backgroundColor: (theme) => theme.palette.background.appBar,
+    // backgroundColor: (theme) => theme.palette.primary.light,
   },
   toolBar: {
     minHeight: '100%',

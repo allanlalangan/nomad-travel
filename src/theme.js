@@ -7,12 +7,15 @@ const theme = createTheme({
     },
   },
   palette: {
+    primary: {
+      main: 'hsl(195, 50%, 75%)',
+    },
     secondary: {
       main: 'hsl(10, 100%, 75%)',
     },
     background: {
       default: 'hsl(190, 50%, 95%)',
-      appBar: 'hsl(205, 50%, 15%)',
+      appBar: 'hsl(205, 60%, 20%)',
     },
   },
   components: {

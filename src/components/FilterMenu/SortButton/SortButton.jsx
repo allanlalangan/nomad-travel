@@ -12,17 +12,20 @@ export default function SortButton() {
   };
   const handleClose = (e) => {
     setAnchor(null);
+  };
+
+  const handleSelect = (e) => {
     setSortOrder(e.target.textContent.toLowerCase());
+    setAnchor(null);
   };
 
   return (
     <div>
       <IconButton onClick={handleClick} sx={style.sortByButton}>
-        {sortOrder === 'descending' ? (
-          <FilterList />
-        ) : (
-          <FilterList sx={{ transform: 'rotate(180deg)' }} />
-        )}
+        {(sortOrder === 'descending' && <FilterList />) ||
+          (sortOrder === 'ascending' && (
+            <FilterList sx={{ transform: 'rotate(180deg)' }} />
+          ))}
       </IconButton>
       <Menu
         id='basic-menu'
@@ -33,10 +36,10 @@ export default function SortButton() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem value='descending' onClick={handleClose}>
+        <MenuItem value='descending' onClick={handleSelect}>
           Descending
         </MenuItem>
-        <MenuItem value='ascending' onClick={handleClose}>
+        <MenuItem value='ascending' onClick={handleSelect}>
           Ascending
         </MenuItem>
       </Menu>

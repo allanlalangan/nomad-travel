@@ -41,6 +41,7 @@ export default function PriceSlider({ priceLevels }) {
   return (
     <Box sx={{ width: '75%', margin: '0 auto' }}>
       <Slider
+        color='secondary'
         value={value}
         onChange={handleChange}
         valueLabelDisplay='off'

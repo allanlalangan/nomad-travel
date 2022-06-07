@@ -1,7 +1,4 @@
-// styles and ui
-import styles from './Header.module.css';
-import SearchBar from '../input/SearchBar/SearchBar';
-import { GiCompass } from 'react-icons/gi';
+import SearchBar from './SearchBar/SearchBar';
 import { Box, AppBar, Toolbar, Typography } from '@mui/material';
 import style from './style';
 

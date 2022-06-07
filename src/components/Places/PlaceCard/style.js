@@ -73,7 +73,6 @@ const style = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     overflowX: 'hidden',
-    // padding: 0,
   },
 
   entryText: {

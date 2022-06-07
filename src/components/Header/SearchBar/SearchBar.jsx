@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useContext } from 'react';
+import { useState, useCallback, useContext } from 'react';
 import { MapContext } from '../../../store/MapContext/MapContextProvider';
 import styles from './SearchBar.module.css';
 import { Autocomplete } from '@react-google-maps/api';
