@@ -71,9 +71,13 @@ const style = {
   contactInfoEntry: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     overflowX: 'hidden',
-    padding: 0,
+    // padding: 0,
+  },
+
+  entryText: {
+    padding: '0 1rem',
   },
 
   placeSummary: {

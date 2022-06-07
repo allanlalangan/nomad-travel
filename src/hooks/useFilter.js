@@ -20,15 +20,17 @@ const useFilter = () => {
       const availablePrices = [];
 
       places.forEach((place) => {
-        if (place.price_level && place.price_level.includes('-')) {
-          const placesPrices = place.price_level.split(' - ');
-          placesPrices.forEach((price) => {
-            !availablePrices.includes(price) && availablePrices.push(price);
-          });
-        } else if (place.price_level.length >= 1) {
-          const placesPrices = [`${place.price_level}`];
-          !availablePrices.includes(placesPrices[0]) &&
-            availablePrices.push(placesPrices[0]);
+        if (place.price_level) {
+          if (place.price_level.includes('-')) {
+            const placesPrices = place.price_level.split(' - ');
+            placesPrices.forEach((price) => {
+              !availablePrices.includes(price) && availablePrices.push(price);
+            });
+          } else if (place.price_level.length >= 1) {
+            const placesPrices = [`${place.price_level}`];
+            !availablePrices.includes(placesPrices[0]) &&
+              availablePrices.push(placesPrices[0]);
+          }
         }
       });
 
@@ -78,6 +80,13 @@ const useFilter = () => {
       };
 
       createFilters();
+    } else if (
+      category === 'hotel' ||
+      (category === 'attraction' && places && places.length >= 1)
+    ) {
+      setTagFilter([]);
+      setDietFilter([]);
+      setReserveFilter([]);
     }
   }, [category, setTagFilter, setDietFilter, setReserveFilter, places]);
 

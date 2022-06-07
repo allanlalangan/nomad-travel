@@ -79,91 +79,100 @@ const FilterMenu = ({ isLoaded }) => {
         </Box>
       </Box>
       <Container sx={style.filterForm}>
-        {/* {category === 'restaurant' && ( */}
-        <>
-          <Box component='fieldset'>
-            <Typography variant='h6'>Rating</Typography>
-            <Box sx={style.filterField}>
-              <Rating name='placeRating' precision={0.5} />
+        <Box component='fieldset'>
+          <Typography variant='h6'>Rating</Typography>
+          <Box sx={{ ...style.filterField, ...style.ratingField }}>
+            <Rating
+              sx={style.rating}
+              size='large'
+              name='placeRating'
+              precision={0.5}
+            />
+          </Box>
+        </Box>
+        <Divider />
+        {category !== 'attraction' && (
+          <>
+            <Box component='fieldset'>
+              <Typography variant='h6'>Price Range</Typography>
+              <Box sx={style.filterField}>
+                <PriceSlider priceLevels={priceLevels} />
+              </Box>
             </Box>
-          </Box>
-          <Divider />
-          <Box component='fieldset'>
-            <Typography variant='h6'>Price Range</Typography>
-            <Box sx={style.filterField}>
-              <PriceSlider priceLevels={priceLevels} />
+            <Divider />
+          </>
+        )}
+        {category === 'restaurant' && (
+          <>
+            <Box component='fieldset'>
+              <Typography variant='h6'>Reservations / Booking</Typography>
+              <List key={'tagFilter'} sx={style.filterField}>
+                <FormGroup>
+                  {reserveFilterOptions?.map((option, i) => (
+                    <>
+                      <ListItemButton
+                        key={option}
+                        dense
+                        sx={style.checkboxLiItem}
+                        disableGutters
+                      >
+                        <FilterOption
+                          key={i}
+                          label={
+                            option.includes('Reserve')
+                              ? `${option} Online`
+                              : option
+                          }
+                          value={option}
+                        />
+                      </ListItemButton>
+                    </>
+                  ))}
+                </FormGroup>
+              </List>
             </Box>
-          </Box>
-          <Divider />
-          <Box component='fieldset'>
-            <Typography variant='h6'>Reservations / Booking</Typography>
-            <List key={'tagFilter'} sx={style.filterField}>
-              <FormGroup>
-                {reserveFilterOptions?.map((option, i) => (
-                  <>
-                    <ListItemButton
-                      key={option}
-                      dense
-                      sx={style.checkboxLiItem}
-                      disableGutters
-                    >
-                      <FilterOption
-                        key={i}
-                        label={
-                          option.includes('Reserve')
-                            ? `${option} Online`
-                            : option
-                        }
-                        value={option}
-                      />
-                    </ListItemButton>
-                  </>
-                ))}
-              </FormGroup>
-            </List>
-          </Box>
-          <Divider />
-          <Box component='fieldset'>
-            <Typography variant='h6'>Dietary Restrictions</Typography>
-            <List key={'dietFilter'} sx={style.filterField}>
-              <FormGroup>
-                {dietFilterOptions?.map((diet, i) => (
-                  <>
-                    <ListItemButton
-                      key={diet}
-                      dense
-                      sx={style.checkboxLiItem}
-                      disableGutters
-                    >
-                      <FilterOption key={i} label={diet} value={diet} />
-                    </ListItemButton>
-                  </>
-                ))}
-              </FormGroup>
-            </List>
-          </Box>
-          <Divider />
-          <Box component='fieldset'>
-            <Typography variant='h6'>Tags</Typography>
-            <List sx={style.filterField}>
-              <FormGroup>
-                {tagFilterOptions?.map((tag, i) => (
-                  <>
-                    <ListItemButton
-                      key={tag}
-                      dense
-                      sx={style.checkboxLiItem}
-                      disableGutters
-                    >
-                      <FilterOption key={i} label={tag} value={tag} />
-                    </ListItemButton>
-                  </>
-                ))}
-              </FormGroup>
-            </List>
-          </Box>
-        </>
-        {/* )} */}
+            <Divider />
+            <Box component='fieldset'>
+              <Typography variant='h6'>Dietary Restrictions</Typography>
+              <List key={'dietFilter'} sx={style.filterField}>
+                <FormGroup>
+                  {dietFilterOptions?.map((diet, i) => (
+                    <>
+                      <ListItemButton
+                        key={diet}
+                        dense
+                        sx={style.checkboxLiItem}
+                        disableGutters
+                      >
+                        <FilterOption key={i} label={diet} value={diet} />
+                      </ListItemButton>
+                    </>
+                  ))}
+                </FormGroup>
+              </List>
+            </Box>
+            <Divider />
+            <Box component='fieldset'>
+              <Typography variant='h6'>Tags</Typography>
+              <List sx={style.filterField}>
+                <FormGroup>
+                  {tagFilterOptions?.map((tag, i) => (
+                    <>
+                      <ListItemButton
+                        key={tag}
+                        dense
+                        sx={style.checkboxLiItem}
+                        disableGutters
+                      >
+                        <FilterOption key={i} label={tag} value={tag} />
+                      </ListItemButton>
+                    </>
+                  ))}
+                </FormGroup>
+              </List>
+            </Box>
+          </>
+        )}
       </Container>
     </Box>
   );

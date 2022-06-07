@@ -20,11 +20,11 @@ const style = {
     padding: '1rem',
 
     backgroundColor: (theme) => theme.palette.background.default,
-    boxShadow: (theme) => theme.shadows[2],
+    boxShadow: (theme) => theme.shadows[1],
     borderRadius: 2,
     borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
+    // borderBottomLeftRadius: 0,
+    // borderBottomRightRadius: 0,
   },
 
   filterForm: {
@@ -45,7 +45,11 @@ const style = {
     // width: `calc(100% - 2rem)`,
   },
 
-  sortByButton: {},
+  ratingField: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '0 1rem 1rem 1rem',
+  },
 
   filterButtons: {
     display: 'flex',
