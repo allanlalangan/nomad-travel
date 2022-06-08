@@ -27,9 +27,9 @@ const Places = () => {
   }, [places, setPlaceCardRefs]);
 
   return (
-    status.isSuccess && (
-      <List disablePadding sx={style.placesList}>
-        {places?.map((place, i) => (
+    <List disablePadding sx={style.placesList}>
+      {status.isSuccess &&
+        places?.map((place, i) => (
           <PlaceCard
             ref={(element) => {
               liRefs.current[i] = element;
@@ -39,8 +39,7 @@ const Places = () => {
             place={place}
           />
         ))}
-      </List>
-    )
+    </List>
   );
 };
 
