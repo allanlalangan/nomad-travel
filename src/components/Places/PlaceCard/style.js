@@ -72,10 +72,11 @@ const style = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    overflowX: 'hidden',
   },
 
   entryText: {
+    overflowX: 'hidden',
+    textOverflow: 'ellipsis',
     padding: '0 1rem',
   },
 

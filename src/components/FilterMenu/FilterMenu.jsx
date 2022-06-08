@@ -37,8 +37,11 @@ const FilterMenu = ({ isLoaded }) => {
       <Box component='header' sx={style.filterHeader}>
         <Box component='fieldset' sx={style.categorySelect}>
           <FormControl fullWidth sx={style.categorySelectInput}>
-            <InputLabel id='category-select-label'>Category</InputLabel>
+            <InputLabel color='secondary' id='category-select-label'>
+              Category
+            </InputLabel>
             <Select
+              color='secondary'
               labelId='category-select-label'
               id='category-select'
               label='Category'
@@ -52,8 +55,11 @@ const FilterMenu = ({ isLoaded }) => {
             </Select>
           </FormControl>
           <FormControl fullWidth sx={style.categorySelectInput}>
-            <InputLabel id='sortBy-select-label'>Sort By</InputLabel>
+            <InputLabel color='secondary' id='sortBy-select-label'>
+              Sort By
+            </InputLabel>
             <Select
+              color='secondary'
               labelId='sortBy-select-label'
               id='sortBy-select'
               label='Sort By'

@@ -121,9 +121,30 @@ const PlaceCard = forwardRef(({ place }, ref) => {
 
         <List sx={style.tagsList}>
           {place?.cuisine?.length >= 1 &&
-            place.cuisine.map((cuisine) => (
+            place.cuisine.map(
+              (cuisine) =>
+                !cuisine.name.toLowerCase().includes('vegan') &&
+                !cuisine.name.toLowerCase().includes('vegetarian') &&
+                !cuisine.name.toLowerCase().includes('gluten') && (
+                  <ListItem disablePadding disableGutters>
+                    <Chip label={cuisine.name} />
+                  </ListItem>
+                )
+            )}
+        </List>
+
+        <List sx={style.dietsList}>
+          {place?.dietary_restrictions?.length >= 1 &&
+            place.dietary_restrictions.map((diet) => (
               <ListItem disablePadding disableGutters>
-                <Chip label={cuisine.name} />
+                <Chip
+                  label={
+                    (diet.name.toLowerCase().includes('glu') && 'GF') ||
+                    (diet.name.toLowerCase().includes('vege') && 'VF') ||
+                    (diet.name.toLowerCase().includes('vega') && 'V') ||
+                    diet.name
+                  }
+                />
               </ListItem>
             ))}
         </List>

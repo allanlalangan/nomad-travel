@@ -45,6 +45,14 @@ const style = {
     // width: `calc(100% - 2rem)`,
   },
 
+  categorySelectInput: {
+    '& .MuiOutlinedInput-root:hover': {
+      '& > fieldset': {
+        borderColor: (theme) => theme.palette.secondary.light,
+      },
+    },
+  },
+
   ratingField: {
     display: 'flex',
     justifyContent: 'center',

@@ -22,6 +22,13 @@ const style = {
     justifyContent: 'center',
   },
 
+  homeLink: {
+    transition: 'all 0.25s ease-in-out',
+    '&:hover': {
+      filter: 'contrast(125%) saturate(175%) hue-rotate(-10deg)',
+    },
+  },
+
   mainTitle: {
     width: '100%',
     fontFamily: 'Righteous',

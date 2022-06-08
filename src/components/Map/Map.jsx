@@ -41,9 +41,24 @@ const Map = () => {
     console.log(placesStatus);
   }, [placesStatus]);
 
+  useEffect(() => {
+    console.log(coordinates);
+  }, [coordinates]);
+  useEffect(() => {
+    console.log(bounds);
+  }, [bounds]);
+
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
+  }, []);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) => {
+        setCoordinates({ lat: latitude, lng: longitude });
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -71,8 +86,7 @@ const Map = () => {
     category,
   ]);
 
-  const onIdle = () => {
-    setMapIsUpdating();
+  const onTilesLoaded = () => {
     const {
       Ab: { h: bl_latitude },
       Ab: { j: tr_latitude },
@@ -86,11 +100,13 @@ const Map = () => {
       bl_longitude,
       tr_longitude,
     });
-    setMapUpdateSuccess();
+  };
+
+  const onDragStart = () => {
+    setMapIsUpdating();
   };
 
   const onDragEnd = () => {
-    setMapIsUpdating();
     setCoordinates({
       lat: mapRef.current.center.lat(),
       lng: mapRef.current.center.lng(),
@@ -117,7 +133,7 @@ const Map = () => {
   const infoWindowOptions = {
     pixelOffset: new window.google.maps.Size(-1, -25),
     maxWidth: 200,
-    disableAutoPan: true,
+    // disableAutoPan: true,
   };
 
   return (
@@ -136,7 +152,8 @@ const Map = () => {
       )}
       <GoogleMap
         onLoad={(map) => onMapLoad(map)}
-        onIdle={onIdle}
+        onTilesLoaded={onTilesLoaded}
+        onDragStart={onDragStart}
         onDragEnd={onDragEnd}
         mapContainerStyle={mapContainerStyle}
         center={coordinates}
@@ -153,6 +170,10 @@ const Map = () => {
                       placeCardRefs[i].scrollIntoView({
                         behavior: 'smooth',
                         block: 'center',
+                      });
+                      mapRef.current.panTo({
+                        lat: Number(place.latitude),
+                        lng: Number(place.longitude),
                       });
                     }}
                     onMouseOver={(marker) => {
