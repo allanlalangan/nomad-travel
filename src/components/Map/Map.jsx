@@ -36,14 +36,6 @@ const Map = () => {
     fetchSuccess: fetchPlacesSuccess,
     placeCardRefs,
   } = useContext(PlacesContext);
-
-  useEffect(() => {
-    console.log(placesStatus);
-  }, [placesStatus]);
-
-  useEffect(() => {
-    console.log(coordinates);
-  }, [coordinates]);
   useEffect(() => {
     console.log(bounds);
   }, [bounds]);
@@ -87,10 +79,32 @@ const Map = () => {
   ]);
 
   const onTilesLoaded = () => {
+    const latLngBounds = mapRef.current.getBounds();
+    const neBound = latLngBounds.getNorthEast();
+    const swBound = latLngBounds.getSouthWest();
+
+    // convert the bounds in pixels
+    const neBoundInPx = mapRef.current
+      .getProjection()
+      .fromLatLngToPoint(neBound);
+    const swBoundInPx = mapRef.current
+      .getProjection()
+      .fromLatLngToPoint(swBound);
+
+    const procX = (window.innerWidth * 0.375) / window.innerWidth;
+    const procY = window.innerHeight / window.innerHeight;
+    const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
+    const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
+
+    const newLatLng = mapRef.current
+      .getProjection()
+      .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
+
+    const bl_latitude = newLatLng.lat();
+    const bl_longitude = newLatLng.lng();
+
     const {
-      Ab: { h: bl_latitude },
       Ab: { j: tr_latitude },
-      Ua: { h: bl_longitude },
       Ua: { j: tr_longitude },
     } = mapRef.current.getBounds();
 
@@ -100,6 +114,20 @@ const Map = () => {
       bl_longitude,
       tr_longitude,
     });
+
+    // const {
+    //   Ab: { h: bl_latitude },
+    //   Ab: { j: tr_latitude },
+    //   Ua: { h: bl_longitude },
+    //   Ua: { j: tr_longitude },
+    // } = mapRef.current.getBounds();
+
+    // setBounds({
+    //   bl_latitude,
+    //   tr_latitude,
+    //   bl_longitude,
+    //   tr_longitude,
+    // });
   };
 
   const onDragStart = () => {
@@ -171,10 +199,10 @@ const Map = () => {
                         behavior: 'smooth',
                         block: 'center',
                       });
-                      mapRef.current.panTo({
-                        lat: Number(place.latitude),
-                        lng: Number(place.longitude),
-                      });
+                      // mapRef.current.panTo({
+                      //   lat: Number(place.latitude),
+                      //   lng: Number(place.longitude),
+                      // });
                     }}
                     onMouseOver={(marker) => {
                       setHoveredMarker({ marker: marker, place: place });

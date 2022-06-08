@@ -14,7 +14,7 @@ const theme = createTheme({
       main: 'hsl(10, 100%, 75%)',
     },
     background: {
-      default: 'hsl(190, 50%, 95%)',
+      default: 'hsl(200, 45%, 93%)',
       appBar: 'hsl(205, 25%, 20%)',
     },
   },

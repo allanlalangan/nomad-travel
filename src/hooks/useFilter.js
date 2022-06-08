@@ -10,8 +10,8 @@ const useFilter = () => {
     dietFilterOptions,
     reserveFilterOptions,
     setPriceLevels,
-    setTagFilter,
-    setDietFilter,
+    setTagFilterOptions,
+    setDietFilterOptions,
     setReserveFilter,
   } = useContext(FilterContext);
 
@@ -74,8 +74,8 @@ const useFilter = () => {
         );
 
         // update FilterContext state
-        setTagFilter(cuisines);
-        setDietFilter(diets);
+        setTagFilterOptions(cuisines);
+        setDietFilterOptions(diets);
         setReserveFilter(reservationData);
       };
 
@@ -84,11 +84,17 @@ const useFilter = () => {
       category === 'hotel' ||
       (category === 'attraction' && places && places.length >= 1)
     ) {
-      setTagFilter([]);
-      setDietFilter([]);
+      setTagFilterOptions([]);
+      setDietFilterOptions([]);
       setReserveFilter([]);
     }
-  }, [category, setTagFilter, setDietFilter, setReserveFilter, places]);
+  }, [
+    category,
+    setTagFilterOptions,
+    setDietFilterOptions,
+    setReserveFilter,
+    places,
+  ]);
 
   return {
     tagFilterOptions,

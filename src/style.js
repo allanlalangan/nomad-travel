@@ -1,6 +1,7 @@
 const style = {
   wrapper: {
     width: '100vw',
+    height: '100vh',
     display: 'flex',
     backgroundColor: (theme) => theme.palette.background.default,
   },
@@ -8,7 +9,7 @@ const style = {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    height: (theme) => `calc(100vh - ${theme.layout.appBarHeight}vh)`,
+    height: (theme) => `calc(100% - ${theme.layout.appBarHeight}%)`,
     marginTop: (theme) => `${theme.layout.appBarHeight}vh`,
   },
 

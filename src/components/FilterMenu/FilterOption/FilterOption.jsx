@@ -7,6 +7,7 @@ const FilterOption = ({ label, value }) => {
       sx={style.checkboxLabel}
       control={
         <Checkbox
+          color='secondary'
           onChange={(e) =>
             console.log(value, e.target.checked, e.target.labels[0].textContent)
           }

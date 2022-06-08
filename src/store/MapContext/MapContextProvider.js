@@ -56,6 +56,7 @@ const MapContextProvider = ({ children }) => {
     setHoveredMarker,
     setIsUpdating,
     setIsSuccess,
+    setIsError,
   };
   return <MapContext.Provider value={context}>{children}</MapContext.Provider>;
 };

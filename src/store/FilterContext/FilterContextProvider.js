@@ -21,11 +21,11 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'RESET' });
   }, []);
 
-  const setTagFilter = useCallback((tags) => {
+  const setTagFilterOptions = useCallback((tags) => {
     dispatch({ type: 'SET_TAG_FILTER', payload: { tags } });
   }, []);
 
-  const setDietFilter = useCallback((diets) => {
+  const setDietFilterOptions = useCallback((diets) => {
     dispatch({ type: 'SET_DIET_FILTER', payload: { diets } });
   }, []);
 
@@ -45,10 +45,11 @@ const FilterContextProvider = ({ children }) => {
     tagFilterOptions: state.tagFilterOptions,
     dietFilterOptions: state.dietFilterOptions,
     reserveFilterOptions: state.reserveFilterOptions,
-    setTagFilter,
-    setDietFilter,
+    setTagFilterOptions,
+    setDietFilterOptions,
     setPriceLevels,
     setReserveFilter,
+    resetFilter,
   };
 
   return (

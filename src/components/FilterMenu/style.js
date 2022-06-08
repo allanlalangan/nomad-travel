@@ -1,3 +1,5 @@
+import { alpha } from '@mui/material';
+
 const style = {
   filterMenu: {
     width: '100%',
@@ -6,7 +8,7 @@ const style = {
     left: 'calc(100% + 1rem)',
     top: '1rem',
     // overflowY: 'scroll',
-    backgroundColor: (theme) => theme.palette.background.default,
+    backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
     zIndex: 1000,
     borderRadius: '0 0.5rem 0.5rem 0.5rem',
     boxShadow: (theme) => theme.shadows[3],
@@ -65,6 +67,11 @@ const style = {
     justifyContent: 'center',
   },
 
+  fieldContainer: {
+    backgroundColor: (theme) => theme.palette.background.default,
+    // margin: '',
+    padding: '1rem',
+  },
   filterField: {
     width: '100%',
   },

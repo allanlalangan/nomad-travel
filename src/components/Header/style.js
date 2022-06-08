@@ -3,7 +3,7 @@ import { alpha } from '@mui/material';
 const style = {
   appBar: {
     width: '100%',
-    height: (theme) => `${theme.layout.appBarHeight}vh`,
+    height: (theme) => `${theme.layout.appBarHeight}%`,
     backgroundColor: (theme) => theme.palette.background.appBar,
     // backgroundColor: (theme) => theme.palette.primary.light,
   },
