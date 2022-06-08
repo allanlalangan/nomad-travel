@@ -4,6 +4,8 @@ const style = {
     height: '100vh',
     display: 'flex',
     backgroundColor: (theme) => theme.palette.background.default,
+    overFlowX: 'scroll',
+    overFlowY: 'scroll',
   },
   mainContent: {
     width: '100%',
@@ -17,14 +19,14 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
-    width: '25%',
+    // width: '25%',
     zIndex: 1000,
     boxShadow: (theme) => theme.shadows[8],
     overFlowX: 'hidden',
   },
 
   map: {
-    width: '75%',
+    width: '100%',
     height: '100%',
   },
 };

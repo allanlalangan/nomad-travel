@@ -7,6 +7,7 @@ const style = {
 
   statusMessage: {
     position: 'absolute',
+    right: '0',
     zIndex: 9999,
   },
 

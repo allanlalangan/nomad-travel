@@ -10,7 +10,7 @@ const initState = {
     isSuccess: false,
     message: '',
   },
-  category: '',
+  category: 'restaurant',
   places: [],
   placeCardRefs: [],
 };

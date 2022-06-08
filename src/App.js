@@ -25,10 +25,10 @@ const App = () => {
             <Box component='div' sx={style.wrapper}>
               <Header isLoaded={isLoaded} />
               <Container sx={style.mainContent} component='main'>
-                <Container component='section' sx={style.places}>
-                  <Places />
-                  <FilterMenu isLoaded={isLoaded} />
-                </Container>
+                {/* <Container component='section' sx={style.places}> */}
+                <Places />
+                <FilterMenu isLoaded={isLoaded} />
+                {/* </Container> */}
                 <Container component='section' sx={style.map}>
                   {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}
                 </Container>

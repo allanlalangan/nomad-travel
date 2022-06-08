@@ -23,18 +23,16 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         </Typography>
       </Box>
 
-      <Box component='figure' sx={style.imageContainer}>
-        {place?.photo?.images?.large?.url ? (
-          <CardMedia
-            component='img'
-            sx={style.placeImage}
-            src={place.photo.images.large.url}
-            alt={`Place card img of ${place.name}`}
-          />
-        ) : (
-          <Typography variant='body2'>Image unavailable</Typography>
-        )}
-      </Box>
+      {place?.photo?.images?.large?.url ? (
+        <CardMedia
+          component='img'
+          sx={style.placeImage}
+          src={place.photo.images.large.url}
+          alt={`Place card img of ${place.name}`}
+        />
+      ) : (
+        <Typography variant='body2'>Image unavailable</Typography>
+      )}
 
       <Box component='article' sx={style.placeSummary}>
         {place?.category?.name?.toLowerCase() !== 'hotel' && (

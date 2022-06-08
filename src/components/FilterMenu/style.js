@@ -2,20 +2,21 @@ import { alpha } from '@mui/material';
 
 const style = {
   filterMenu: {
-    width: '100%',
+    width: '20%',
     height: (theme) => `calc((100vh - ${theme.layout.appBarHeight}vh) - 2rem)`,
+    marginTop: (theme) => `${theme.layout.appBarHeight}vh`,
     position: 'absolute',
-    left: 'calc(100% + 1rem)',
+    left: 'calc(30% + 1rem)',
     top: '1rem',
     // overflowY: 'scroll',
-    backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
+    backgroundColor: (theme) => alpha(theme.palette.background.default, 0.7),
     zIndex: 1000,
     borderRadius: '0 0.5rem 0.5rem 0.5rem',
     boxShadow: (theme) => theme.shadows[3],
   },
 
   filterHeader: {
-    width: '25%',
+    width: '20%',
     position: 'fixed',
     height: (theme) =>
       `calc(((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .25)`,
@@ -34,6 +35,7 @@ const style = {
       `calc((((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .75) - 1rem)`,
     marginTop: (theme) =>
       `calc(((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .25)`,
+
     marginBottom: '1rem',
     overflowY: 'scroll',
     padding: '0 1rem',

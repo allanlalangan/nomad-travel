@@ -91,7 +91,7 @@ const Map = () => {
       .getProjection()
       .fromLatLngToPoint(swBound);
 
-    const procX = (window.innerWidth * 0.375) / window.innerWidth;
+    const procX = (window.innerWidth * 0.5) / window.innerWidth;
     const procY = window.innerHeight / window.innerHeight;
     const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
     const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
@@ -166,6 +166,9 @@ const Map = () => {
 
   return (
     <>
+      <Paper sx={style.statusMessage}>
+        <Typography variant='body1'>{window.innerWidth}</Typography>
+      </Paper>
       {placesStatus.isLoading && (
         <Paper sx={style.statusMessage}>
           <Typography variant='body1'>

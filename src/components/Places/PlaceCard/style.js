@@ -5,32 +5,21 @@ const style = {
     alignItems: 'center',
     justifyContent: 'center',
     margin: '1rem 0',
-    height: 'calc(100% - 2rem)',
+    height: (theme) => `calc((100vh - ${theme.layout.appBarHeight}vh) - 2rem)`,
 
     position: 'relative',
 
     boxShadow: (theme) => theme.shadows[3],
+    backgroundColor: (theme) => theme.palette.background.default,
 
-    borderRadius: 2,
-  },
-
-  imageContainer: {
-    width: '100%',
-    height: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: -99,
-    boxShadow: (theme) => theme.shadows[1],
     borderRadius: 2,
   },
 
   placeImage: {
+    height: '50%',
     borderRadius: 2,
     width: '100%',
-    height: '100%',
-    // objectFit: 'cover',
-    zIndex: -99,
+    objectFit: 'cover',
   },
 
   placeHeading: {
@@ -39,7 +28,7 @@ const style = {
     width: '100%',
     position: 'absolute',
     top: 0,
-    display: 'flex',
+    // display: 'flex',
 
     borderRadius: 2,
     borderBottomLeftRadius: 0,
@@ -117,7 +106,7 @@ const style = {
     overflowY: 'scroll',
 
     width: '100%',
-    height: '40%',
+    // height: '40%',
   },
 };
 
