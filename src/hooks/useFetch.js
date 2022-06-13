@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
-
-const useFetch = (category, bounds) => {
+const useFetch = () => {
   return {};
 };
 

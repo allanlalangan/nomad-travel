@@ -22,10 +22,12 @@ const Map = () => {
     setIsSuccess: setMapUpdateSuccess,
     coordinates,
     bounds,
+    googleMap,
     hoveredMarker,
     setCoordinates,
     setBounds,
     setHoveredMarker,
+    setGoogleMap,
   } = useContext(MapContext);
 
   const {
@@ -44,9 +46,13 @@ const Map = () => {
   // const { resetFilter } = useContext(FilterContext);
 
   const mapRef = useRef();
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map;
-  }, []);
+  const onMapLoad = useCallback(
+    (map) => {
+      mapRef.current = map;
+      setGoogleMap(mapRef.current);
+    },
+    [setGoogleMap]
+  );
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -100,17 +106,13 @@ const Map = () => {
     // });
 
     // fetch within cropped map bounds (bypass geodata of map area behind FilterMenu)
-    const latLngBounds = mapRef.current.getBounds();
+    const latLngBounds = googleMap.getBounds();
     const neBound = latLngBounds.getNorthEast();
     const swBound = latLngBounds.getSouthWest();
 
     // convert the bounds in pixels
-    const neBoundInPx = mapRef.current
-      .getProjection()
-      .fromLatLngToPoint(neBound);
-    const swBoundInPx = mapRef.current
-      .getProjection()
-      .fromLatLngToPoint(swBound);
+    const neBoundInPx = googleMap.getProjection().fromLatLngToPoint(neBound);
+    const swBoundInPx = googleMap.getProjection().fromLatLngToPoint(swBound);
 
     // calculate width
     const procX = (window.innerWidth * 0.3) / window.innerWidth;
@@ -118,7 +120,7 @@ const Map = () => {
     const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
     const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
 
-    const newLatLng = mapRef.current
+    const newLatLng = googleMap
       .getProjection()
       .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
 
@@ -128,7 +130,7 @@ const Map = () => {
     const {
       Ab: { j: tr_latitude },
       Ua: { j: tr_longitude },
-    } = mapRef.current.getBounds();
+    } = googleMap.getBounds();
 
     setBounds({
       bl_latitude,
@@ -144,8 +146,8 @@ const Map = () => {
 
   const onDragEnd = () => {
     setCoordinates({
-      lat: mapRef.current.center.lat(),
-      lng: mapRef.current.center.lng(),
+      lat: googleMap.center.lat(),
+      lng: googleMap.center.lng(),
     });
     setMapUpdateSuccess();
   };

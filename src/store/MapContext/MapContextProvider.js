@@ -10,13 +10,12 @@ const initState = {
     isSuccess: false,
     message: 'Loading Map',
   },
+  googleMap: null,
   coordinates: {
     lat: 45.5252,
     lng: -122.6584,
   },
   bounds: null,
-  places: [],
-  placeCardRefs: [],
   hoveredMarker: null,
 };
 
@@ -45,18 +44,24 @@ const MapContextProvider = ({ children }) => {
     dispatch({ type: 'SET_HOVERED_MARKER', payload: { hovered } });
   };
 
+  const setGoogleMap = useCallback((currentRef) => {
+    dispatch({ type: 'SET_GOOGLE_MAP', payload: { currentRef } });
+  }, []);
+
   const context = {
     status: state.status,
+    googleMap: state.googleMap,
     coordinates: state.coordinates,
     bounds: state.bounds,
     hoveredMarker: state.hoveredMarker,
     // functions
-    setCoordinates,
-    setBounds,
-    setHoveredMarker,
+    setGoogleMap,
     setIsUpdating,
     setIsSuccess,
     setIsError,
+    setCoordinates,
+    setBounds,
+    setHoveredMarker,
   };
   return <MapContext.Provider value={context}>{children}</MapContext.Provider>;
 };
