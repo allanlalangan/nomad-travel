@@ -1,8 +1,6 @@
 const style = {
   fieldContainer: {
     backgroundColor: (theme) => theme.palette.background.default,
-    // margin: '',
-    padding: '1rem 0',
   },
   filterField: {
     width: '100%',

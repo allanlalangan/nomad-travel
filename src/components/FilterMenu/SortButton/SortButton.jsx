@@ -20,7 +20,7 @@ export default function SortButton() {
   };
 
   return (
-    <div>
+    <>
       <IconButton onClick={handleClick} sx={style.sortByButton}>
         {(sortOrder === 'descending' && <FilterList />) ||
           (sortOrder === 'ascending' && (
@@ -43,6 +43,6 @@ export default function SortButton() {
           Ascending
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }

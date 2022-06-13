@@ -18,11 +18,17 @@ const style = {
 
   filterHeader: {
     width: containerWidth,
-    position: 'fixed',
-    // height: '100%',
+    // position: 'fixed',
+    position: 'absolute',
+    top: 0,
+    height: '25%',
     // height: (theme) =>
     //   `calc(((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .25)`,
-    padding: '1rem',
+    // padding: '1rem',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
 
     backgroundColor: (theme) => theme.palette.background.default,
     boxShadow: (theme) => theme.shadows[1],
@@ -44,9 +50,12 @@ const style = {
   },
 
   categorySelect: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+
+    margin: 0,
     // width: `calc(100% - 2rem)`,
   },
 
