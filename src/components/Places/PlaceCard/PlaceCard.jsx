@@ -9,9 +9,7 @@ import {
   Rating,
   Chip,
 } from '@mui/material';
-
 import { LocalPhone, Email, Language } from '@mui/icons-material';
-
 import style from './style';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
