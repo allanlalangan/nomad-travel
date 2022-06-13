@@ -2,6 +2,7 @@ const filterReducer = (state, { type, payload }) => {
   switch (type) {
     case 'RESET':
       return state;
+    // return {...state, active: false};
     case 'SET_PRICE_LEVELS':
       const availablePriceLevels = payload.prices;
       return { ...state, priceLevels: availablePriceLevels };
@@ -22,6 +23,12 @@ const filterReducer = (state, { type, payload }) => {
       return {
         ...state,
         dietFilterOptions: dietOptions,
+      };
+    case 'SET_FILTER_FIELDS':
+      const fields = payload.fields;
+      return {
+        ...state,
+        filterFields: fields,
       };
     default:
       throw new Error(`No case for ${type}`);

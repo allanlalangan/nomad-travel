@@ -1,8 +1,10 @@
 import { alpha } from '@mui/material';
 
+const containerWidth = '20vw';
+
 const style = {
   filterMenu: {
-    width: '100%',
+    width: containerWidth,
     height: (theme) => `calc((100vh - ${theme.layout.appBarHeight}vh) - 2rem)`,
     position: 'absolute',
     left: 'calc(100% + 1rem)',
@@ -15,10 +17,11 @@ const style = {
   },
 
   filterHeader: {
-    width: '25%',
+    width: containerWidth,
     position: 'fixed',
-    height: (theme) =>
-      `calc(((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .25)`,
+    // height: '100%',
+    // height: (theme) =>
+    //   `calc(((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .25)`,
     padding: '1rem',
 
     backgroundColor: (theme) => theme.palette.background.default,
@@ -37,7 +40,7 @@ const style = {
     marginBottom: '1rem',
     overflowY: 'scroll',
     padding: '0 1rem',
-    paddingTop: '1rem',
+    // paddingTop: '1rem',
   },
 
   categorySelect: {
@@ -58,7 +61,6 @@ const style = {
   ratingField: {
     display: 'flex',
     justifyContent: 'center',
-    padding: '0 1rem 1rem 1rem',
   },
 
   filterButtons: {
@@ -70,16 +72,6 @@ const style = {
   fieldContainer: {
     backgroundColor: (theme) => theme.palette.background.default,
     // margin: '',
-    padding: '1rem',
-  },
-  filterField: {
-    width: '100%',
-  },
-
-  checkboxLiItem: {
-    width: '100%',
-    height: '100%',
-    padding: 0,
   },
   checkboxLabel: {
     width: '100%',

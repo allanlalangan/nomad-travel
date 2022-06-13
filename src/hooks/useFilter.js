@@ -4,19 +4,15 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
 const useFilter = () => {
   const { category, places } = useContext(PlacesContext);
-  const {
-    priceLevels,
-    tagFilterOptions,
-    dietFilterOptions,
-    reserveFilterOptions,
-    setPriceLevels,
-    setTagFilterOptions,
-    setDietFilterOptions,
-    setReserveFilter,
-  } = useContext(FilterContext);
+  const { priceLevels, setPriceLevels, filterFields, setFilterFields } =
+    useContext(FilterContext);
 
   useEffect(() => {
-    if (places && places.length >= 1) {
+    const cuisineOptions = [];
+    const dietOptions = [];
+    const reservationOptions = [];
+    const subCategoryOptions = [];
+    if (places?.length >= 1) {
       const availablePrices = [];
 
       places.forEach((place) => {
@@ -36,70 +32,62 @@ const useFilter = () => {
 
       const priceRange = availablePrices.sort((a, b) => a.length - b.length);
       setPriceLevels(priceRange);
-    }
-  }, [places, setPriceLevels]);
 
-  useEffect(() => {
-    if (category === 'restaurant' && places && places.length >= 1) {
-      // consolidate all cuisines from Places
-      const cuisinesData = [];
-      const reservationData = [];
+      // create + set FilterFields
       places.forEach((place) => {
+        place.subcategory?.forEach((sub) => {
+          !subCategoryOptions.includes(sub.name) &&
+            subCategoryOptions.push(sub.name);
+        });
+
+        if (place.subcategory_type_label) {
+          !subCategoryOptions.includes(place.subcategory_type_label) &&
+            subCategoryOptions.push(place.subcategory_type_label);
+        }
         place.cuisine?.forEach((cuisine) => {
-          !cuisinesData.includes(cuisine.name) &&
-            cuisinesData.push(cuisine.name);
+          if (
+            cuisine.name.toLowerCase().includes('bar') ||
+            cuisine.name.toLowerCase().includes('pub') ||
+            cuisine.name.toLowerCase().includes('diner') ||
+            cuisine.name.toLowerCase().includes('house') ||
+            cuisine.name.toLowerCase().includes('fast')
+          ) {
+            !subCategoryOptions.includes(cuisine.name) &&
+              subCategoryOptions.push(cuisine.name);
+          } else if (
+            !cuisineOptions.includes(cuisine.name) &&
+            !cuisine.name.toLowerCase().includes('vega') &&
+            !cuisine.name.toLowerCase().includes('vege') &&
+            !cuisine.name.toLowerCase().includes('cafe') &&
+            !cuisine.name.toLowerCase().includes('glut')
+          ) {
+            cuisineOptions.push(cuisine.name);
+          }
+        });
+
+        place.dietary_restrictions?.forEach((diet) => {
+          !dietOptions.includes(diet.name) && dietOptions.push(diet.name);
         });
 
         if (place.reserve_info) {
-          console.log(place.reserve_info.button_text);
-          !reservationData.includes(place.reserve_info.button_text) &&
-            reservationData.push(place.reserve_info.button_text);
+          !reservationOptions.includes(place.reserve_info.button_text) &&
+            reservationOptions.push(place.reserve_info.button_text);
         }
       });
 
-      // remove duplicates and create filter tags
-      const createFilters = () => {
-        const cuisines = cuisinesData.filter(
-          (cuisine) =>
-            !cuisine.toLowerCase().includes('vegan') &&
-            !cuisine.toLowerCase().includes('vegetarian') &&
-            !cuisine.toLowerCase().includes('gluten')
-        );
+      const fields = [
+        { fieldLabel: 'Reservations', options: reservationOptions },
+        { fieldLabel: 'Sub-category', options: subCategoryOptions },
+        { fieldLabel: 'Dietary Restrictions', options: dietOptions },
+        { fieldLabel: 'Cuisine', options: cuisineOptions },
+      ];
 
-        const diets = cuisinesData.filter(
-          (cuisine) =>
-            cuisine.toLowerCase().includes('vegan') ||
-            cuisine.toLowerCase().includes('vegetarian') ||
-            cuisine.toLowerCase().includes('gluten')
-        );
-
-        // update FilterContext state
-        setTagFilterOptions(cuisines);
-        setDietFilterOptions(diets);
-        setReserveFilter(reservationData);
-      };
-
-      createFilters();
-    } else if (
-      category === 'hotel' ||
-      (category === 'attraction' && places && places.length >= 1)
-    ) {
-      setTagFilterOptions([]);
-      setDietFilterOptions([]);
-      setReserveFilter([]);
+      setFilterFields(fields.filter((field) => field.options.length >= 1));
     }
-  }, [
-    category,
-    setTagFilterOptions,
-    setDietFilterOptions,
-    setReserveFilter,
-    places,
-  ]);
+  }, [category, places, setPriceLevels, setFilterFields]);
 
   return {
-    tagFilterOptions,
-    dietFilterOptions,
-    reserveFilterOptions,
+    filterFields,
     priceLevels,
   };
 };

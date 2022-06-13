@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, useCallback, createContext } from 'react';
 import mapReducer from './mapReducer';
 
 export const MapContext = createContext();
@@ -33,9 +33,9 @@ const MapContextProvider = ({ children }) => {
     dispatch({ type: 'IS_LOADED' });
   };
 
-  const setCoordinates = (coordinates) => {
+  const setCoordinates = useCallback((coordinates) => {
     dispatch({ type: 'SET_COORDINATES', payload: { coordinates } });
-  };
+  }, []);
 
   const setBounds = (bounds) => {
     dispatch({ type: 'SET_BOUNDS', payload: { bounds } });

@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef, useContext } from 'react';
 import { MapContext } from '../../store/MapContext/MapContextProvider';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
+// import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 import { getPlaces } from '../../api/placesAPI';
 import {
   GoogleMap,
@@ -40,6 +41,8 @@ const Map = () => {
     console.log(bounds);
   }, [bounds]);
 
+  // const { resetFilter } = useContext(FilterContext);
+
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
@@ -51,7 +54,7 @@ const Map = () => {
         setCoordinates({ lat: latitude, lng: longitude });
       }
     );
-  }, []);
+  }, [setCoordinates]);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -79,6 +82,24 @@ const Map = () => {
   ]);
 
   const onTilesLoaded = () => {
+    // resetFilter();
+
+    // fetch all of map window bounds (default)
+    // const {
+    //   Ab: { h: bl_latitude },
+    //   Ab: { j: tr_latitude },
+    //   Ua: { h: bl_longitude },
+    //   Ua: { j: tr_longitude },
+    // } = mapRef.current.getBounds();
+
+    // setBounds({
+    //   bl_latitude,
+    //   tr_latitude,
+    //   bl_longitude,
+    //   tr_longitude,
+    // });
+
+    // fetch within cropped map bounds (bypass geodata of map area behind FilterMenu)
     const latLngBounds = mapRef.current.getBounds();
     const neBound = latLngBounds.getNorthEast();
     const swBound = latLngBounds.getSouthWest();
@@ -91,7 +112,8 @@ const Map = () => {
       .getProjection()
       .fromLatLngToPoint(swBound);
 
-    const procX = (window.innerWidth * 0.375) / window.innerWidth;
+    // calculate width
+    const procX = (window.innerWidth * 0.3) / window.innerWidth;
     const procY = window.innerHeight / window.innerHeight;
     const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
     const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
@@ -114,20 +136,6 @@ const Map = () => {
       bl_longitude,
       tr_longitude,
     });
-
-    // const {
-    //   Ab: { h: bl_latitude },
-    //   Ab: { j: tr_latitude },
-    //   Ua: { h: bl_longitude },
-    //   Ua: { j: tr_longitude },
-    // } = mapRef.current.getBounds();
-
-    // setBounds({
-    //   bl_latitude,
-    //   tr_latitude,
-    //   bl_longitude,
-    //   tr_longitude,
-    // });
   };
 
   const onDragStart = () => {
@@ -161,7 +169,6 @@ const Map = () => {
   const infoWindowOptions = {
     pixelOffset: new window.google.maps.Size(-1, -25),
     maxWidth: 200,
-    // disableAutoPan: true,
   };
 
   return (
@@ -169,7 +176,7 @@ const Map = () => {
       {placesStatus.isLoading && (
         <Paper sx={style.statusMessage}>
           <Typography variant='body1'>
-            Loading {JSON.stringify(placesStatus)}
+            Fetching most popular places in this area...
           </Typography>
         </Paper>
       )}
@@ -199,10 +206,6 @@ const Map = () => {
                         behavior: 'smooth',
                         block: 'center',
                       });
-                      // mapRef.current.panTo({
-                      //   lat: Number(place.latitude),
-                      //   lng: Number(place.longitude),
-                      // });
                     }}
                     onMouseOver={(marker) => {
                       setHoveredMarker({ marker: marker, place: place });

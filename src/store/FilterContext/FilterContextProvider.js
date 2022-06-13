@@ -7,6 +7,7 @@ const initState = {
   active: false,
   ratingFilter: null,
   pricesLevels: null,
+  filterFields: null,
   reserveFilter: null,
   tagFilterOptions: [],
   dietFilterOptions: [],
@@ -21,34 +22,21 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'RESET' });
   }, []);
 
-  const setTagFilterOptions = useCallback((tags) => {
-    dispatch({ type: 'SET_TAG_FILTER', payload: { tags } });
-  }, []);
-
-  const setDietFilterOptions = useCallback((diets) => {
-    dispatch({ type: 'SET_DIET_FILTER', payload: { diets } });
-  }, []);
-
   const setPriceLevels = useCallback((prices) => {
     dispatch({ type: 'SET_PRICE_LEVELS', payload: { prices } });
   }, []);
 
-  const setReserveFilter = useCallback((options) => {
-    dispatch({ type: 'SET_RESERVE_FILTER', payload: { options } });
+  const setFilterFields = useCallback((fields) => {
+    dispatch({ type: 'SET_FILTER_FIELDS', payload: { fields } });
   }, []);
 
   const context = {
     active: state.active,
     ratingFilter: state.ratingFilter,
     priceLevels: state.priceLevels,
-    reserveFilter: state.reserveFilter,
-    tagFilterOptions: state.tagFilterOptions,
-    dietFilterOptions: state.dietFilterOptions,
-    reserveFilterOptions: state.reserveFilterOptions,
-    setTagFilterOptions,
-    setDietFilterOptions,
+    filterFields: state.filterFields,
     setPriceLevels,
-    setReserveFilter,
+    setFilterFields,
     resetFilter,
   };
 
