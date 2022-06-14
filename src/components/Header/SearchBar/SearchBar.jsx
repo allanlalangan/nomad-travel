@@ -1,8 +1,8 @@
 import { useState, useCallback, useContext } from 'react';
 import { MapContext } from '../../../store/MapContext/MapContextProvider';
-import styles from './SearchBar.module.css';
+
 import { Autocomplete } from '@react-google-maps/api';
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import style from './style';
 
 const SearchBar = () => {
@@ -46,11 +46,11 @@ const SearchBar = () => {
     setMapUpdateSuccess,
   ]);
   return (
-    <div className={styles.container}>
+    <Box sx={style.container}>
       <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
         <TextField variant='outlined' size='small' sx={style.textField} />
       </Autocomplete>
-    </div>
+    </Box>
   );
 };
 export default SearchBar;
