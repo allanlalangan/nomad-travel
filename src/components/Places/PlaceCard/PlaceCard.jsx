@@ -75,7 +75,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         )}
 
         <Box sx={style.summaryCustomers}>
-          <Typography variant='body1' sx={style.placeRanking}>
+          <Typography variant='subtitle' sx={style.placeRanking}>
             {place?.ranking}
           </Typography>
           {Number(place.num_reviews) >= 1 ? (
@@ -117,7 +117,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
           )}
         </Box>
 
-        <List sx={style.tagsList}>
+        {/* <List sx={style.tagsList}>
           {place?.cuisine?.length >= 1 &&
             place.cuisine.map(
               (cuisine) =>
@@ -145,7 +145,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
                 />
               </ListItem>
             ))}
-        </List>
+        </List> */}
       </Box>
     </ListItem>
   );

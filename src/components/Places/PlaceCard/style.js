@@ -86,7 +86,7 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
 
     padding: '1rem',
     position: 'relative',

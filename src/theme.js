@@ -31,8 +31,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Raleway',
-    fontSize: '11',
+    fontSize: '12',
   },
   layout: {
     appBarHeight: 8,
