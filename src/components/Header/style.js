@@ -3,12 +3,14 @@ import { alpha } from '@mui/material';
 const style = {
   appBar: {
     width: '100%',
-    height: (theme) => `${theme.layout.appBarHeight}%`,
+    height: (theme) => `${theme.layout.appBarHeight}vh`,
     backgroundColor: (theme) => theme.palette.background.dark,
     // backgroundColor: (theme) => theme.palette.primary.light,
   },
   toolBar: {
-    minHeight: '100%',
+    '&.MuiToolbar-root': {
+      minHeight: '0',
+    },
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -16,7 +18,7 @@ const style = {
 
   logo: {
     width: '25%',
-    // minHeight: '100%',
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

@@ -1,10 +1,9 @@
 import { alpha } from '@mui/material';
 
-const containerWidth = '20vw';
-
 const style = {
   filterMenu: {
-    width: containerWidth,
+    display: { xs: 'none', sm: 'block' },
+    width: 'calc(100% - 30%)',
     height: (theme) => `calc((100vh - ${theme.layout.appBarHeight}vh) - 2rem)`,
     position: 'absolute',
     left: 'calc(100% + 1rem)',
@@ -17,7 +16,7 @@ const style = {
   },
 
   filterHeader: {
-    width: containerWidth,
+    width: '100%',
 
     position: 'absolute',
     top: 0,

@@ -14,17 +14,17 @@ const style = {
   },
 
   places: {
-    display: 'flex',
+    display: { xs: 'none', md: 'flex' },
     flexDirection: 'column',
     position: 'relative',
-    width: '30vw',
+    width: '30%',
     zIndex: 1000,
     boxShadow: (theme) => theme.shadows[8],
     overFlowX: 'hidden',
   },
 
   map: {
-    width: '70%',
+    width: { sm: '100%', md: '70%' },
     height: '100%',
   },
 };
