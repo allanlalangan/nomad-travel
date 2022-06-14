@@ -1,4 +1,5 @@
 import { FormControlLabel, Checkbox } from '@mui/material';
+
 import style from './style';
 
 const FilterOption = ({ label, value }) => {
@@ -11,7 +12,7 @@ const FilterOption = ({ label, value }) => {
           onChange={(e) =>
             console.log(value, e.target.checked, e.target.labels[0].textContent)
           }
-          value={value}
+          value={value.toLowerCase()}
           sx={style.checkbox}
           disableRipple
         />

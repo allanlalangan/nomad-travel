@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Slider, Box } from '@mui/material';
 
+import style from './style';
+
 const initMarks = [
   {
     value: 1,
@@ -20,18 +22,26 @@ const initMarks = [
   },
 ];
 
+const initValue = [1, 4];
+
 export default function PriceSlider({ priceLevels }) {
   const [value, setValue] = useState([1, 4]);
   const [marks, setMarks] = useState(null);
 
   useEffect(() => {
-    if (priceLevels?.length >= 1) {
+    priceLevels?.length === 1 &&
+      setValue([priceLevels[0].length, priceLevels[0].length]);
+
+    if (priceLevels?.length > 1) {
       const currentMarks = priceLevels.map((price) => ({
         value: price.length,
         label: price,
       }));
       setMarks(currentMarks);
-      setValue([priceLevels[0], priceLevels[priceLevels.length - 1]]);
+      setValue([
+        priceLevels[0].length,
+        priceLevels[priceLevels.length - 1].length,
+      ]);
     }
   }, [priceLevels]);
 
@@ -41,10 +51,10 @@ export default function PriceSlider({ priceLevels }) {
   };
 
   return (
-    <Box sx={{ width: '75%', margin: '0 auto' }}>
+    <Box sx={style.container}>
       <Slider
-        color='secondary'
-        value={value}
+        color='tertiary'
+        value={value || initValue}
         onChange={handleChange}
         valueLabelDisplay='off'
         step={1}

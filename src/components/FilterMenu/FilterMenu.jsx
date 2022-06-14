@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 
 import style from './style';
@@ -7,9 +7,6 @@ import {
   Container,
   Box,
   Divider,
-  List,
-  ListItemButton,
-  FormGroup,
   FormControl,
   Rating,
   InputLabel,
@@ -19,18 +16,23 @@ import {
 } from '@mui/material';
 
 import PriceSlider from './PriceSlider/PriceSlider';
-import FilterOption from './FilterOption/FilterOption';
 import SortButton from './SortButton/SortButton';
 import useFilter from '../../hooks/useFilter';
+import FilterField from './FilterField/FilterField';
 
 const FilterMenu = ({ isLoaded }) => {
-  const { category, selectCategory } = useContext(PlacesContext);
   const {
-    tagFilterOptions,
-    dietFilterOptions,
-    reserveFilterOptions,
-    priceLevels,
-  } = useFilter();
+    status: placesStatus,
+    places,
+    category,
+    selectCategory,
+  } = useContext(PlacesContext);
+
+  const { priceLevels, filterFields } = useFilter();
+
+  useEffect(() => {
+    console.log(filterFields);
+  }, [filterFields]);
 
   return (
     <Box component='section' sx={style.filterMenu}>
@@ -63,7 +65,9 @@ const FilterMenu = ({ isLoaded }) => {
               labelId='sortBy-select-label'
               id='sortBy-select'
               label='Sort By'
-              disabled={!isLoaded}
+              disabled={
+                !isLoaded || places.length < 1 || placesStatus.isLoading
+              }
               defaultValue='rank'
             >
               <MenuItem value={'rank'}>Rank</MenuItem>
@@ -74,109 +78,62 @@ const FilterMenu = ({ isLoaded }) => {
           <SortButton />
         </Box>
 
-        <Typography variant='h5'>Filters</Typography>
-        <Box sx={style.filterButtons}>
-          <Button variant='container' disabled={!isLoaded}>
-            Apply Filters
-          </Button>
-          <Button variant='outlined' disabled={!isLoaded}>
-            Reset
-          </Button>
-        </Box>
+        {placesStatus.isSuccess && (
+          <>
+            <Typography variant='h5'>Filters</Typography>
+            <Box sx={style.filterButtons}>
+              <Button
+                // color='primary'
+                variant='contained'
+                disableElevation
+                disabled={!isLoaded}
+                sx={style.applyFilterButton}
+              >
+                Apply Filters
+              </Button>
+              <Button variant='outlined' disabled={!isLoaded}>
+                Reset
+              </Button>
+            </Box>
+          </>
+        )}
       </Box>
-      <Container sx={style.filterForm}>
-        <Box sx={style.fieldContainer} component='fieldset'>
-          <Typography variant='h6'>Rating</Typography>
-          <Box sx={{ ...style.filterField, ...style.ratingField }}>
-            <Rating
-              sx={style.rating}
-              size='large'
-              name='placeRating'
-              precision={0.5}
-            />
+
+      {placesStatus.isSuccess && (
+        <Container sx={style.filterForm}>
+          <Box sx={style.fieldContainer} component='fieldset'>
+            <Typography variant='h6'>Rating</Typography>
+            <Box sx={{ ...style.filterField, ...style.ratingField }}>
+              <Rating
+                sx={style.rating}
+                size='large'
+                name='placeRating'
+                precision={0.5}
+              />
+            </Box>
           </Box>
-        </Box>
-        <Divider />
-        {category !== 'attraction' && (
-          <>
-            <Box sx={style.fieldContainer} component='fieldset'>
-              <Typography variant='h6'>Price Range</Typography>
-              <Box sx={style.filterField}>
-                <PriceSlider priceLevels={priceLevels} />
+          <Divider />
+          {category !== 'attraction' && (
+            <>
+              <Box sx={style.fieldContainer} component='fieldset'>
+                <Typography variant='h6'>Price Range</Typography>
+                <Box sx={style.filterField}>
+                  <PriceSlider priceLevels={priceLevels} />
+                </Box>
               </Box>
-            </Box>
-            <Divider />
-          </>
-        )}
-        {category === 'restaurant' && (
-          <>
-            <Box sx={style.fieldContainer} component='fieldset'>
-              <Typography variant='h6'>Reservations / Booking</Typography>
-              <List key={'tagFilter'} sx={style.filterField}>
-                <FormGroup>
-                  {reserveFilterOptions?.map((option, i) => (
-                    <>
-                      <ListItemButton
-                        key={option}
-                        sx={style.checkboxLiItem}
-                        disableGutters
-                      >
-                        <FilterOption
-                          key={i}
-                          label={
-                            option.includes('Reserve')
-                              ? `${option} Online`
-                              : option
-                          }
-                          value={option}
-                        />
-                      </ListItemButton>
-                    </>
-                  ))}
-                </FormGroup>
-              </List>
-            </Box>
-            <Divider />
-            <Box sx={style.fieldContainer} component='fieldset'>
-              <Typography variant='h6'>Dietary Restrictions</Typography>
-              <List key={'dietFilter'} sx={style.filterField}>
-                <FormGroup>
-                  {dietFilterOptions?.map((diet, i) => (
-                    <>
-                      <ListItemButton
-                        key={diet}
-                        sx={style.checkboxLiItem}
-                        disableGutters
-                      >
-                        <FilterOption key={i} label={diet} value={diet} />
-                      </ListItemButton>
-                    </>
-                  ))}
-                </FormGroup>
-              </List>
-            </Box>
-            <Divider />
-            <Box sx={style.fieldContainer} component='fieldset'>
-              <Typography variant='h6'>Tags</Typography>
-              <List sx={style.filterField}>
-                <FormGroup>
-                  {tagFilterOptions?.map((tag, i) => (
-                    <>
-                      <ListItemButton
-                        key={tag}
-                        sx={style.checkboxLiItem}
-                        disableGutters
-                      >
-                        <FilterOption key={i} label={tag} value={tag} />
-                      </ListItemButton>
-                    </>
-                  ))}
-                </FormGroup>
-              </List>
-            </Box>
-          </>
-        )}
-      </Container>
+              <Divider />
+            </>
+          )}
+
+          {filterFields?.length >= 1 &&
+            filterFields.map((field) => (
+              <>
+                <FilterField field={field} />
+                <Divider />
+              </>
+            ))}
+        </Container>
+      )}
     </Box>
   );
 };

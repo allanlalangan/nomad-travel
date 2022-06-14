@@ -4,7 +4,7 @@ const style = {
   appBar: {
     width: '100%',
     height: (theme) => `${theme.layout.appBarHeight}%`,
-    backgroundColor: (theme) => theme.palette.background.appBar,
+    backgroundColor: (theme) => theme.palette.background.dark,
     // backgroundColor: (theme) => theme.palette.primary.light,
   },
   toolBar: {
@@ -40,7 +40,7 @@ const style = {
     textTransform: 'uppercase',
     zIndex: '0',
 
-    color: (theme) => theme.palette.secondary.main,
+    color: (theme) => theme.palette.secondary.dark,
 
     display: 'flex',
     alignItems: 'center',
@@ -63,7 +63,7 @@ const style = {
       position: 'absolute',
       bottom: '0',
       left: '0',
-      color: (theme) => theme.palette.primary.main,
+      color: (theme) => theme.palette.tertiary.main,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

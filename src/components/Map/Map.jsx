@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef, useContext } from 'react';
 import { MapContext } from '../../store/MapContext/MapContextProvider';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
+// import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 import { getPlaces } from '../../api/placesAPI';
 import {
   GoogleMap,
@@ -21,10 +22,12 @@ const Map = () => {
     setIsSuccess: setMapUpdateSuccess,
     coordinates,
     bounds,
+    googleMap,
     hoveredMarker,
     setCoordinates,
     setBounds,
     setHoveredMarker,
+    setGoogleMap,
   } = useContext(MapContext);
 
   const {
@@ -40,10 +43,16 @@ const Map = () => {
     console.log(bounds);
   }, [bounds]);
 
+  // const { resetFilter } = useContext(FilterContext);
+
   const mapRef = useRef();
-  const onMapLoad = useCallback((map) => {
-    mapRef.current = map;
-  }, []);
+  const onMapLoad = useCallback(
+    (map) => {
+      mapRef.current = map;
+      setGoogleMap(mapRef.current);
+    },
+    [setGoogleMap]
+  );
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -51,7 +60,7 @@ const Map = () => {
         setCoordinates({ lat: latitude, lng: longitude });
       }
     );
-  }, []);
+  }, [setCoordinates]);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -79,42 +88,9 @@ const Map = () => {
   ]);
 
   const onTilesLoaded = () => {
-    const latLngBounds = mapRef.current.getBounds();
-    const neBound = latLngBounds.getNorthEast();
-    const swBound = latLngBounds.getSouthWest();
+    // resetFilter();
 
-    // convert the bounds in pixels
-    const neBoundInPx = mapRef.current
-      .getProjection()
-      .fromLatLngToPoint(neBound);
-    const swBoundInPx = mapRef.current
-      .getProjection()
-      .fromLatLngToPoint(swBound);
-
-    const procX = (window.innerWidth * 0.5) / window.innerWidth;
-    const procY = window.innerHeight / window.innerHeight;
-    const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
-    const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
-
-    const newLatLng = mapRef.current
-      .getProjection()
-      .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
-
-    const bl_latitude = newLatLng.lat();
-    const bl_longitude = newLatLng.lng();
-
-    const {
-      Ab: { j: tr_latitude },
-      Ua: { j: tr_longitude },
-    } = mapRef.current.getBounds();
-
-    setBounds({
-      bl_latitude,
-      tr_latitude,
-      bl_longitude,
-      tr_longitude,
-    });
-
+    // fetch all of map window bounds (default)
     // const {
     //   Ab: { h: bl_latitude },
     //   Ab: { j: tr_latitude },
@@ -128,6 +104,40 @@ const Map = () => {
     //   bl_longitude,
     //   tr_longitude,
     // });
+
+    // fetch within cropped map bounds (bypass geodata of map area behind FilterMenu)
+    const latLngBounds = googleMap.getBounds();
+    const neBound = latLngBounds.getNorthEast();
+    const swBound = latLngBounds.getSouthWest();
+
+    // convert the bounds in pixels
+    const neBoundInPx = googleMap.getProjection().fromLatLngToPoint(neBound);
+    const swBoundInPx = googleMap.getProjection().fromLatLngToPoint(swBound);
+
+    // calculate width
+    const procX = (window.innerWidth * 0.3) / window.innerWidth;
+    const procY = window.innerHeight / window.innerHeight;
+    const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
+    const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
+
+    const newLatLng = googleMap
+      .getProjection()
+      .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
+
+    const bl_latitude = newLatLng.lat();
+    const bl_longitude = newLatLng.lng();
+
+    const {
+      Ab: { j: tr_latitude },
+      Ua: { j: tr_longitude },
+    } = googleMap.getBounds();
+
+    setBounds({
+      bl_latitude,
+      tr_latitude,
+      bl_longitude,
+      tr_longitude,
+    });
   };
 
   const onDragStart = () => {
@@ -136,8 +146,8 @@ const Map = () => {
 
   const onDragEnd = () => {
     setCoordinates({
-      lat: mapRef.current.center.lat(),
-      lng: mapRef.current.center.lng(),
+      lat: googleMap.center.lat(),
+      lng: googleMap.center.lng(),
     });
     setMapUpdateSuccess();
   };
@@ -161,18 +171,14 @@ const Map = () => {
   const infoWindowOptions = {
     pixelOffset: new window.google.maps.Size(-1, -25),
     maxWidth: 200,
-    // disableAutoPan: true,
   };
 
   return (
     <>
-      <Paper sx={style.statusMessage}>
-        <Typography variant='body1'>{window.innerWidth}</Typography>
-      </Paper>
       {placesStatus.isLoading && (
         <Paper sx={style.statusMessage}>
           <Typography variant='body1'>
-            Loading {JSON.stringify(placesStatus)}
+            Fetching most popular places in this area...
           </Typography>
         </Paper>
       )}
@@ -202,10 +208,6 @@ const Map = () => {
                         behavior: 'smooth',
                         block: 'center',
                       });
-                      // mapRef.current.panTo({
-                      //   lat: Number(place.latitude),
-                      //   lng: Number(place.longitude),
-                      // });
                     }}
                     onMouseOver={(marker) => {
                       setHoveredMarker({ marker: marker, place: place });

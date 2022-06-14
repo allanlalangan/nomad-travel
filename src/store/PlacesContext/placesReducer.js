@@ -2,8 +2,10 @@ const placesReducer = (state, { type, payload }) => {
   switch (type) {
     case 'IS_LOADING':
       return {
+        // sasdasd
         ...state,
         status: {
+          places: [],
           isLoading: true,
           isError: false,
           isSuccess: false,

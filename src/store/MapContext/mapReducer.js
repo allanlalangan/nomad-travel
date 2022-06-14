@@ -34,6 +34,13 @@ const mapReducer = (state, { type, payload }) => {
         },
       };
     //
+    case 'SET_GOOGLE_MAP':
+      const currentMapRef = payload.currentRef;
+      return {
+        ...state,
+        googleMap: currentMapRef,
+      };
+    //
     case 'SET_COORDINATES':
       const coords = payload.coordinates;
       return {

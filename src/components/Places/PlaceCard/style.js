@@ -1,34 +1,49 @@
 const style = {
+  fullWidth: {
+    width: '100%',
+  },
+
   placeCard: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     margin: '1rem 0',
-    height: (theme) => `calc((100vh - ${theme.layout.appBarHeight}vh) - 2rem)`,
+    height: 'calc(100% - 2rem)',
 
     position: 'relative',
 
     boxShadow: (theme) => theme.shadows[3],
-    backgroundColor: (theme) => theme.palette.background.default,
 
     borderRadius: 2,
+    // paddingBottom: '1rem',
+  },
+
+  imageContainer: {
+    height: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 999,
+    boxShadow: (theme) => theme.shadows[3],
+    borderRadius: 2,
+    position: 'relative',
   },
 
   placeImage: {
-    height: '50%',
     borderRadius: 2,
-    width: '100%',
-    objectFit: 'cover',
+
+    height: '100%',
+
+    zIndex: -99,
   },
 
   placeHeading: {
     color: 'white',
 
-    width: '100%',
     position: 'absolute',
     top: 0,
-    // display: 'flex',
+    display: 'flex',
 
     borderRadius: 2,
     borderBottomLeftRadius: 0,
@@ -38,17 +53,15 @@ const style = {
   },
 
   placeTitle: {
-    width: '100%',
     padding: '1rem',
     display: 'flex',
   },
 
   contactInfo: {
+    boxShadow: (theme) => theme.shadows[2],
     color: 'white',
     position: 'absolute',
-    bottom: '100%',
-    width: '100%',
-    marginLeft: '-1rem',
+    bottom: 0,
     padding: '1rem',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
 
@@ -71,42 +84,71 @@ const style = {
 
   placeSummary: {
     height: '50%',
-    width: '100%',
+
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
 
-    padding: '1rem',
+    padding: '0 1rem',
     position: 'relative',
+    overflowY: 'scroll',
   },
 
   summaryCustomers: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%',
+
+    padding: '.5rem 0',
   },
 
   ratingContainer: {
     display: 'flex',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
+
+  totalReviews: {},
 
   summaryAddress: {
     display: 'flex',
-    flexDirection: 'column',
+    justifyContent: 'space-between',
 
-    width: '100%',
+    padding: '1rem 0',
   },
 
-  tagsList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    overflowY: 'scroll',
+  summaryLists: {
+    __tags: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    __diets: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
 
-    width: '100%',
-    // height: '40%',
+  cardActions: {
+    padding: '1rem',
+    display: 'flex',
+    flexDirection: 'column',
+
+    __booking: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingBottom: '0.5rem',
+
+      '& .MuiButton-root': {
+        textTransform: 'none',
+      },
+      '& .MuiButton-root:hover': {
+        color: '#fff',
+      },
+      '& .MuiButton-root:hover .MuiTypography-root': {
+        textDecoration: 'underline',
+      },
+    },
   },
 };
 
