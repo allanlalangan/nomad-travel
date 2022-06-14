@@ -18,24 +18,21 @@ const style = {
 
   filterHeader: {
     width: containerWidth,
-    // position: 'fixed',
+
     position: 'absolute',
     top: 0,
     height: '25%',
-    // height: (theme) =>
-    //   `calc(((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .25)`,
-    // padding: '1rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
 
     backgroundColor: (theme) => theme.palette.background.default,
     boxShadow: (theme) => theme.shadows[1],
     borderRadius: 2,
     borderTopLeftRadius: 0,
-    // borderBottomLeftRadius: 0,
-    // borderBottomRightRadius: 0,
+
+    padding: '1rem',
   },
 
   filterForm: {
@@ -54,9 +51,6 @@ const style = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-
-    margin: 0,
-    // width: `calc(100% - 2rem)`,
   },
 
   categorySelectInput: {
@@ -76,6 +70,17 @@ const style = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  applyFilterButton: {
+    '&.MuiButton-root': {
+      color: (theme) => theme.palette.tertiary.light,
+      // backgroundColor: (theme) => theme.palette.primary.main,
+    },
+    '&.MuiButton-root:hover': {
+      // color: (theme) => theme.palette.primary.dark,
+      backgroundColor: (theme) => theme.palette.primary.light,
+    },
   },
 
   fieldContainer: {

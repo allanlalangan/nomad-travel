@@ -82,7 +82,13 @@ const FilterMenu = ({ isLoaded }) => {
           <>
             <Typography variant='h5'>Filters</Typography>
             <Box sx={style.filterButtons}>
-              <Button variant='container' disabled={!isLoaded}>
+              <Button
+                // color='primary'
+                variant='contained'
+                disableElevation
+                disabled={!isLoaded}
+                sx={style.applyFilterButton}
+              >
                 Apply Filters
               </Button>
               <Button variant='outlined' disabled={!isLoaded}>

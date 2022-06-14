@@ -16,6 +16,7 @@ html:focus-within {
 *,
 *::before,
 *::after {
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -71,4 +72,5 @@ img {
 
 fieldset {
   border: none;
+  /* padding: 0; */
 }
