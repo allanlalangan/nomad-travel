@@ -13,7 +13,7 @@ const style = {
     },
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: { xs: 'center', sm: 'space-between' },
   },
 
   logo: {

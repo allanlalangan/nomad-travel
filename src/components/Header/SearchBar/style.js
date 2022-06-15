@@ -4,7 +4,7 @@ const style = {
     height: '100%',
     padding: '0 1rem',
 
-    display: 'flex',
+    display: { xs: 'none', sm: 'flex' },
     alignItems: 'center',
     justifyContent: 'center',
   },

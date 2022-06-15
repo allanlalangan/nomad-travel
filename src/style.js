@@ -15,10 +15,11 @@ const style = {
   },
 
   places: {
-    display: { xs: 'none', sm: 'flex' },
+    display: { xs: 'block', sm: 'flex' },
     flexDirection: 'column',
-    position: 'relative',
-    width: { xs: '0%', sm: '40%', lg: '30%' },
+    position: { xs: 'absolute', sm: 'relative' },
+    top: { xs: '100%', sm: 0 },
+    width: { xs: '100%', sm: '40%', lg: '30%' },
     zIndex: 1000,
     boxShadow: (theme) => theme.shadows[8],
     overFlowX: 'hidden',
@@ -27,7 +28,7 @@ const style = {
 
   map: {
     width: { xs: '100%', sm: '60%', lg: '70%' },
-    height: '100%',
+    height: { xs: '80vh', sm: '100%' },
   },
 };
 
