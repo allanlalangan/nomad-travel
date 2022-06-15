@@ -11,6 +11,7 @@ const style = {
     justifyContent: 'space-between',
     height: (theme) => `calc(100% - ${theme.layout.appBarHeight}%)`,
     marginTop: (theme) => `${theme.layout.appBarHeight}vh`,
+    position: 'relative',
   },
 
   places: {
@@ -21,6 +22,7 @@ const style = {
     zIndex: 1000,
     boxShadow: (theme) => theme.shadows[8],
     overFlowX: 'hidden',
+    backgroundColor: (theme) => theme.palette.background.default,
   },
 
   map: {

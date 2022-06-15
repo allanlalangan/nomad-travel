@@ -27,8 +27,8 @@ const App = () => {
               <Container sx={style.mainContent} component='main'>
                 <Container component='section' sx={style.places}>
                   <Places />
-                  <FilterMenu isLoaded={isLoaded} />
                 </Container>
+                <FilterMenu isLoaded={isLoaded} />
                 <Container component='section' sx={style.map}>
                   {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}
                 </Container>

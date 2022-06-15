@@ -3,12 +3,12 @@ import { alpha } from '@mui/material';
 const style = {
   filterMenu: {
     display: { xs: 'none', sm: 'block' },
-    width: 'calc(100% - 30%)',
-    height: (theme) => `calc((100vh - ${theme.layout.appBarHeight}vh) - 2rem)`,
+    width: 'calc(100% - 80%)',
+    height: 'calc(100% - 2rem)',
     position: 'absolute',
-    left: 'calc(100% + 1rem)',
+    left: 'calc(30% + 1rem)',
     top: '1rem',
-    // overflowY: 'scroll',
+
     backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
     zIndex: 1000,
     borderRadius: '0 0.5rem 0.5rem 0.5rem',
