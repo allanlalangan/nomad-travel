@@ -8,43 +8,42 @@ const style = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
+
+    position: 'relative',
     margin: '1rem 0',
     height: 'calc(100% - 2rem)',
 
-    position: 'relative',
-
     boxShadow: (theme) => theme.shadows[3],
-
     borderRadius: 2,
-    // paddingBottom: '1rem',
   },
 
   imageContainer: {
-    height: '50%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+
+    position: 'relative',
     zIndex: 999,
+    height: '50%',
+
     boxShadow: (theme) => theme.shadows[3],
     borderRadius: 2,
-    position: 'relative',
   },
 
   placeImage: {
-    borderRadius: 2,
-
     height: '100%',
-
     zIndex: -99,
+
+    borderRadius: 2,
   },
 
   placeHeading: {
-    color: 'white',
+    display: 'flex',
 
     position: 'absolute',
     top: 0,
-    display: 'flex',
 
+    color: 'white',
     borderRadius: 2,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
@@ -53,21 +52,21 @@ const style = {
   },
 
   placeTitle: {
-    padding: '1rem',
     display: 'flex',
+    padding: '1rem',
   },
 
   contactInfo: {
-    boxShadow: (theme) => theme.shadows[2],
-    color: 'white',
     position: 'absolute',
     bottom: 0,
     padding: '1rem',
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
 
+    color: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     borderRadius: 2,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
+    boxShadow: (theme) => theme.shadows[2],
   },
 
   contactInfoEntry: {
@@ -83,15 +82,15 @@ const style = {
   },
 
   placeSummary: {
-    height: '50%',
-
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
 
-    padding: '0 1rem',
     position: 'relative',
+    height: '50%',
+    padding: '0 1rem',
+
     overflowY: 'scroll',
   },
 
@@ -139,9 +138,6 @@ const style = {
       justifyContent: 'space-between',
       paddingBottom: '0.5rem',
 
-      '& .MuiButton-root': {
-        textTransform: 'none',
-      },
       '& .MuiButton-root:hover': {
         color: '#fff',
       },

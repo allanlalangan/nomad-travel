@@ -11,7 +11,6 @@ const theme = createTheme({
     },
   },
   palette: {
-    contrastThreshold: 5,
     primary: {
       main: 'hsl(205, 25%, 40%)',
     },
@@ -20,8 +19,6 @@ const theme = createTheme({
     },
     tertiary: {
       main: 'hsl(195, 50%, 75%)',
-      // main: 'hsl(195, 50%, 50%)',
-      // dark: 'hsl(195, 50%, 25%)',
     },
     background: {
       default: 'hsl(200, 45%, 93%)',
@@ -38,10 +35,14 @@ const theme = createTheme({
       defaultProps: {
         disableGutters: true,
       },
+      styleOverrides: {
+        root: { minHeight: 0 },
+      },
     },
   },
   typography: {
     fontSize: 12,
+    // custom variant
     button2: {
       margin: 0,
       fontFamily: 'Roboto","Helvetica","Arial",sans-serif',
@@ -53,7 +54,7 @@ const theme = createTheme({
     },
   },
   layout: {
-    appBarHeight: 8,
+    appBar: { xs: { width: 100, height: 8 }, sm: {}, md: {}, lg: {}, xl: {} },
   },
 });
 

@@ -3,46 +3,49 @@ import { alpha } from '@mui/material';
 const style = {
   filterMenu: {
     display: { xs: 'none', lg: 'block' },
+
     width: 'calc(100% - 80%)',
     height: 'calc(100% - 2rem)',
+
     position: 'absolute',
     left: 'calc(30% + 1rem)',
     top: '1rem',
-
-    backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
     zIndex: 1000,
+
     borderRadius: '0 0.5rem 0.5rem 0.5rem',
+    backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
     boxShadow: (theme) => theme.shadows[3],
   },
 
   filterHeader: {
-    width: '100%',
-
-    position: 'absolute',
-    top: 0,
-    height: '25%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
 
+    width: '100%',
+    height: '25%',
+    zIndex: 999,
+
+    padding: '1rem',
     backgroundColor: (theme) => theme.palette.background.default,
     boxShadow: (theme) => theme.shadows[1],
     borderRadius: 2,
     borderTopLeftRadius: 0,
-
-    padding: '1rem',
   },
 
   filterForm: {
-    height: (theme) =>
-      `calc((((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .75) - 1rem)`,
-    marginTop: (theme) =>
-      `calc(((100vh - ${theme.layout.appBarHeight}vh) - 2rem) * .25)`,
-    marginBottom: '1rem',
-    overflowY: 'scroll',
+    width: 'calc(100% - 2rem)',
+    height: 'calc(75% - 2rem)',
+    marginTop: '1rem',
     padding: '0 1rem',
-    // paddingTop: '1rem',
+
+    overflowY: 'scroll',
+    borderRadius: 2,
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
+
+    backgroundColor: (theme) => theme.palette.background.default,
   },
 
   categorySelect: {
@@ -82,10 +85,6 @@ const style = {
     },
   },
 
-  fieldContainer: {
-    backgroundColor: (theme) => theme.palette.background.default,
-    // margin: '',
-  },
   checkboxLabel: {
     width: '100%',
     height: '100%',
