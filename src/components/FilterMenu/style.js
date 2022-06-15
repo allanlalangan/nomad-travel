@@ -2,7 +2,7 @@ import { alpha } from '@mui/material';
 
 const style = {
   filterMenu: {
-    display: { xs: 'none', sm: 'block' },
+    display: { xs: 'none', lg: 'block' },
     width: 'calc(100% - 80%)',
     height: 'calc(100% - 2rem)',
     position: 'absolute',
