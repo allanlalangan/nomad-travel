@@ -53,7 +53,7 @@ export default function PriceSlider({ priceLevels }) {
   return (
     <Box sx={style.container}>
       <Slider
-        color='tertiary'
+        color='secondary'
         value={value || initValue}
         onChange={handleChange}
         valueLabelDisplay='off'

@@ -3,9 +3,9 @@ const filterReducer = (state, { type, payload }) => {
     case 'RESET':
       return state;
     // return {...state, active: false};
-    case 'SET_PRICE_LEVELS':
-      const availablePriceLevels = payload.prices;
-      return { ...state, priceLevels: availablePriceLevels };
+    case 'SET_PRICE_MIN_MAX':
+      const minMax = payload.minMax;
+      return { ...state, priceMinMax: minMax };
     case 'SET_RESERVE_FILTER':
       const reserveOptions = payload.options;
       return {

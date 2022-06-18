@@ -28,11 +28,18 @@ const FilterMenu = ({ isLoaded }) => {
     selectCategory,
   } = useContext(PlacesContext);
 
-  const { priceLevels, filterFields } = useFilter();
+  const { priceMinMax, filterFields } = useFilter();
 
+  // restaurant: subcategory: [{key: 'sub_category', name: 'Sub Category'}]
+  // attractions: subcategory: [{key: '123', name: 'Sub Category'}]
+  // hotel: subcategory_type: 'hotel'
   useEffect(() => {
     console.log(filterFields);
   }, [filterFields]);
+
+  const onRatingChange = (e) => {
+    console.log(Number(e.target.value));
+  };
 
   return (
     <Box component='section' sx={style.filterMenu}>
@@ -109,6 +116,7 @@ const FilterMenu = ({ isLoaded }) => {
                 size='large'
                 name='placeRating'
                 precision={0.5}
+                onChange={onRatingChange}
               />
             </Box>
           </Box>
@@ -118,7 +126,7 @@ const FilterMenu = ({ isLoaded }) => {
               <Box sx={style.fieldContainer} component='fieldset'>
                 <Typography variant='h6'>Price Range</Typography>
                 <Box sx={style.filterField}>
-                  <PriceSlider priceLevels={priceLevels} />
+                  <PriceSlider minMax={priceMinMax} />
                 </Box>
               </Box>
               <Divider />

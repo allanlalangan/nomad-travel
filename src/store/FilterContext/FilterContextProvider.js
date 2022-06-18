@@ -5,13 +5,9 @@ export const FilterContext = createContext();
 
 const initState = {
   active: false,
-  ratingFilter: null,
-  pricesLevels: null,
+  minRating: null,
+  priceMinMax: [1, 4],
   filterFields: null,
-  reserveFilter: null,
-  tagFilterOptions: [],
-  dietFilterOptions: [],
-  reserveFilterOptions: [],
 };
 
 const FilterContextProvider = ({ children }) => {
@@ -22,8 +18,12 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'RESET' });
   }, []);
 
-  const setPriceLevels = useCallback((prices) => {
-    dispatch({ type: 'SET_PRICE_LEVELS', payload: { prices } });
+  const setMinRating = useCallback((rating) => {
+    dispatch({ type: 'SET_MIN_RATING', payload: { rating } });
+  }, []);
+
+  const setPriceMinMax = useCallback((minMax) => {
+    dispatch({ type: 'SET_PRICE_MIN_MAX', payload: { minMax } });
   }, []);
 
   const setFilterFields = useCallback((fields) => {
@@ -32,10 +32,11 @@ const FilterContextProvider = ({ children }) => {
 
   const context = {
     active: state.active,
-    ratingFilter: state.ratingFilter,
-    priceLevels: state.priceLevels,
+    minRating: state.minRating,
+    priceMinMax: state.priceMinMax,
     filterFields: state.filterFields,
-    setPriceLevels,
+    setMinRating,
+    setPriceMinMax,
     setFilterFields,
     resetFilter,
   };

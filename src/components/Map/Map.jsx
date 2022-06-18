@@ -88,27 +88,17 @@ const Map = () => {
   ]);
 
   const onTilesLoaded = () => {
-    // resetFilter();
-
-    // fetch all of map window bounds (default)
-    // const {
-    //   Ab: { h: bl_latitude },
-    //   Ab: { j: tr_latitude },
-    //   Ua: { h: bl_longitude },
-    //   Ua: { j: tr_longitude },
-    // } = mapRef.current.getBounds();
-
-    // setBounds({
-    //   bl_latitude,
-    //   tr_latitude,
-    //   bl_longitude,
-    //   tr_longitude,
-    // });
-
-    // fetch within cropped map bounds (bypass geodata of map area behind FilterMenu)
+    // getBounds
     const latLngBounds = googleMap.getBounds();
     const neBound = latLngBounds.getNorthEast();
     const swBound = latLngBounds.getSouthWest();
+
+    const tr_latitude = latLngBounds.getNorthEast().lat();
+    const tr_longitude = latLngBounds.getNorthEast().lng();
+    // const bl_latitude = latLngBounds.getSouthWest().lat();
+    // const bl_longitude = latLngBounds.getSouthWest().lng();
+
+    // fetch within cropped map bounds (bypass geodata of map area behind FilterMenu)
 
     // convert the bounds in pixels
     const neBoundInPx = googleMap.getProjection().fromLatLngToPoint(neBound);
@@ -124,13 +114,9 @@ const Map = () => {
       .getProjection()
       .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
 
+    // cropped bounds
     const bl_latitude = newLatLng.lat();
     const bl_longitude = newLatLng.lng();
-
-    const {
-      Ab: { j: tr_latitude },
-      Ua: { j: tr_longitude },
-    } = googleMap.getBounds();
 
     setBounds({
       bl_latitude,

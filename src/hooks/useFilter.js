@@ -2,9 +2,17 @@ import { useEffect, useContext } from 'react';
 import { PlacesContext } from '../store/PlacesContext/PlacesContextProvider';
 import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
+// place: { rating: '4.5' }
+// hotel / restaurant: { price_level: '$$' || '$-$$$' }
+// hotel: { price: '$100' || '$100 - $150' }
+// attraction: { subcategory: [{key: '123', name: 'Sub Category'}] }
+// restaurant: { subcategory: [{key: 'sub_category', name: 'Sub Category'}] }
+// restaurant: { reserve_info: [{button_text: 'online || reserve', url: ' '}] }
+// hotel: { subcategory_type: 'hotel' }
+
 const useFilter = () => {
   const { category, places } = useContext(PlacesContext);
-  const { priceLevels, setPriceLevels, filterFields, setFilterFields } =
+  const { priceMinMax, setPriceMinMax, filterFields, setFilterFields } =
     useContext(FilterContext);
 
   useEffect(() => {
@@ -12,6 +20,7 @@ const useFilter = () => {
     const dietOptions = [];
     const reservationOptions = [];
     const subCategoryOptions = [];
+
     if (places?.length >= 1) {
       const availablePrices = [];
 
@@ -21,15 +30,18 @@ const useFilter = () => {
           placesPrices.forEach((price) => {
             !availablePrices.includes(price) && availablePrices.push(price);
           });
-        } else if (place.price_level?.length >= 1) {
+        } else if (
+          !place.price_level?.includes('-') &&
+          place.price_level !== ''
+        ) {
           const placesPrices = [`${place.price_level}`];
           !availablePrices.includes(placesPrices[0]) &&
             availablePrices.push(placesPrices[0]);
-        }
+        } else console.log(place);
       });
 
       const priceRange = availablePrices.sort((a, b) => a.length - b.length);
-      setPriceLevels(priceRange);
+      setPriceMinMax(priceRange);
 
       // create + set FilterFields
       places.forEach((place) => {
@@ -82,11 +94,11 @@ const useFilter = () => {
 
       setFilterFields(fields.filter((field) => field.options.length >= 1));
     }
-  }, [category, places, setPriceLevels, setFilterFields]);
+  }, [category, places, setPriceMinMax, setFilterFields]);
 
   return {
     filterFields,
-    priceLevels,
+    priceMinMax,
   };
 };
 
