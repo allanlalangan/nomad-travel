@@ -30,9 +30,6 @@ const FilterMenu = ({ isLoaded }) => {
 
   const { priceMinMax, filterFields } = useFilter();
 
-  // restaurant: subcategory: [{key: 'sub_category', name: 'Sub Category'}]
-  // attractions: subcategory: [{key: '123', name: 'Sub Category'}]
-  // hotel: subcategory_type: 'hotel'
   useEffect(() => {
     console.log(filterFields);
   }, [filterFields]);

@@ -4,7 +4,8 @@ import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 import PlaceCard from './PlaceCard/PlaceCard';
 // styles and ui
 import style from './style';
-import { List } from '@mui/material';
+import { Typography, IconButton, Box, List } from '@mui/material';
+import { Tune } from '@mui/icons-material';
 
 const Places = () => {
   const { status, places, placeCardRefs, setPlaceCardRefs } =
@@ -28,18 +29,28 @@ const Places = () => {
 
   return (
     status.isSuccess && (
-      <List disablePadding sx={style.placesList}>
-        {places?.map((place, i) => (
-          <PlaceCard
-            ref={(element) => {
-              liRefs.current[i] = element;
-            }}
-            liRef={placeCardRefs.length >= 1 ? placeCardRefs[i] : null}
-            key={place.location_id}
-            place={place}
-          />
-        ))}
-      </List>
+      <>
+        <Box sx={style.heading}>
+          <Typography variant='h6' component='h3'>
+            Most Popular Places In The Area
+          </Typography>
+          <IconButton sx={style.filterButton}>
+            <Tune />
+          </IconButton>
+        </Box>
+        <List disablePadding sx={style.placesList}>
+          {places?.map((place, i) => (
+            <PlaceCard
+              ref={(element) => {
+                liRefs.current[i] = element;
+              }}
+              liRef={placeCardRefs.length >= 1 ? placeCardRefs[i] : null}
+              key={place.location_id}
+              place={place}
+            />
+          ))}
+        </List>
+      </>
     )
   );
 };

@@ -10,8 +10,8 @@ const style = {
     justifyContent: 'space-between',
 
     position: 'relative',
-    margin: '1rem 0',
-    height: 'calc(100% - 2rem)',
+    marginBottom: '2rem',
+    height: 'calc(100% - 1rem)',
 
     boxShadow: (theme) => theme.shadows[3],
     borderRadius: 2,
@@ -113,7 +113,7 @@ const style = {
     display: 'flex',
     justifyContent: 'space-between',
 
-    padding: '1rem 0',
+    padding: '.5rem 0',
   },
 
   summaryLists: {
@@ -128,7 +128,7 @@ const style = {
   },
 
   cardActions: {
-    padding: '1rem',
+    padding: '0.5rem 1rem 1rem 1rem',
     display: 'flex',
     flexDirection: 'column',
 

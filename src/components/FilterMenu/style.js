@@ -34,6 +34,12 @@ const style = {
     borderTopLeftRadius: 0,
   },
 
+  filterButton: {
+    position: 'absolute',
+    left: '30%',
+    zIndex: 2000,
+  },
+
   filterForm: {
     width: 'calc(100% - 2rem)',
     height: 'calc(75% - 2rem)',

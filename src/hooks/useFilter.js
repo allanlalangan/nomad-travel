@@ -16,34 +16,36 @@ const useFilter = () => {
     useContext(FilterContext);
 
   useEffect(() => {
-    const cuisineOptions = [];
-    const dietOptions = [];
-    const reservationOptions = [];
-    const subCategoryOptions = [];
-
+    // if Places isSuccess
     if (places?.length >= 1) {
-      const availablePrices = [];
-
+      const priceOptions = [];
+      const cuisineOptions = [];
+      const dietOptions = [];
+      const reservationOptions = [];
+      const subCategoryOptions = [];
+      // loop Places and retrieve price(s)
       places.forEach((place) => {
+        // if Place has price range, separate into two separate options
+        // push price to PriceOptions, unless duplicate
         if (place.price_level?.includes('-')) {
           const placesPrices = place.price_level.split(' - ');
           placesPrices.forEach((price) => {
-            !availablePrices.includes(price) && availablePrices.push(price);
+            !priceOptions.includes(price) && priceOptions.push(price);
           });
         } else if (
           !place.price_level?.includes('-') &&
           place.price_level !== ''
         ) {
           const placesPrices = [`${place.price_level}`];
-          !availablePrices.includes(placesPrices[0]) &&
-            availablePrices.push(placesPrices[0]);
+          !priceOptions.includes(placesPrices[0]) &&
+            priceOptions.push(placesPrices[0]);
         } else console.log(place);
       });
-
-      const priceRange = availablePrices.sort((a, b) => a.length - b.length);
+      // sorts PriceOptions array from lowest to highest and set state
+      const priceRange = priceOptions.sort((a, b) => a.length - b.length);
       setPriceMinMax(priceRange);
 
-      // create + set FilterFields
+      // push to options arrays and set FilterFields
       places.forEach((place) => {
         place.subcategory?.forEach((sub) => {
           !subCategoryOptions.includes(sub.name) &&
