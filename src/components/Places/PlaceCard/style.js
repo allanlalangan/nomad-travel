@@ -10,8 +10,9 @@ const style = {
     justifyContent: 'space-between',
 
     position: 'relative',
-    marginBottom: '2rem',
-    height: 'calc(100% - 1rem)',
+    margin: '1rem 0',
+    height: 'calc(100% - 2rem)',
+    // height: '100%',
 
     boxShadow: (theme) => theme.shadows[3],
     borderRadius: 2,
@@ -35,6 +36,10 @@ const style = {
     zIndex: -99,
 
     borderRadius: 2,
+  },
+
+  imageErrorMessage: {
+    height: '100%',
   },
 
   placeHeading: {

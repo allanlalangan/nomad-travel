@@ -12,8 +12,11 @@ import {
 } from '@mui/material';
 import { LocalPhone, Email, Language, LocationOn } from '@mui/icons-material';
 import style from './style';
+import { useContext } from 'react';
+import { PlacesContext } from '../../../store/PlacesContext/PlacesContextProvider';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
+  const { category } = useContext(PlacesContext);
   return (
     <ListItem disableGutters disablePadding ref={ref} sx={style.placeCard}>
       <Box
@@ -29,7 +32,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
           </Typography>
         </Box>
 
-        {place.subcategory_type !== 'hotel' && (
+        {category !== 'hotel' && (
           <Box
             component='article'
             sx={{ ...style.contactInfo, ...style.fullWidth }}
@@ -83,6 +86,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
             </ListItemButton>
           </Box>
         )}
+
         {place.photo?.images?.large?.url ? (
           <CardMedia
             component='img'
@@ -91,7 +95,9 @@ const PlaceCard = forwardRef(({ place }, ref) => {
             alt={`Place card img of ${place.name}`}
           />
         ) : (
-          <Typography variant='body2'>Image unavailable</Typography>
+          <Typography sx={style.imageErrorMessage} variant='body2'>
+            Image unavailable
+          </Typography>
         )}
       </Box>
 

@@ -15,7 +15,7 @@ const style = {
     flexDirection: 'column',
     justifyContent: 'flex-start',
 
-    marginTop: '2rem',
+    marginTop: '1rem',
     overflowY: 'scroll',
     overFlowX: 'hidden',
 
