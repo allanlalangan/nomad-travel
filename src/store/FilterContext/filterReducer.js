@@ -6,30 +6,17 @@ const filterReducer = (state, { type, payload }) => {
     case 'SET_PRICE_MIN_MAX':
       const minMax = payload.minMax;
       return { ...state, priceMinMax: minMax };
-    case 'SET_RESERVE_FILTER':
-      const reserveOptions = payload.options;
-      return {
-        ...state,
-        reserveFilterOptions: reserveOptions,
-      };
-    case 'SET_TAG_FILTER':
-      const tagOptions = payload.tags;
-      return {
-        ...state,
-        tagFilterOptions: tagOptions,
-      };
-    case 'SET_DIET_FILTER':
-      const dietOptions = payload.diets;
-      return {
-        ...state,
-        dietFilterOptions: dietOptions,
-      };
+    case 'SET_MIN_RATING':
+      const rating = payload.rating;
+      return { ...state, minRating: rating };
     case 'SET_FILTER_FIELDS':
       const fields = payload.fields;
       return {
         ...state,
         filterFields: fields,
       };
+    case 'SET_SELECTED_OPTION':
+      return state;
     default:
       throw new Error(`No case for ${type}`);
   }

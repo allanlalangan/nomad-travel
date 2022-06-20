@@ -2,7 +2,7 @@ import { FormControlLabel, Checkbox } from '@mui/material';
 
 import style from './style';
 
-const FilterOption = ({ label, value }) => {
+const FilterOption = ({ field, label, value }) => {
   return (
     <FormControlLabel
       sx={style.checkboxLabel}
@@ -10,9 +10,9 @@ const FilterOption = ({ label, value }) => {
         <Checkbox
           color='secondary'
           onChange={(e) =>
-            console.log(value, e.target.checked, e.target.labels[0].textContent)
+            console.log(field, { name: value, selected: e.target.checked })
           }
-          value={value.toLowerCase()}
+          value={value}
           sx={style.checkbox}
           disableRipple
         />

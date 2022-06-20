@@ -60,7 +60,7 @@ const FilterMenu = ({ isLoaded }) => {
               <MenuItem value={'attraction'}>Attractions</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth sx={style.categorySelectInput}>
+          <FormControl key={'sort'} fullWidth sx={style.categorySelectInput}>
             <InputLabel color='secondary' id='sortBy-select-label'>
               Sort By
             </InputLabel>
@@ -132,10 +132,10 @@ const FilterMenu = ({ isLoaded }) => {
 
           {filterFields?.length >= 1 &&
             filterFields.map((field) => (
-              <>
+              <Box key={field.fieldLabel}>
                 <FilterField field={field} />
                 <Divider />
-              </>
+              </Box>
             ))}
         </Container>
       )}

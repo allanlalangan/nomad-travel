@@ -30,6 +30,10 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'SET_FILTER_FIELDS', payload: { fields } });
   }, []);
 
+  const setSelectedOption = useCallback((option) => {
+    dispatch({ type: 'SET_SELECTED_OPTION', payload: { option } });
+  }, []);
+
   const context = {
     active: state.active,
     minRating: state.minRating,

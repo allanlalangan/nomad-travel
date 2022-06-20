@@ -45,7 +45,7 @@ const Places = () => {
                 liRefs.current[i] = element;
               }}
               liRef={placeCardRefs.length >= 1 ? placeCardRefs[i] : null}
-              key={place.location_id}
+              key={i}
               place={place}
             />
           ))}

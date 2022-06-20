@@ -1,5 +1,6 @@
 import {
   Box,
+  FormControl,
   FormGroup,
   List,
   ListItemButton,
@@ -12,18 +13,22 @@ const FilterField = ({ field }) => {
   return (
     <Box sx={style.fieldContainer} component='fieldset'>
       <Typography variant='h6'>{field.fieldLabel}</Typography>
-      <List key={'tagFilter'} sx={style.filterField}>
-        <FormGroup>
-          {field?.options?.map((option, i) => (
-            <>
+      <List sx={style.filterField}>
+        <FormGroup key={field.fieldLabel}>
+          {field?.inputControls?.map((option, i) => (
+            <FormControl key={i}>
               <ListItemButton
-                key={option}
+                // key={i.toString()}
                 sx={style.checkboxLiItem}
                 disableGutters
               >
-                <FilterOption key={i} label={option} value={option} />
+                <FilterOption
+                  field={field}
+                  label={option.name}
+                  value={option.name}
+                />
               </ListItemButton>
-            </>
+            </FormControl>
           ))}
         </FormGroup>
       </List>

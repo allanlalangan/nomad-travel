@@ -14,7 +14,7 @@ import axios from 'axios';
 // styles and ui
 import style from './style';
 import { mapStyles } from './mapStyles';
-import { Paper, Typography, Rating } from '@mui/material/';
+import { Paper, Typography, Rating, Box } from '@mui/material/';
 
 const Map = () => {
   const {
@@ -187,7 +187,7 @@ const Map = () => {
           <GoogleMarkerClusterer averageCenter={true}>
             {(clusterer) =>
               places.map((place, i) => (
-                <>
+                <Box key={i}>
                   <Marker
                     onClick={() => {
                       placeCardRefs[i].scrollIntoView({
@@ -236,7 +236,7 @@ const Map = () => {
                         </Paper>
                       </InfoWindow>
                     )}
-                </>
+                </Box>
               ))
             }
           </GoogleMarkerClusterer>

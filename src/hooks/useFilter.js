@@ -87,14 +87,36 @@ const useFilter = () => {
         }
       });
 
+      const reservationControls = reservationOptions.map((option) => ({
+        name: option,
+        selected: false,
+      }));
+
+      const subCategoryControls = subCategoryOptions.map((option) => ({
+        name: option,
+        selected: false,
+      }));
+
+      const dietControls = dietOptions.map((option) => ({
+        name: option,
+        selected: false,
+      }));
+
+      const cuisineControls = cuisineOptions.map((option) => ({
+        name: option,
+        selected: false,
+      }));
+
       const fields = [
-        { fieldLabel: 'Reservations', options: reservationOptions },
-        { fieldLabel: 'Sub-category', options: subCategoryOptions },
-        { fieldLabel: 'Dietary Restrictions', options: dietOptions },
-        { fieldLabel: 'Cuisine', options: cuisineOptions },
+        { fieldLabel: 'Reservations', inputControls: reservationControls },
+        { fieldLabel: 'Sub-category', inputControls: subCategoryControls },
+        { fieldLabel: 'Dietary Restrictions', inputControls: dietControls },
+        { fieldLabel: 'Cuisine', inputControls: cuisineControls },
       ];
 
-      setFilterFields(fields.filter((field) => field.options.length >= 1));
+      setFilterFields(
+        fields.filter((field) => field.inputControls.length >= 1)
+      );
     }
   }, [category, places, setPriceMinMax, setFilterFields]);
 
