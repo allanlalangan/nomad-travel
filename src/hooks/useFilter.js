@@ -5,10 +5,10 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 // place: { rating: '4.5' }
 // hotel / restaurant: { price_level: '$$' || '$-$$$' }
 // hotel: { price: '$100' || '$100 - $150' }
+// hotel: { subcategory_type: 'hotel' }
 // attraction: { subcategory: [{key: '123', name: 'Sub Category'}] }
 // restaurant: { subcategory: [{key: 'sub_category', name: 'Sub Category'}] }
 // restaurant: { reserve_info: [{button_text: 'online || reserve', url: ' '}] }
-// hotel: { subcategory_type: 'hotel' }
 
 const useFilter = () => {
   const { category, places } = useContext(PlacesContext);
@@ -108,10 +108,26 @@ const useFilter = () => {
       }));
 
       const fields = [
-        { fieldLabel: 'Reservations', inputControls: reservationControls },
-        { fieldLabel: 'Sub-category', inputControls: subCategoryControls },
-        { fieldLabel: 'Dietary Restrictions', inputControls: dietControls },
-        { fieldLabel: 'Cuisine', inputControls: cuisineControls },
+        {
+          field: 'reserve_info',
+          fieldLabel: 'Reservations',
+          inputControls: reservationControls,
+        },
+        {
+          field: 'subcategory',
+          fieldLabel: 'Sub-category',
+          inputControls: subCategoryControls,
+        },
+        {
+          field: 'dietary_restrictions',
+          fieldLabel: 'Dietary Restrictions',
+          inputControls: dietControls,
+        },
+        {
+          field: 'cuisine',
+          fieldLabel: 'Cuisine',
+          inputControls: cuisineControls,
+        },
       ];
 
       setFilterFields(

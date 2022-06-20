@@ -11,16 +11,17 @@ const style = {
   },
 
   placesList: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
 
-    marginTop: '1rem',
+    marginTop: '2rem',
     overflowY: 'scroll',
     overFlowX: 'hidden',
 
     zIndex: 1,
-    padding: '0 1rem',
+    // padding: '0 1rem 1rem 1rem',
   },
 };
 

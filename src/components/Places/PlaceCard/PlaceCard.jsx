@@ -32,60 +32,62 @@ const PlaceCard = forwardRef(({ place }, ref) => {
           </Typography>
         </Box>
 
-        {category !== 'hotel' && (
-          <Box
-            component='article'
-            sx={{ ...style.contactInfo, ...style.fullWidth }}
-          >
-            <ListItemButton
-              disabled={!place.phone}
-              dense
-              disableGutters
-              sx={style.contactInfoEntry}
-            >
-              <LocalPhone />
-              <Typography sx={style.entryText} variant='body1'>
-                {place.phone || 'Phone unavailable'}
-              </Typography>
-            </ListItemButton>
+        <Box
+          component='article'
+          sx={{ ...style.contactInfo, ...style.fullWidth }}
+        >
+          {category !== 'hotel' && (
+            <>
+              <ListItemButton
+                disabled={!place.phone}
+                dense
+                disableGutters
+                sx={style.contactInfoEntry}
+              >
+                <LocalPhone />
+                <Typography sx={style.entryText} variant='body1'>
+                  {place.phone || 'Phone unavailable'}
+                </Typography>
+              </ListItemButton>
 
-            <ListItemButton
-              disabled={!place.email}
-              dense
-              disableGutters
-              sx={style.contactInfoEntry}
-            >
-              <Email />
-              <Typography sx={style.entryText} variant='body1'>
-                {place.email?.toLowerCase() || 'Email unavailable'}
-              </Typography>
-            </ListItemButton>
+              <ListItemButton
+                disabled={!place.email}
+                dense
+                disableGutters
+                sx={style.contactInfoEntry}
+              >
+                <Email />
+                <Typography sx={style.entryText} variant='body1'>
+                  {place.email?.toLowerCase() || 'Email unavailable'}
+                </Typography>
+              </ListItemButton>
 
-            <ListItemButton
-              disabled={!place.website}
-              dense
-              disableGutters
-              sx={style.contactInfoEntry}
-            >
-              <Language />
-              <Typography sx={style.entryText} variant='body1'>
-                {(place.website?.toLowerCase().includes('https://') &&
-                  place.website
-                    .toLowerCase()
-                    .replace('https://', '')
-                    .replace('/', '')
-                    .split('.com')[0] + '.com') ||
-                  (place.website?.toLowerCase().includes('http://') &&
+              <ListItemButton
+                disabled={!place.website}
+                dense
+                disableGutters
+                sx={style.contactInfoEntry}
+              >
+                <Language />
+                <Typography sx={style.entryText} variant='body1'>
+                  {(place.website?.toLowerCase().includes('https://') &&
                     place.website
                       .toLowerCase()
-                      .replace('http://', '')
+                      .replace('https://', '')
                       .replace('/', '')
                       .split('.com')[0] + '.com') ||
-                  'Website unavailable'}
-              </Typography>
-            </ListItemButton>
-          </Box>
-        )}
+                    (place.website?.toLowerCase().includes('http://') &&
+                      place.website
+                        .toLowerCase()
+                        .replace('http://', '')
+                        .replace('/', '')
+                        .split('.com')[0] + '.com') ||
+                    'Website unavailable'}
+                </Typography>
+              </ListItemButton>
+            </>
+          )}
+        </Box>
 
         {place.photo?.images?.large?.url ? (
           <CardMedia
@@ -136,61 +138,68 @@ const PlaceCard = forwardRef(({ place }, ref) => {
               like to leave a review?
             </Typography>
           )}
+          <Divider sx={{ width: '100%' }} />
         </Box>
-        <Divider sx={{ width: '100%' }} />
 
         <Box
           component='article'
           sx={{ ...style.summaryAddress, ...style.fullWidth }}
         >
           {place.address_obj ? (
-            <Box sx={style.addressStreet}>
-              <Typography variant='body1'>{`${place.address_obj?.street1}`}</Typography>
-              <Typography variant='body1'>{`${place.address_obj?.city}, ${
-                place.address_obj?.state || place.address_obj?.country
-              } ${place.address_obj?.postalcode}`}</Typography>
-            </Box>
+            <>
+              <Box sx={style.addressStreet}>
+                <Typography variant='body1'>{`${place.address_obj?.street1}`}</Typography>
+                <Typography variant='body1'>{`${place.address_obj?.city}, ${
+                  place.address_obj?.state || place.address_obj?.country
+                } ${place.address_obj?.postalcode}`}</Typography>
+                <Button variant='outlined'>
+                  <LocationOn />
+                </Button>
+              </Box>
+            </>
           ) : (
             ''
           )}
-          <Button variant='outlined'>
-            <LocationOn />
-          </Button>
+          <Divider sx={{ width: '100%' }} />
         </Box>
-
-        <Divider sx={{ width: '100%' }} />
 
         <Box sx={{ ...style.summaryLists, ...style.fullWidth }}>
-          <List sx={{ ...style.summaryLists.__tags, ...style.fullWidth }}>
-            {place.dietary_restrictions?.length >= 1 &&
-              place.dietary_restrictions.map((diet) => (
-                <ListItem key={diet.name} disablePadding disableGutters>
-                  <Typography variant='body2'>{diet.name}</Typography>
-                </ListItem>
-              ))}
-          </List>
-          <List sx={{ ...style.summaryLists.__diets, ...style.fullWidth }}>
-            {place.cuisine?.length >= 1 &&
-              place.cuisine.map(
-                (cuisine) =>
-                  !cuisine.name.toLowerCase().includes('vegan') &&
-                  !cuisine.name.toLowerCase().includes('vegetarian') &&
-                  !cuisine.name.toLowerCase().includes('gluten') && (
-                    <ListItem key={cuisine.name} disablePadding disableGutters>
-                      <Typography variant='body2'>{cuisine.name}</Typography>
-                    </ListItem>
-                  )
-              )}
-          </List>
+          {place.dietary_restrictions?.length >= 1 && (
+            <>
+              <List sx={{ ...style.summaryLists.__tags, ...style.fullWidth }}>
+                {place.dietary_restrictions.map((diet) => (
+                  <ListItem key={diet.name} disablePadding disableGutters>
+                    <Typography variant='body2'>{diet.name}</Typography>
+                  </ListItem>
+                ))}
+              </List>
+              <List sx={{ ...style.summaryLists.__diets, ...style.fullWidth }}>
+                {place.cuisine?.length >= 1 &&
+                  place.cuisine.map(
+                    (cuisine) =>
+                      !cuisine.name.toLowerCase().includes('vegan') &&
+                      !cuisine.name.toLowerCase().includes('vegetarian') &&
+                      !cuisine.name.toLowerCase().includes('gluten') && (
+                        <ListItem
+                          key={cuisine.name}
+                          disablePadding
+                          disableGutters
+                        >
+                          <Typography variant='body2'>
+                            {cuisine.name}
+                          </Typography>
+                        </ListItem>
+                      )
+                  )}
+              </List>
+            </>
+          )}
         </Box>
       </Box>
-      <Divider sx={{ width: 'calc(100% - 2rem)' }} />
-      <Box
-        component='article'
-        sx={{ ...style.cardActions, ...style.fullWidth }}
-      >
+      <Box component='article' sx={style.cardActions}>
+        <Divider sx={{ width: 'calc(100% - 2rem)' }} />
         {place.reserve_info?.button_text && (
-          <Box sx={style.cardActions.__booking}>
+          <Box sx={style.__booking}>
             <Typography variant='body1'>
               {(place.reserve_info.button_text
                 .toLowerCase()
@@ -216,7 +225,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
             </Button>
           </Box>
         )}
-        <Button variant='outlined'>
+        <Button sx={style.tripAdvisorLink} variant='outlined'>
           <Typography variant='body1'>View on TripAdvisor</Typography>
         </Button>
       </Box>

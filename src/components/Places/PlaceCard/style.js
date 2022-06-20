@@ -9,10 +9,7 @@ const style = {
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    position: 'relative',
-    margin: '1rem 0',
-    height: 'calc(100% - 2rem)',
-    // height: '100%',
+    marginBottom: '1rem',
 
     boxShadow: (theme) => theme.shadows[3],
     borderRadius: 2,
@@ -24,7 +21,6 @@ const style = {
     justifyContent: 'center',
 
     position: 'relative',
-    zIndex: 999,
     height: '50%',
 
     boxShadow: (theme) => theme.shadows[3],
@@ -32,8 +28,11 @@ const style = {
   },
 
   placeImage: {
+    display: 'flex',
     height: '100%',
+    // width: '100%',
     zIndex: -99,
+    objectFit: 'cover',
 
     borderRadius: 2,
   },
@@ -92,8 +91,7 @@ const style = {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
 
-    position: 'relative',
-    height: '50%',
+    height: '35%',
     padding: '0 1rem',
 
     overflowY: 'scroll',
@@ -116,6 +114,7 @@ const style = {
 
   summaryAddress: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'space-between',
 
     padding: '.5rem 0',
@@ -133,24 +132,26 @@ const style = {
   },
 
   cardActions: {
-    padding: '0.5rem 1rem 1rem 1rem',
+    height: '15%',
+    // padding: '0.5rem 1rem 1rem 1rem',
     display: 'flex',
     flexDirection: 'column',
+  },
+  __booking: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // paddingBottom: '0.5rem',
 
-    __booking: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingBottom: '0.5rem',
-
-      '& .MuiButton-root:hover': {
-        color: '#fff',
-      },
-      '& .MuiButton-root:hover .MuiTypography-root': {
-        textDecoration: 'underline',
-      },
+    '& .MuiButton-root:hover': {
+      color: '#fff',
+    },
+    '& .MuiButton-root:hover .MuiTypography-root': {
+      textDecoration: 'underline',
     },
   },
+
+  tripAdvisorLink: { display: 'flex' },
 };
 
 export default style;
