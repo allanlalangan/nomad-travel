@@ -31,7 +31,7 @@ const transformSubCategories = (cuisine, place) => {
           cuisine.name.toLowerCase().includes('house') ||
           cuisine.name.toLowerCase().includes('fast')
       )
-      .map((sub) => sub.name);
+      .map((sub) => sub.name.trim());
 
     subCategories.push(...restaurantSubCategories);
   }

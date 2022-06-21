@@ -1,13 +1,15 @@
 import { FormControlLabel, Checkbox } from '@mui/material';
 import { useContext } from 'react';
 import { PlacesContext } from '../../../../store/PlacesContext/PlacesContextProvider';
+import { FilterContext } from '../../../../store/FilterContext/FilterContextProvider';
 
 import style from './style';
 
 const FilterOption = ({ field, label, value }) => {
   const { category, places } = useContext(PlacesContext);
+  const { setSelectedOption } = useContext(FilterContext);
   const onChange = (e) => {
-    console.log(e.target.value);
+    console.log(field.field, e.target.value, e.target.checked);
   };
   return (
     <FormControlLabel

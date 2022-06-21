@@ -8,8 +8,12 @@ const style = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-
-    marginBottom: '1rem',
+    margin: '1rem 0',
+    minHeight: (theme) =>
+      `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
+        theme.layout.placesHeading.xs.height * 2
+      }rem)`,
+    // minHeight: '100%',
 
     boxShadow: (theme) => theme.shadows[3],
     borderRadius: 2,
@@ -91,7 +95,7 @@ const style = {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
 
-    height: '35%',
+    // height: '35%',
     padding: '0 1rem',
 
     overflowY: 'scroll',
@@ -132,7 +136,7 @@ const style = {
   },
 
   cardActions: {
-    height: '15%',
+    // height: '15%',
     // padding: '0.5rem 1rem 1rem 1rem',
     display: 'flex',
     flexDirection: 'column',

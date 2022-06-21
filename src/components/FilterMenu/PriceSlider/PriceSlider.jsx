@@ -25,7 +25,7 @@ const initMarks = [
 const initValue = [1, 4];
 
 export default function PriceSlider({ minMax }) {
-  const [value, setValue] = useState([1, 4]);
+  const [value, setValue] = useState(initValue);
   const [marks, setMarks] = useState(null);
 
   useEffect(() => {
@@ -52,11 +52,11 @@ export default function PriceSlider({ minMax }) {
     <Box sx={style.container}>
       <Slider
         color='secondary'
-        value={value || initValue}
+        value={value}
         onChange={handleChange}
         valueLabelDisplay='off'
         step={1}
-        marks={marks?.length >= 1 ? marks : initMarks}
+        marks={marks || initMarks}
         min={marks?.length >= 1 ? marks[0].value : 1}
         max={marks?.length >= 1 ? marks[marks.length - 1].value : 4}
         disableSwap

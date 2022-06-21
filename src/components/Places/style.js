@@ -4,19 +4,16 @@ const style = {
     justifyContent: 'space-between',
 
     width: '100%',
-    height: '2rem',
-    position: 'absolute',
+    height: (theme) => `${theme.layout.placesHeading.xs.height}rem`,
+
     zIndex: 2000,
     backgroundColor: (theme) => theme.palette.background.default,
   },
 
   placesList: {
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-
-    marginTop: '2rem',
     overflowY: 'scroll',
     overFlowX: 'hidden',
 

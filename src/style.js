@@ -14,9 +14,9 @@ const style = {
 
     position: 'relative',
     width: '100%',
-    height: `calc(100vh - ${(theme) => theme.layout.appBar.xs.height}vh)`,
+    height: (theme) => `calc(100vh - ${theme.layout.appBar.xs.height}vh)`,
 
-    marginTop: (theme) => theme.layout.appBar.xs.height,
+    marginTop: (theme) => `${theme.layout.appBar.xs.height}vh`,
   },
 
   places: {

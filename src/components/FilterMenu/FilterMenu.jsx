@@ -118,7 +118,7 @@ const FilterMenu = ({ isLoaded }) => {
             </Box>
           </Box>
           <Divider />
-          {category !== 'attraction' && (
+          {/* {category !== 'attraction' && (
             <>
               <Box sx={style.fieldContainer} component='fieldset'>
                 <Typography variant='h6'>Price Range</Typography>
@@ -128,7 +128,7 @@ const FilterMenu = ({ isLoaded }) => {
               </Box>
               <Divider />
             </>
-          )}
+          )} */}
 
           {filterFields?.length >= 1 &&
             filterFields.map((field) => (
