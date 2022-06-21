@@ -19,9 +19,9 @@ import theme from './theme';
 import style from './style';
 
 const App = () => {
-  const [filterOpen, setFilterOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(true);
 
-  const handleOpenFilter = () => {
+  const handleToggleFilter = () => {
     setFilterOpen(!filterOpen);
   };
 
@@ -40,13 +40,16 @@ const App = () => {
               <Header isLoaded={isLoaded} />
               <Container sx={style.mainContent} component='main'>
                 <Container component='section' sx={style.places}>
-                  <Places openFilter={handleOpenFilter} />
+                  <Places
+                    filterOpen={filterOpen}
+                    toggleFilter={handleToggleFilter}
+                  />
                 </Container>
                 <FilterDrawer isOpen={filterOpen}>
                   <FilterMenu isLoaded={isLoaded} />
                 </FilterDrawer>
                 <Container component='section' sx={style.map}>
-                  {isLoaded ? <Map isLoaded={isLoaded} /> : <h1>Loading...</h1>}
+                  {isLoaded ? <Map /> : <h1>Loading...</h1>}
                 </Container>
               </Container>
             </Box>

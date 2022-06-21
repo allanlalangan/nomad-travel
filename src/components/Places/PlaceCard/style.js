@@ -34,8 +34,10 @@ const style = {
     position: 'relative',
     height: '50%',
 
-    boxShadow: (theme) => theme.shadows[3],
+    boxShadow: (theme) => theme.shadows[2],
     borderRadius: 2,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
 
   placeImage: {
@@ -46,6 +48,8 @@ const style = {
     objectFit: 'cover',
 
     borderRadius: 2,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
 
   imageErrorMessage: {
@@ -63,7 +67,6 @@ const style = {
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    boxShadow: (theme) => theme.shadows[2],
   },
 
   placeTitle: {
@@ -78,9 +81,6 @@ const style = {
 
     color: 'white',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    borderRadius: 2,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
     boxShadow: (theme) => theme.shadows[2],
   },
 
@@ -111,7 +111,7 @@ const style = {
   summaryCustomers: {
     display: 'flex',
     flexDirection: 'column',
-
+    width: '100%',
     padding: '.5rem 0',
   },
 
@@ -119,6 +119,7 @@ const style = {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingBottom: '.5rem',
   },
 
   totalReviews: {},
@@ -127,8 +128,10 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
 
-    padding: '.5rem 0',
+  addressStreet: {
+    paddingBottom: '.5rem',
   },
 
   summaryLists: {
@@ -143,16 +146,16 @@ const style = {
   },
 
   cardActions: {
-    // height: '15%',
-    // padding: '0.5rem 1rem 1rem 1rem',
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
+    padding: '0 1rem 1rem 1rem',
   },
   __booking: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // paddingBottom: '0.5rem',
+    paddingTop: '.5rem',
 
     '& .MuiButton-root:hover': {
       color: '#fff',
@@ -162,7 +165,7 @@ const style = {
     },
   },
 
-  tripAdvisorLink: { display: 'flex' },
+  tripAdvisorLink: { display: 'flex', marginTop: '.5rem' },
 };
 
 export default style;

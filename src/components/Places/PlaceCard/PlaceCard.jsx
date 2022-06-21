@@ -186,7 +186,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         </Box>
       </Box>
       <Box component='article' sx={style.cardActions}>
-        <Divider sx={{ width: 'calc(100% - 2rem)' }} />
+        <Divider sx={{ width: '100%' }} />
         {place.reserve_info?.button_text && (
           <Box sx={style.__booking}>
             <Typography variant='body1'>

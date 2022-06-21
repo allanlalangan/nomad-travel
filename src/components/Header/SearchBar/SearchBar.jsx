@@ -2,7 +2,8 @@ import { useState, useCallback, useContext } from 'react';
 import { MapContext } from '../../../store/MapContext/MapContextProvider';
 
 import { Autocomplete } from '@react-google-maps/api';
-import { Box, TextField } from '@mui/material';
+import { Box, TextField, InputAdornment } from '@mui/material';
+import { Search } from '@mui/icons-material';
 import style from './style';
 
 const SearchBar = () => {
@@ -48,7 +49,19 @@ const SearchBar = () => {
   return (
     <Box sx={style.container}>
       <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-        <TextField variant='outlined' size='small' sx={style.textField} />
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position='start'>
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+          color='secondary'
+          variant='outlined'
+          size='small'
+          sx={style.textField}
+        />
       </Autocomplete>
     </Box>
   );

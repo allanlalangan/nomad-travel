@@ -5,9 +5,9 @@ import PlaceCard from './PlaceCard/PlaceCard';
 // styles and ui
 import style from './style';
 import { Typography, IconButton, Box, List } from '@mui/material';
-import { Tune } from '@mui/icons-material';
+import { Tune, Close } from '@mui/icons-material';
 
-const Places = ({ openFilter }) => {
+const Places = ({ filterOpen, toggleFilter }) => {
   const { category, status, places, placeCardRefs, setPlaceCardRefs } =
     useContext(PlacesContext);
 
@@ -43,8 +43,8 @@ const Places = ({ openFilter }) => {
           <Typography sx={style.buttonText} variant='caption'>
             Filters
           </Typography>
-          <IconButton onClick={openFilter} sx={style.filterButton}>
-            <Tune />
+          <IconButton onClick={toggleFilter} sx={style.filterButton}>
+            {filterOpen ? <Close /> : <Tune />}
           </IconButton>
         </Box>
       </Box>

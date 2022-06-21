@@ -6,6 +6,7 @@ const style = {
     height: (theme) => `${theme.layout.appBar.xs.height}vh`,
     backgroundColor: (theme) => theme.palette.background.default,
     // backgroundColor: (theme) => theme.palette.primary.light,
+    boxShadow: (theme) => theme.shadows[1],
   },
   toolBar: {
     '&.MuiToolbar-root': {
