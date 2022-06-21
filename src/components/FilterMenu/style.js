@@ -2,13 +2,15 @@ import { alpha } from '@mui/material';
 
 const style = {
   filterMenu: {
-    display: { xs: 'none', lg: 'block' },
+    // display: { xs: 'none', lg: 'block' },
 
-    width: 'calc(100% - 80%)',
-    height: 'calc(100% - 2rem)',
+    width: '100%',
+    height: '100%',
+    // width: 'calc(100% - 80%)',
+    // height: 'calc(100% - 2rem)',
 
-    position: 'absolute',
-    left: 'calc(30% + 1rem)',
+    // position: 'absolute',
+    // left: 'calc(30% + 1rem)',
     top: '1rem',
     zIndex: 1000,
 

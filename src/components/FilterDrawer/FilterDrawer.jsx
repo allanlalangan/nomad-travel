@@ -1,13 +1,17 @@
-import { useState } from 'react';
-import { Drawer, Box, Typography } from '@mui/material';
+import { Drawer } from '@mui/material';
 import style from './style';
 
-const FilterDrawer = () => {
+const FilterDrawer = ({ children, isOpen }) => {
   return (
-    <Drawer anchor='left' role='presentation'>
-      <Box>
-        <Typography variant='h6'>Filter Drawer</Typography>
-      </Box>
+    <Drawer
+      // transitionDuration={{ enter: 600, exit: 550 }}
+      variant='persistent'
+      anchor='left'
+      open={isOpen}
+      role='presentation'
+      sx={style.drawer}
+    >
+      {children}
     </Drawer>
   );
 };

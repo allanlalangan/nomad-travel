@@ -7,7 +7,7 @@ import style from './style';
 import { Typography, IconButton, Box, List } from '@mui/material';
 import { Tune } from '@mui/icons-material';
 
-const Places = () => {
+const Places = ({ openFilter }) => {
   const { status, places, placeCardRefs, setPlaceCardRefs } =
     useContext(PlacesContext);
 
@@ -28,16 +28,16 @@ const Places = () => {
   }, [places, setPlaceCardRefs]);
 
   return (
-    status.isSuccess && (
-      <>
-        <Box sx={style.heading}>
-          <Typography variant='h6' component='h3'>
-            Most Popular Places In The Area
-          </Typography>
-          <IconButton sx={style.filterButton}>
-            <Tune />
-          </IconButton>
-        </Box>
+    <>
+      <Box sx={style.heading}>
+        <Typography variant='h6' component='h3'>
+          Most Popular Places In The Area
+        </Typography>
+        <IconButton onClick={openFilter} sx={style.filterButton}>
+          <Tune />
+        </IconButton>
+      </Box>
+      {status.isSuccess && (
         <List disablePadding sx={style.placesList}>
           {places?.map((place, i) => (
             <PlaceCard
@@ -50,8 +50,8 @@ const Places = () => {
             />
           ))}
         </List>
-      </>
-    )
+      )}
+    </>
   );
 };
 
