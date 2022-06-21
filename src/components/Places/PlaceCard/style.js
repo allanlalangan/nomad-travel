@@ -9,11 +9,18 @@ const style = {
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: '1rem 0',
-    minHeight: (theme) =>
-      `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
+
+    minHeight: (theme) => ({
+      xs: '100%',
+      md: `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
         theme.layout.placesHeading.xs.height * 2
       }rem)`,
-    // minHeight: '100%',
+    }),
+
+    // minHeight: (theme) =>
+    //   `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
+    //     theme.layout.placesHeading.xs.height * 2
+    //   }rem)`,
 
     boxShadow: (theme) => theme.shadows[3],
     borderRadius: 2,
