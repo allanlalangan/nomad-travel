@@ -102,7 +102,7 @@ export const getPlaces = async (bounds, category, source) => {
       cuisine: place.cuisine ? transformCuisines(place.cuisine) : null,
       subcategory: transformSubCategories(place.cuisine, place),
     }));
-    console.log(transformedData);
+
     return transformedData;
 
     // return places;

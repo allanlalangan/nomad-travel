@@ -9,6 +9,12 @@ const FilterOption = ({ field, label, value }) => {
   const { category, places } = useContext(PlacesContext);
   const { setSelectedOption } = useContext(FilterContext);
   const onChange = (e) => {
+    const filteredPlaces = places.filter((place) =>
+      place[field.field].includes(`${e.target.value}`)
+    );
+
+    console.log(filteredPlaces);
+
     setSelectedOption({
       field: field.field,
       option: e.target.value,

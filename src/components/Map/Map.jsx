@@ -40,7 +40,7 @@ const Map = () => {
     placeCardRefs,
   } = useContext(PlacesContext);
   useEffect(() => {
-    console.log(bounds);
+    console.log('bounds:', bounds);
   }, [bounds]);
 
   // const { resetFilter } = useContext(FilterContext);

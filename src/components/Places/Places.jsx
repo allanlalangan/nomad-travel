@@ -6,14 +6,20 @@ import PlaceCard from './PlaceCard/PlaceCard';
 import style from './style';
 import { Typography, IconButton, Box, List } from '@mui/material';
 import { Tune, Close } from '@mui/icons-material';
+import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 
 const Places = ({ filterOpen, toggleFilter }) => {
   const { category, status, places, placeCardRefs, setPlaceCardRefs } =
     useContext(PlacesContext);
 
+  const displayedPlaces = places;
   useEffect(() => {
-    console.log(places);
+    console.log('places state', places);
   }, [places]);
+
+  useEffect(() => {
+    console.log('displayed places', displayedPlaces);
+  }, [displayedPlaces, places]);
 
   const liRefs = useRef([]);
 

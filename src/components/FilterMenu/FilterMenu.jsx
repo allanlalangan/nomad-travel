@@ -31,7 +31,7 @@ const FilterMenu = ({ isLoaded }) => {
   const { priceMinMax, filterFields } = useFilter();
 
   useEffect(() => {
-    console.log(filterFields);
+    console.log('filter fields:', filterFields);
   }, [filterFields]);
 
   const onRatingChange = (e) => {
