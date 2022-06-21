@@ -18,68 +18,89 @@ const useFilter = () => {
   useEffect(() => {
     // if Places isSuccess
     if (places?.length >= 1) {
+      const priceLevels = [];
       const priceOptions = [];
       const cuisineOptions = [];
       const dietOptions = [];
       const reservationOptions = [];
       const subCategoryOptions = [];
       // loop Places and retrieve price(s)
+
       places.forEach((place) => {
-        // if Place has price range, separate into two separate options
-        // push price to PriceOptions, unless duplicate
-        if (place.price_level?.includes('-')) {
-          const placesPrices = place.price_level.split(' - ');
-          placesPrices.forEach((price) => {
-            !priceOptions.includes(price) && priceOptions.push(price);
+        if (place.price_level?.length >= 1) {
+          place.price_level.forEach((price) => {
+            !priceLevels.includes(price) && priceLevels.push(price);
           });
-        } else if (
-          !place.price_level?.includes('-') &&
-          place.price_level !== ''
-        ) {
-          const placesPrices = [`${place.price_level}`];
-          !priceOptions.includes(placesPrices[0]) &&
-            priceOptions.push(placesPrices[0]);
-        } else console.log(place);
+        }
       });
+
+      // if Place has price range, separate into two separate options
+      // push price to PriceOptions, unless duplicate
+      // places.forEach((place) => {
+      //   if (place.price_level?.includes('-')) {
+      //     const placesPrices = place.price_level.split(' - ');
+      //     placesPrices.forEach((price) => {
+      //       !priceOptions.includes(price) && priceOptions.push(price);
+      //     });
+      //   } else if (
+      //     !place.price_level?.includes('-') &&
+      //     place.price_level !== ''
+      //   ) {
+      //     const placesPrices = [`${place.price_level}`];
+      //     !priceOptions.includes(placesPrices[0]) &&
+      //       priceOptions.push(placesPrices[0]);
+      //   } else console.log(place);
+      // });
       // sorts PriceOptions array from lowest to highest and set state
-      const priceRange = priceOptions.sort((a, b) => a.length - b.length);
+      const priceRange = priceLevels.sort((a, b) => a.length - b.length);
+      console.log(priceRange);
       setPriceMinMax(priceRange);
 
       // push to options arrays and set FilterFields
       places.forEach((place) => {
+        // withtransformed Data
         place.subcategory?.forEach((sub) => {
-          !subCategoryOptions.includes(sub.name) &&
-            subCategoryOptions.push(sub.name);
+          !subCategoryOptions.includes(sub) && subCategoryOptions.push(sub);
         });
 
-        if (place.subcategory_type_label) {
-          !subCategoryOptions.includes(place.subcategory_type_label) &&
-            subCategoryOptions.push(place.subcategory_type_label);
+        if (place.cuisine?.length >= 1) {
+          place.cuisine.forEach((cuisine) => [
+            !cuisineOptions.includes(cuisine) && cuisineOptions.push(cuisine),
+          ]);
         }
-        place.cuisine?.forEach((cuisine) => {
-          if (
-            cuisine.name.toLowerCase().includes('bar') ||
-            cuisine.name.toLowerCase().includes('pub') ||
-            cuisine.name.toLowerCase().includes('diner') ||
-            cuisine.name.toLowerCase().includes('house') ||
-            cuisine.name.toLowerCase().includes('fast')
-          ) {
-            !subCategoryOptions.includes(cuisine.name) &&
-              subCategoryOptions.push(cuisine.name);
-          } else if (
-            !cuisineOptions.includes(cuisine.name) &&
-            !cuisine.name.toLowerCase().includes('vega') &&
-            !cuisine.name.toLowerCase().includes('vege') &&
-            !cuisine.name.toLowerCase().includes('cafe') &&
-            !cuisine.name.toLowerCase().includes('glut')
-          ) {
-            cuisineOptions.push(cuisine.name);
-          }
-        });
 
         place.dietary_restrictions?.forEach((diet) => {
-          !dietOptions.includes(diet.name) && dietOptions.push(diet.name);
+          !dietOptions.includes(diet) && dietOptions.push(diet);
         });
+
+        // if (place.subcategory_type_label) {
+        //   !subCategoryOptions.includes(place.subcategory_type_label) &&
+        //     subCategoryOptions.push(place.subcategory_type_label);
+        // }
+        // place.cuisine?.forEach((cuisine) => {
+        //   if (
+        //     cuisine.name.toLowerCase().includes('bar') ||
+        //     cuisine.name.toLowerCase().includes('pub') ||
+        //     cuisine.name.toLowerCase().includes('diner') ||
+        //     cuisine.name.toLowerCase().includes('house') ||
+        //     cuisine.name.toLowerCase().includes('fast')
+        //   ) {
+        //     !subCategoryOptions.includes(cuisine.name) &&
+        //       subCategoryOptions.push(cuisine.name);
+        //   } else if (
+        //     !cuisineOptions.includes(cuisine.name) &&
+        //     !cuisine.name.toLowerCase().includes('vega') &&
+        //     !cuisine.name.toLowerCase().includes('vege') &&
+        //     !cuisine.name.toLowerCase().includes('cafe') &&
+        //     !cuisine.name.toLowerCase().includes('glut')
+        //   ) {
+        //     cuisineOptions.push(cuisine.name);
+        //   }
+        // });
+
+        // place.dietary_restrictions?.forEach((diet) => {
+        //   !dietOptions.includes(diet.name) && dietOptions.push(diet.name);
+        // });
 
         if (place.reserve_info) {
           !reservationOptions.includes(place.reserve_info.button_text) &&

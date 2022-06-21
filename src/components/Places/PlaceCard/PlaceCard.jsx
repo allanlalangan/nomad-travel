@@ -168,29 +168,18 @@ const PlaceCard = forwardRef(({ place }, ref) => {
             <>
               <List sx={{ ...style.summaryLists.__tags, ...style.fullWidth }}>
                 {place.dietary_restrictions.map((diet) => (
-                  <ListItem key={diet.name} disablePadding disableGutters>
-                    <Typography variant='body2'>{diet.name}</Typography>
+                  <ListItem key={diet} disablePadding disableGutters>
+                    <Typography variant='body2'>{diet}</Typography>
                   </ListItem>
                 ))}
               </List>
               <List sx={{ ...style.summaryLists.__diets, ...style.fullWidth }}>
                 {place.cuisine?.length >= 1 &&
-                  place.cuisine.map(
-                    (cuisine) =>
-                      !cuisine.name.toLowerCase().includes('vegan') &&
-                      !cuisine.name.toLowerCase().includes('vegetarian') &&
-                      !cuisine.name.toLowerCase().includes('gluten') && (
-                        <ListItem
-                          key={cuisine.name}
-                          disablePadding
-                          disableGutters
-                        >
-                          <Typography variant='body2'>
-                            {cuisine.name}
-                          </Typography>
-                        </ListItem>
-                      )
-                  )}
+                  place.cuisine.map((cuisine) => (
+                    <ListItem key={cuisine} disablePadding disableGutters>
+                      <Typography variant='body2'>{cuisine}</Typography>
+                    </ListItem>
+                  ))}
               </List>
             </>
           )}

@@ -24,26 +24,24 @@ const initMarks = [
 
 const initValue = [1, 4];
 
-export default function PriceSlider({ priceLevels }) {
+export default function PriceSlider({ minMax }) {
   const [value, setValue] = useState([1, 4]);
   const [marks, setMarks] = useState(null);
 
   useEffect(() => {
-    priceLevels?.length === 1 &&
-      setValue([priceLevels[0].length, priceLevels[0].length]);
-
-    if (priceLevels?.length > 1) {
-      const currentMarks = priceLevels.map((price) => ({
+    if (minMax?.length === 1) {
+      setValue([minMax[0].length, minMax[0].length]);
+      setMarks({ value: minMax[0].length, label: minMax[0] });
+    }
+    if (minMax?.length > 1) {
+      const currentMarks = minMax.map((price) => ({
         value: price.length,
         label: price,
       }));
       setMarks(currentMarks);
-      setValue([
-        priceLevels[0].length,
-        priceLevels[priceLevels.length - 1].length,
-      ]);
+      setValue([minMax[0].length, minMax[minMax.length - 1].length]);
     }
-  }, [priceLevels]);
+  }, [minMax]);
 
   const handleChange = (event, newValue) => {
     console.log(newValue);
