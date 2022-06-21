@@ -14,14 +14,10 @@ const FilterField = ({ field }) => {
     <Box sx={style.fieldContainer} component='fieldset'>
       <Typography variant='h6'>{field.fieldLabel}</Typography>
       <List sx={style.filterField}>
-        <FormGroup key={field.fieldLabel}>
+        <FormGroup key={field.field}>
           {field?.inputControls?.map((option, i) => (
             <FormControl key={i}>
-              <ListItemButton
-                // key={i.toString()}
-                sx={style.checkboxLiItem}
-                disableGutters
-              >
+              <ListItemButton sx={style.checkboxLiItem} disableGutters>
                 <FilterOption
                   field={field}
                   label={option.name}

@@ -16,7 +16,6 @@ import { useContext } from 'react';
 import { PlacesContext } from '../../../store/PlacesContext/PlacesContextProvider';
 
 const PlaceCard = forwardRef(({ place }, ref) => {
-  console.log(window.innerWidth);
   const { category } = useContext(PlacesContext);
   return (
     <ListItem disableGutters disablePadding ref={ref} sx={style.placeCard}>

@@ -30,8 +30,8 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'SET_FILTER_FIELDS', payload: { fields } });
   }, []);
 
-  const setSelectedOption = useCallback((option) => {
-    dispatch({ type: 'SET_SELECTED_OPTION', payload: { option } });
+  const setSelectedOption = useCallback((field) => {
+    dispatch({ type: 'SET_SELECTED_OPTION', payload: { field } });
   }, []);
 
   const context = {
@@ -42,6 +42,7 @@ const FilterContextProvider = ({ children }) => {
     setMinRating,
     setPriceMinMax,
     setFilterFields,
+    setSelectedOption,
     resetFilter,
   };
 

@@ -9,7 +9,11 @@ const FilterOption = ({ field, label, value }) => {
   const { category, places } = useContext(PlacesContext);
   const { setSelectedOption } = useContext(FilterContext);
   const onChange = (e) => {
-    console.log(field.field, e.target.value, e.target.checked);
+    setSelectedOption({
+      field: field.field,
+      option: e.target.value,
+      selected: e.target.checked,
+    });
   };
   return (
     <FormControlLabel

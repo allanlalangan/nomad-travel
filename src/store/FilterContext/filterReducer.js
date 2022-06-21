@@ -16,6 +16,7 @@ const filterReducer = (state, { type, payload }) => {
         filterFields: fields,
       };
     case 'SET_SELECTED_OPTION':
+      console.log(payload.field);
       return state;
     default:
       throw new Error(`No case for ${type}`);

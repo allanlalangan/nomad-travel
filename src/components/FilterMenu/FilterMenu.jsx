@@ -132,7 +132,7 @@ const FilterMenu = ({ isLoaded }) => {
 
           {filterFields?.length >= 1 &&
             filterFields.map((field) => (
-              <Box key={field.fieldLabel}>
+              <Box key={field.field}>
                 <FilterField field={field} />
                 <Divider />
               </Box>
