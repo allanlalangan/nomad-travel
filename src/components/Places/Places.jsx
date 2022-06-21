@@ -8,7 +8,7 @@ import { Typography, IconButton, Box, List } from '@mui/material';
 import { Tune } from '@mui/icons-material';
 
 const Places = ({ openFilter }) => {
-  const { status, places, placeCardRefs, setPlaceCardRefs } =
+  const { category, status, places, placeCardRefs, setPlaceCardRefs } =
     useContext(PlacesContext);
 
   useEffect(() => {
@@ -29,14 +29,26 @@ const Places = ({ openFilter }) => {
 
   return (
     <>
-      <Box sx={style.heading}>
-        <Typography variant='h6' component='h3'>
-          Most Popular Places In The Area
-        </Typography>
-        <IconButton onClick={openFilter} sx={style.filterButton}>
-          <Tune />
-        </IconButton>
+      <Box sx={style.header}>
+        {status.isSuccess ? (
+          <Typography sx={style.heading} variant='subtitle' component='h3'>
+            Top {category}s in the area
+          </Typography>
+        ) : (
+          <Typography sx={style.heading} variant='subtitle' component='h3'>
+            Select a category
+          </Typography>
+        )}
+        <Box sx={style.buttonContainer}>
+          <Typography sx={style.buttonText} variant='caption'>
+            Filters
+          </Typography>
+          <IconButton onClick={openFilter} sx={style.filterButton}>
+            <Tune />
+          </IconButton>
+        </Box>
       </Box>
+
       {status.isSuccess && (
         <List disablePadding sx={style.placesList}>
           {places?.map((place, i) => (

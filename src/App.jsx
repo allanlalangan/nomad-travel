@@ -8,7 +8,13 @@ import FilterContextProvider from './store/FilterContext/FilterContextProvider';
 import { useLoadScript } from '@react-google-maps/api';
 // components
 import { Header, Places, FilterMenu, Map, FilterDrawer } from './components';
-import { CssBaseline, Box, Container, ThemeProvider } from '@mui/material';
+import {
+  CssBaseline,
+  Box,
+  Container,
+  ThemeProvider,
+  Typography,
+} from '@mui/material';
 import theme from './theme';
 import style from './style';
 

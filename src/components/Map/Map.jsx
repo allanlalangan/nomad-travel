@@ -90,33 +90,33 @@ const Map = () => {
   const onTilesLoaded = () => {
     // getBounds
     const latLngBounds = googleMap.getBounds();
-    const neBound = latLngBounds.getNorthEast();
-    const swBound = latLngBounds.getSouthWest();
+    // const neBound = latLngBounds.getNorthEast();
+    // const swBound = latLngBounds.getSouthWest();
 
     const tr_latitude = latLngBounds.getNorthEast().lat();
     const tr_longitude = latLngBounds.getNorthEast().lng();
-    // const bl_latitude = latLngBounds.getSouthWest().lat();
-    // const bl_longitude = latLngBounds.getSouthWest().lng();
+    const bl_latitude = latLngBounds.getSouthWest().lat();
+    const bl_longitude = latLngBounds.getSouthWest().lng();
 
     // fetch within cropped map bounds (bypass geodata of map area behind FilterMenu)
 
     // convert the bounds in pixels
-    const neBoundInPx = googleMap.getProjection().fromLatLngToPoint(neBound);
-    const swBoundInPx = googleMap.getProjection().fromLatLngToPoint(swBound);
+    // const neBoundInPx = googleMap.getProjection().fromLatLngToPoint(neBound);
+    // const swBoundInPx = googleMap.getProjection().fromLatLngToPoint(swBound);
 
     // calculate width
-    const procX = (window.innerWidth * 0.3) / window.innerWidth;
-    const procY = window.innerHeight / window.innerHeight;
-    const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
-    const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
+    // const procX = (window.innerWidth * 0.3) / window.innerWidth;
+    // const procY = window.innerHeight / window.innerHeight;
+    // const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
+    // const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
 
-    const newLatLng = googleMap
-      .getProjection()
-      .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
+    // const newLatLng = googleMap
+    //   .getProjection()
+    //   .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
 
     // cropped bounds
-    const bl_latitude = newLatLng.lat();
-    const bl_longitude = newLatLng.lng();
+    // const bl_latitude = newLatLng.lat();
+    // const bl_longitude = newLatLng.lng();
 
     setBounds({
       bl_latitude,

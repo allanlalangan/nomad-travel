@@ -26,7 +26,7 @@ const style = {
     justifyContent: 'flex-start',
 
     width: '100%',
-    height: '25%',
+    height: { xs: '35%', sm: '25%' },
     zIndex: 999,
 
     padding: '1rem',
@@ -44,7 +44,7 @@ const style = {
 
   filterForm: {
     width: 'calc(100% - 2rem)',
-    height: 'calc(75% - 2rem)',
+    height: { xs: 'calc(65% - 2rem)', sm: 'calc(75% - 2rem)' },
     marginTop: '1rem',
     padding: '0 1rem',
 

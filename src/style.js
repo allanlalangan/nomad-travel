@@ -1,3 +1,9 @@
+const mainContentHeight = (theme) =>
+  `calc(100vh - ${theme.layout.appBar.xs.height}vh)`;
+
+const mobileContentHeight = (theme) =>
+  `calc((100vh - ${theme.layout.appBar.xs.height}vh) * .85)`;
+
 const style = {
   wrapper: {
     display: 'flex',
@@ -14,7 +20,10 @@ const style = {
 
     position: 'relative',
     width: '100%',
-    height: (theme) => `calc(100vh - ${theme.layout.appBar.xs.height}vh)`,
+    height: (theme) => ({
+      xs: mobileContentHeight(theme),
+      sm: mainContentHeight(theme),
+    }),
 
     marginTop: (theme) => `${theme.layout.appBar.xs.height}vh`,
   },
@@ -25,7 +34,7 @@ const style = {
 
     position: { xs: 'absolute', sm: 'relative' },
     top: { xs: '100%', sm: 0 },
-    width: { xs: '100%', sm: '40%', lg: '30%' },
+    width: { xs: '100%', sm: '50%', lg: '30%' },
 
     zIndex: 1000,
     overFlowX: 'hidden',
@@ -37,7 +46,7 @@ const style = {
     display: 'flex',
     alignItems: 'start',
 
-    width: { xs: '100%', sm: '60%', lg: '70%' },
+    width: { xs: '100%', sm: '50%', md: '60%', lg: '70%' },
     height: { xs: '100%', sm: '100%' },
   },
 };

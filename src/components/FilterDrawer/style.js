@@ -2,15 +2,31 @@ const style = {
   drawer: {
     '& .MuiPaper-root': {
       '&.MuiDrawer-paper': {
-        height: (theme) =>
-          `calc((100vh - ${theme.layout.appBar.xs.height}vh) - 2rem)`,
+        height: (theme) => ({
+          xs: `calc((((100vh - ${theme.layout.appBar.xs.height}vh) - 2rem) * .85) - 2rem)`,
+          sm: `calc((100vh - ${theme.layout.appBar.xs.height}vh) - 2rem)`,
+        }),
+        width: {
+          xs: 'calc(100% - 2rem)',
+          sm: 'calc(50% - 2rem)',
+          md: 'calc(40% - 2rem)',
+          lg: 'calc(30% - 2rem)',
+        },
         overflow: 'visible',
-        width: '30%',
 
-        zIndex: 600,
-        top: (theme) => `calc(${theme.layout.appBar.xs.height}vh + 1rem)`,
-        left: 'calc(30% + 1rem)',
+        zIndex: { xs: 1000, sm: 600 },
+        top: (theme) => ({
+          xs: `calc(${theme.layout.appBar.xs.height}vh + 3rem)`,
+          sm: `calc(${theme.layout.appBar.xs.height}vh + 1rem)`,
+        }),
+        left: {
+          xs: '1rem',
+          sm: 'calc(50% + 1rem)',
+          md: 'calc(45% + 1rem)',
+          lg: 'calc(30% + 1rem)',
+        },
         backgroundColor: 'transparent',
+        border: 'none',
       },
     },
   },

@@ -56,8 +56,8 @@ const theme = createTheme({
   layout: {
     appBar: { xs: { width: 100, height: 8 }, sm: {}, md: {}, lg: {}, xl: {} },
     placesHeading: {
-      xs: { width: 100, height: 2 },
-      sm: {},
+      xs: { width: 100, height: 4 },
+      sm: { width: 100, height: 2 },
       md: {},
       lg: {},
       xl: {},

@@ -6,6 +6,7 @@ const FilterDrawer = ({ children, isOpen }) => {
     <Drawer
       // transitionDuration={{ enter: 600, exit: 550 }}
       variant='persistent'
+      // anchor={{ xs: 'top', sm: 'left' }}
       anchor='left'
       open={isOpen}
       role='presentation'

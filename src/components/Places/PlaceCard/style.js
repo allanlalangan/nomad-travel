@@ -13,7 +13,7 @@ const style = {
     minHeight: (theme) => ({
       xs: '100%',
       md: `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
-        theme.layout.placesHeading.xs.height * 2
+        theme.layout.placesHeading.sm.height * 2
       }rem)`,
     }),
 
