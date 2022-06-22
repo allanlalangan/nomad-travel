@@ -95,7 +95,7 @@ const useFilter = () => {
           inputControls: subCategoryControls,
         },
         {
-          field: 'reserve_info',
+          field: 'reserve_info.button_text',
           fieldLabel: 'Reservations',
           inputControls: reservationControls,
         },

@@ -5,9 +5,13 @@ export const FilterContext = createContext();
 
 const initState = {
   active: false,
+  selectedSubcategories: [],
+  selectedCuisines: [],
+  selectedDiets: [],
+  filterFields: null,
+  filteredPlaces: [],
   minRating: null,
   priceMinMax: [1, 4],
-  filterFields: null,
 };
 
 const FilterContextProvider = ({ children }) => {
@@ -30,17 +34,28 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'SET_FILTER_FIELDS', payload: { fields } });
   }, []);
 
-  const setSelectedOption = useCallback((field) => {
-    dispatch({ type: 'SET_SELECTED_OPTION', payload: { field } });
+  const setSelectedOption = useCallback((field, param) => {
+    dispatch({ type: 'SET_SELECTED_OPTION', payload: { field, param } });
+  }, []);
+  const setSelectedSubcategories = useCallback((subcategory, checked) => {
+    dispatch({
+      type: 'SET_SELECTED_SUBCATEGORIES',
+      payload: { subcategory, checked },
+    });
   }, []);
 
   const context = {
     active: state.active,
+    selectedSubcategories: state.selectedSubcategories,
+    selectedCuisines: state.selectedCuisines,
+    selectedDiets: state.selectedDiets,
+    filteredPlaces: state.filteredPlaces,
     minRating: state.minRating,
     priceMinMax: state.priceMinMax,
     filterFields: state.filterFields,
     setMinRating,
     setPriceMinMax,
+    setSelectedSubcategories,
     setFilterFields,
     setSelectedOption,
     resetFilter,

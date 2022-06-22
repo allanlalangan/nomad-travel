@@ -19,6 +19,7 @@ import PriceSlider from './PriceSlider/PriceSlider';
 import SortButton from './SortButton/SortButton';
 import useFilter from '../../hooks/useFilter';
 import FilterField from './FilterField/FilterField';
+import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 
 const FilterMenu = ({ isLoaded }) => {
   const {
@@ -27,6 +28,11 @@ const FilterMenu = ({ isLoaded }) => {
     category,
     selectCategory,
   } = useContext(PlacesContext);
+  const { selectedSubcategories } = useContext(FilterContext);
+
+  useEffect(() => {
+    console.log(selectedSubcategories);
+  }, [selectedSubcategories]);
 
   const { priceMinMax, filterFields } = useFilter();
 

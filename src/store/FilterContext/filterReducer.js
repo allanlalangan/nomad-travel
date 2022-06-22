@@ -18,6 +18,36 @@ const filterReducer = (state, { type, payload }) => {
     case 'SET_SELECTED_OPTION':
       console.log(payload.field);
       return state;
+    case 'SET_SELECTED_SUBCATEGORIES':
+      if (
+        payload.checked &&
+        !state.selectedSubcategories.includes(payload.subcategory)
+      ) {
+        return {
+          ...state,
+          selectedSubcategories: [
+            ...state.selectedSubcategories,
+            payload.subcategory,
+          ],
+        };
+      } else if (
+        !payload.checked &&
+        state.selectedSubcategories.includes(payload.subcategory)
+      ) {
+        const currentSelected = state.selectedSubcategories;
+        const updatedSelected = currentSelected.filter(
+          (sub) => sub !== payload.subcategory
+        );
+
+        return {
+          ...state,
+          selectedSubcategories: updatedSelected,
+        };
+      }
+      // if(!state.selectedSubcategories.includes(payload.subcategory)) {
+      //   newSubcategories.push(payload.subcategory)
+      // }
+      return state;
     default:
       throw new Error(`No case for ${type}`);
   }
