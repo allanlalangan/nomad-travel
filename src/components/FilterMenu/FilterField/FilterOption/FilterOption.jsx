@@ -1,28 +1,33 @@
 import { FormControlLabel, Checkbox } from '@mui/material';
-import { useContext, useEffect } from 'react';
-import { PlacesContext } from '../../../../store/PlacesContext/PlacesContextProvider';
+import { useContext } from 'react';
 import { FilterContext } from '../../../../store/FilterContext/FilterContextProvider';
 
 import style from './style';
 
 const FilterOption = ({ field, label, value }) => {
-  const { category, places } = useContext(PlacesContext);
-  const { selectedSubcategories, setSelectedSubcategories } =
-    useContext(FilterContext);
+  const {
+    setSelectedSubcategories,
+    setSelectedCuisines,
+    setSelectedDiets,
+    setSelectedOrderOptions,
+    setSelectedPrices,
+  } = useContext(FilterContext);
 
-  const allPlaces = places;
-  const filteredPlaces = [];
   const onChange = (e) => {
     if (field.field === 'subcategory') {
       setSelectedSubcategories(value, e.target.checked);
     }
     if (field.field === 'price_level') {
+      setSelectedPrices(value, e.target.checked);
     }
     if (field.field === 'dietary_restrictions') {
+      setSelectedDiets(value, e.target.checked);
     }
     if (field.field === 'cuisine') {
+      setSelectedCuisines(value, e.target.checked);
     }
     if (field.field.includes('reserve')) {
+      setSelectedOrderOptions(value, e.target.checked);
     }
   };
   return (

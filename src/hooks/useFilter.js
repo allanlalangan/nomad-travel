@@ -8,7 +8,7 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 // hotel: { subcategory_type: 'hotel' }
 // attraction: { subcategory: [{key: '123', name: 'Sub Category'}] }
 // restaurant: { subcategory: [{key: 'sub_category', name: 'Sub Category'}] }
-// restaurant: { reserve_info: [{button_text: 'online || reserve', url: ' '}] }
+// restaurant: { reserve_info: {button_text: 'online || reserve', url: ' '} }
 
 const useFilter = () => {
   const { category, places } = useContext(PlacesContext);
@@ -58,62 +58,55 @@ const useFilter = () => {
         }
       });
 
-      const priceControls = priceRange.map((option) => ({
-        name: option,
-        selected: false,
+      const priceValues = priceRange.map((option) => ({
+        value: option,
       }));
 
-      const reservationControls = reservationOptions.map((option) => ({
-        name: option,
-        selected: false,
+      const reservationValues = reservationOptions.map((option) => ({
+        value: option,
       }));
 
-      const subCategoryControls = subCategoryOptions.map((option) => ({
-        name: option,
-        selected: false,
+      const subCategoryValues = subCategoryOptions.map((option) => ({
+        value: option,
       }));
 
-      const dietControls = dietOptions.map((option) => ({
-        name: option,
-        selected: false,
+      const dietValues = dietOptions.map((option) => ({
+        value: option,
       }));
 
-      const cuisineControls = cuisineOptions.map((option) => ({
-        name: option,
-        selected: false,
+      const cuisineValues = cuisineOptions.map((option) => ({
+        value: option,
       }));
 
       const fields = [
         {
           field: 'price_level',
-          fieldLabel: 'Price',
-          inputControls: priceControls,
+          label: 'Price',
+          options: priceValues,
         },
         {
           field: 'subcategory',
-          fieldLabel: 'Sub-category',
-          inputControls: subCategoryControls,
+          label: 'Sub-category',
+          options: subCategoryValues,
         },
         {
           field: 'reserve_info.button_text',
-          fieldLabel: 'Reservations',
-          inputControls: reservationControls,
+          label: 'Reservations',
+          options: reservationValues,
         },
         {
           field: 'dietary_restrictions',
-          fieldLabel: 'Dietary Restrictions',
-          inputControls: dietControls,
+          label: 'Dietary Restrictions',
+          options: dietValues,
         },
         {
           field: 'cuisine',
-          fieldLabel: 'Cuisine',
-          inputControls: cuisineControls,
+          label: 'Cuisine',
+          options: cuisineValues,
         },
       ];
 
-      setFilterFields(
-        fields.filter((field) => field.inputControls.length >= 1)
-      );
+      setFilterFields(fields.filter((field) => field.options.length >= 1));
     }
   }, [category, places, setPriceMinMax, setFilterFields]);
 

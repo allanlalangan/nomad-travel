@@ -39,11 +39,6 @@ const Map = () => {
     fetchSuccess: fetchPlacesSuccess,
     placeCardRefs,
   } = useContext(PlacesContext);
-  useEffect(() => {
-    console.log('bounds:', bounds);
-  }, [bounds]);
-
-  // const { resetFilter } = useContext(FilterContext);
 
   const mapRef = useRef();
   const onMapLoad = useCallback(

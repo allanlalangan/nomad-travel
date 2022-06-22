@@ -15,7 +15,6 @@ import {
   Typography,
 } from '@mui/material';
 
-import PriceSlider from './PriceSlider/PriceSlider';
 import SortButton from './SortButton/SortButton';
 import useFilter from '../../hooks/useFilter';
 import FilterField from './FilterField/FilterField';
@@ -28,20 +27,48 @@ const FilterMenu = ({ isLoaded }) => {
     category,
     selectCategory,
   } = useContext(PlacesContext);
-  const { selectedSubcategories } = useContext(FilterContext);
+  const {
+    minRating,
+    selectedSubcategories,
+    selectedCuisines,
+    selectedDiets,
+    selectedOrderOptions,
+    selectedPrices,
+    setMinRating,
+  } = useContext(FilterContext);
 
   useEffect(() => {
     console.log(selectedSubcategories);
   }, [selectedSubcategories]);
 
-  const { priceMinMax, filterFields } = useFilter();
+  useEffect(() => {
+    console.log(selectedCuisines);
+  }, [selectedCuisines]);
+
+  useEffect(() => {
+    console.log(selectedDiets);
+  }, [selectedDiets]);
+
+  useEffect(() => {
+    console.log(selectedOrderOptions);
+  }, [selectedOrderOptions]);
+
+  useEffect(() => {
+    console.log(selectedPrices);
+  }, [selectedPrices]);
+
+  useEffect(() => {
+    console.log(minRating);
+  }, [minRating]);
+
+  const { filterFields } = useFilter();
 
   useEffect(() => {
     console.log('filter fields:', filterFields);
   }, [filterFields]);
 
   const onRatingChange = (e) => {
-    console.log(Number(e.target.value));
+    setMinRating(Number(e.target.value));
   };
 
   return (

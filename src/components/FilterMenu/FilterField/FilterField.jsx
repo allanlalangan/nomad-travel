@@ -12,16 +12,16 @@ import style from './style';
 const FilterField = ({ field }) => {
   return (
     <Box sx={style.fieldContainer} component='fieldset'>
-      <Typography variant='h6'>{field.fieldLabel}</Typography>
+      <Typography variant='h6'>{field.label}</Typography>
       <List sx={style.filterField}>
         <FormGroup key={field.field}>
-          {field?.inputControls?.map((option, i) => (
+          {field?.options?.map((option, i) => (
             <FormControl key={i}>
               <ListItemButton sx={style.checkboxLiItem} disableGutters>
                 <FilterOption
                   field={field}
-                  label={option.name}
-                  value={option.name}
+                  label={option.value}
+                  value={option.value}
                 />
               </ListItemButton>
             </FormControl>

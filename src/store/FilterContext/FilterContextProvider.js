@@ -5,12 +5,14 @@ export const FilterContext = createContext();
 
 const initState = {
   active: false,
+  minRating: null,
   selectedSubcategories: [],
-  selectedCuisines: [],
+  selectedPrices: [],
+  selectedOrderOptions: [],
   selectedDiets: [],
+  selectedCuisines: [],
   filterFields: null,
   filteredPlaces: [],
-  minRating: null,
   priceMinMax: [1, 4],
 };
 
@@ -26,17 +28,10 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'SET_MIN_RATING', payload: { rating } });
   }, []);
 
-  const setPriceMinMax = useCallback((minMax) => {
-    dispatch({ type: 'SET_PRICE_MIN_MAX', payload: { minMax } });
-  }, []);
-
   const setFilterFields = useCallback((fields) => {
     dispatch({ type: 'SET_FILTER_FIELDS', payload: { fields } });
   }, []);
 
-  const setSelectedOption = useCallback((field, param) => {
-    dispatch({ type: 'SET_SELECTED_OPTION', payload: { field, param } });
-  }, []);
   const setSelectedSubcategories = useCallback((subcategory, checked) => {
     dispatch({
       type: 'SET_SELECTED_SUBCATEGORIES',
@@ -44,20 +39,51 @@ const FilterContextProvider = ({ children }) => {
     });
   }, []);
 
+  const setSelectedCuisines = useCallback((cuisine, checked) => {
+    dispatch({
+      type: 'SET_SELECTED_CUISINES',
+      payload: { cuisine, checked },
+    });
+  }, []);
+
+  const setSelectedDiets = useCallback((diet, checked) => {
+    dispatch({
+      type: 'SET_SELECTED_DIETS',
+      payload: { diet, checked },
+    });
+  }, []);
+
+  const setSelectedOrderOptions = useCallback((option, checked) => {
+    dispatch({
+      type: 'SET_SELECTED_ORDER_OPTIONS',
+      payload: { option, checked },
+    });
+  }, []);
+
+  const setSelectedPrices = useCallback((price, checked) => {
+    dispatch({
+      type: 'SET_SELECTED_PRICES',
+      payload: { price, checked },
+    });
+  }, []);
+
   const context = {
     active: state.active,
-    selectedSubcategories: state.selectedSubcategories,
-    selectedCuisines: state.selectedCuisines,
-    selectedDiets: state.selectedDiets,
-    filteredPlaces: state.filteredPlaces,
     minRating: state.minRating,
-    priceMinMax: state.priceMinMax,
+    selectedSubcategories: state.selectedSubcategories,
+    selectedPrices: state.selectedPrices,
+    selectedDiets: state.selectedDiets,
+    selectedCuisines: state.selectedCuisines,
+    selectedOrderOptions: state.selectedOrderOptions,
+    filteredPlaces: state.filteredPlaces,
     filterFields: state.filterFields,
     setMinRating,
-    setPriceMinMax,
     setSelectedSubcategories,
+    setSelectedCuisines,
+    setSelectedDiets,
+    setSelectedOrderOptions,
+    setSelectedPrices,
     setFilterFields,
-    setSelectedOption,
     resetFilter,
   };
 
