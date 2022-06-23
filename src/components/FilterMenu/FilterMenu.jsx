@@ -44,38 +44,62 @@ const FilterMenu = ({ isLoaded }) => {
     console.log(active);
   }, [active]);
 
-  useEffect(() => {
-    console.log(selectedSubcategories);
-  }, [selectedSubcategories]);
-
-  useEffect(() => {
-    console.log(selectedCuisines);
-  }, [selectedCuisines]);
-
-  useEffect(() => {
-    console.log(selectedDiets);
-  }, [selectedDiets]);
-
-  useEffect(() => {
-    console.log(selectedOrderOptions);
-  }, [selectedOrderOptions]);
-
-  useEffect(() => {
-    console.log(selectedPrices);
-  }, [selectedPrices]);
-
-  useEffect(() => {
-    console.log(minRating);
-  }, [minRating]);
-
   const { filterFields } = useFilter();
-
-  useEffect(() => {
-    console.log('filter fields:', filterFields);
-  }, [filterFields]);
 
   const onRatingChange = (e) => {
     setMinRating(Number(e.target.value));
+  };
+
+  const handleApplyFilter = () => {
+    const allPlaces = places;
+    const filteredPlaces = [];
+    setFilterActive();
+
+    minRating &&
+      console.log(
+        allPlaces.filter(
+          (place) => place.rating && Number(place.rating) >= minRating
+        )
+      );
+
+    selectedSubcategories?.length >= 1 &&
+      selectedSubcategories.forEach((sub) => {
+        console.log(
+          allPlaces.filter((place) => place.subcategory?.includes(sub))
+        );
+      });
+
+    selectedPrices?.length >= 1 &&
+      selectedPrices.forEach((price) => {
+        console.log(
+          allPlaces.filter((place) => place.price_level?.includes(price))
+        );
+      });
+
+    selectedCuisines?.length >= 1 &&
+      selectedCuisines.forEach((cuisine) => {
+        console.log(
+          allPlaces.filter((place) => place.cuisine?.includes(cuisine))
+        );
+      });
+
+    selectedDiets?.length >= 1 &&
+      selectedDiets.forEach((diet) => {
+        console.log(
+          allPlaces.filter((place) =>
+            place.dietary_restrictions?.includes(diet)
+          )
+        );
+      });
+
+    selectedOrderOptions?.length >= 1 &&
+      selectedOrderOptions.forEach((option) => {
+        console.log(
+          allPlaces.filter((place) =>
+            place.reserve_info?.button_text?.includes(option)
+          )
+        );
+      });
   };
 
   return (
@@ -128,7 +152,7 @@ const FilterMenu = ({ isLoaded }) => {
             <Box sx={style.filterButtons}>
               <Button
                 // color='primary'
-                onClick={setFilterActive}
+                onClick={handleApplyFilter}
                 variant='contained'
                 disableElevation
                 disabled={!isLoaded}
