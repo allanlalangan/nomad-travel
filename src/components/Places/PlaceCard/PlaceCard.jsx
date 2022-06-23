@@ -3,6 +3,7 @@ import {
   CardMedia,
   Box,
   Button,
+  Chip,
   List,
   ListItem,
   ListItemButton,
@@ -152,34 +153,28 @@ const PlaceCard = forwardRef(({ place }, ref) => {
                 <Typography variant='body1'>{`${place.address_obj?.city}, ${
                   place.address_obj?.state || place.address_obj?.country
                 } ${place.address_obj?.postalcode}`}</Typography>
-                <Button variant='outlined'>
-                  <LocationOn />
-                </Button>
               </Box>
+              <Button variant='outlined'>
+                <LocationOn />
+              </Button>
             </>
           ) : (
             ''
           )}
-          <Divider sx={{ width: '100%' }} />
         </Box>
+        <Divider sx={{ width: '100%' }} />
 
         <Box sx={{ ...style.summaryLists, ...style.fullWidth }}>
           {place.dietary_restrictions?.length >= 1 && (
             <>
               <List sx={{ ...style.summaryLists.__tags, ...style.fullWidth }}>
                 {place.dietary_restrictions.map((diet) => (
-                  <ListItem key={diet} disablePadding disableGutters>
-                    <Typography variant='body2'>{diet}</Typography>
-                  </ListItem>
+                  <Chip label={diet} />
                 ))}
               </List>
               <List sx={{ ...style.summaryLists.__diets, ...style.fullWidth }}>
                 {place.cuisine?.length >= 1 &&
-                  place.cuisine.map((cuisine) => (
-                    <ListItem key={cuisine} disablePadding disableGutters>
-                      <Typography variant='body2'>{cuisine}</Typography>
-                    </ListItem>
-                  ))}
+                  place.cuisine.map((cuisine) => <Chip label={cuisine} />)}
               </List>
             </>
           )}

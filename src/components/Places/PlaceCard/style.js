@@ -126,7 +126,6 @@ const style = {
 
   summaryAddress: {
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'space-between',
   },
 
@@ -136,12 +135,10 @@ const style = {
 
   summaryLists: {
     __tags: {
-      display: 'flex',
-      flexDirection: 'column',
+      flexWrap: 'wrap',
     },
     __diets: {
-      display: 'flex',
-      flexDirection: 'column',
+      flexWrap: 'wrap',
     },
   },
 
