@@ -20,32 +20,13 @@ const SearchBar = () => {
 
   const onPlaceChanged = useCallback(() => {
     setMapIsUpdating();
-    const {
-      Ab: { h: bl_latitude },
-      Ab: { j: tr_latitude },
-      Ua: { h: bl_longitude },
-      Ua: { j: tr_longitude },
-    } = autocomplete.getPlace().geometry.viewport;
-
-    setBounds({
-      bl_latitude,
-      tr_latitude,
-      bl_longitude,
-      tr_longitude,
-    });
 
     setCoordinates({
       lat: autocomplete.getPlace().geometry.location.lat(),
       lng: autocomplete.getPlace().geometry.location.lng(),
     });
     setMapUpdateSuccess();
-  }, [
-    autocomplete,
-    setMapIsUpdating,
-    setCoordinates,
-    setBounds,
-    setMapUpdateSuccess,
-  ]);
+  }, [autocomplete, setMapIsUpdating, setCoordinates, setMapUpdateSuccess]);
   return (
     <Box sx={style.container}>
       <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>

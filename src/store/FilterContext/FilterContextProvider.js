@@ -6,6 +6,7 @@ export const FilterContext = createContext();
 const initState = {
   active: false,
   minRating: null,
+  priceMinMax: [1, 4],
   selectedSubcategories: [],
   selectedPrices: [],
   selectedOrderOptions: [],
@@ -13,15 +14,18 @@ const initState = {
   selectedCuisines: [],
   filterFields: null,
   filteredPlaces: [],
-  priceMinMax: [1, 4],
 };
 
 const FilterContextProvider = ({ children }) => {
   // useReducer
   const [state, dispatch] = useReducer(filterReducer, initState);
 
-  const resetFilter = useCallback(() => {
-    dispatch({ type: 'RESET' });
+  const setFilterActive = useCallback(() => {
+    dispatch({ type: 'SET_FILTER_ACTIVE' });
+  }, []);
+
+  const clearFilter = useCallback(() => {
+    dispatch({ type: 'CLEAR_FILTER' });
   }, []);
 
   const setMinRating = useCallback((rating) => {
@@ -77,6 +81,8 @@ const FilterContextProvider = ({ children }) => {
     selectedOrderOptions: state.selectedOrderOptions,
     filteredPlaces: state.filteredPlaces,
     filterFields: state.filterFields,
+    setFilterActive,
+    clearFilter,
     setMinRating,
     setSelectedSubcategories,
     setSelectedCuisines,
@@ -84,7 +90,6 @@ const FilterContextProvider = ({ children }) => {
     setSelectedOrderOptions,
     setSelectedPrices,
     setFilterFields,
-    resetFilter,
   };
 
   return (

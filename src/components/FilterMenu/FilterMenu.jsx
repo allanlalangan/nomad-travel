@@ -28,7 +28,10 @@ const FilterMenu = ({ isLoaded }) => {
     selectCategory,
   } = useContext(PlacesContext);
   const {
+    active,
     minRating,
+    setFilterActive,
+    clearFilter,
     selectedSubcategories,
     selectedCuisines,
     selectedDiets,
@@ -36,6 +39,10 @@ const FilterMenu = ({ isLoaded }) => {
     selectedPrices,
     setMinRating,
   } = useContext(FilterContext);
+
+  useEffect(() => {
+    console.log(active);
+  }, [active]);
 
   useEffect(() => {
     console.log(selectedSubcategories);
@@ -121,6 +128,7 @@ const FilterMenu = ({ isLoaded }) => {
             <Box sx={style.filterButtons}>
               <Button
                 // color='primary'
+                onClick={setFilterActive}
                 variant='contained'
                 disableElevation
                 disabled={!isLoaded}
@@ -128,7 +136,11 @@ const FilterMenu = ({ isLoaded }) => {
               >
                 Apply Filters
               </Button>
-              <Button variant='outlined' disabled={!isLoaded}>
+              <Button
+                onClick={clearFilter}
+                variant='outlined'
+                disabled={!isLoaded}
+              >
                 Reset
               </Button>
             </Box>

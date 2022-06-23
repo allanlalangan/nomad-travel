@@ -1,8 +1,17 @@
 const filterReducer = (state, { type, payload }) => {
   switch (type) {
-    case 'RESET':
-      return state;
-    // return {...state, active: false};
+    case 'SET_FILTER_ACTIVE':
+      if (!state.active) {
+        return { ...state, active: true };
+      } else {
+        return state;
+      }
+    case 'CLEAR_FILTER':
+      if (state.active) {
+        return { ...state, active: false };
+      } else {
+        return state;
+      }
     case 'SET_PRICE_MIN_MAX':
       const minMax = payload.minMax;
       return { ...state, priceMinMax: minMax };
