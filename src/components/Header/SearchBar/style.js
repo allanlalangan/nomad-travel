@@ -9,10 +9,8 @@ const style = {
     justifyContent: 'center',
   },
   textField: {
-    '& .MuiInputBase-input': {
-      color: 'black',
-      borderRadius: 1,
-      backgroundColor: (theme) => theme.palette.background.default,
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '2rem',
     },
   },
 };

@@ -37,8 +37,8 @@ const Places = ({ filterOpen, toggleFilter }) => {
     <>
       <Box sx={style.header}>
         {status.isSuccess ? (
-          <Typography sx={style.heading} variant='subtitle' component='h3'>
-            Top {category}s in the area
+          <Typography sx={style.heading} variant='subtitle1' component='h3'>
+            Top {places.length} {category}s in the area
           </Typography>
         ) : (
           <Typography sx={style.heading} variant='subtitle' component='h3'>

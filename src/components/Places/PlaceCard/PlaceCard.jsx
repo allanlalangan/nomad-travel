@@ -184,7 +184,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
         <Divider sx={{ width: '100%' }} />
         {place.reserve_info?.button_text && (
           <Box sx={style.__booking}>
-            <Typography variant='body1'>
+            <Typography sx={style.__booking__actionText} variant='body1'>
               {(place.reserve_info.button_text
                 .toLowerCase()
                 .includes('online') &&
@@ -199,7 +199,7 @@ const PlaceCard = forwardRef(({ place }, ref) => {
               variant='contained'
               sx={style.cardActionButton}
             >
-              <Typography variant='button'>
+              <Typography sx={style.cardActionButton__text} variant='button'>
                 {place.reserve_info.button_text
                   ?.toLowerCase()
                   .includes('online')
@@ -210,7 +210,9 @@ const PlaceCard = forwardRef(({ place }, ref) => {
           </Box>
         )}
         <Button sx={style.tripAdvisorLink} variant='outlined'>
-          <Typography variant='body1'>View on TripAdvisor</Typography>
+          <Typography sx={style.cardActionButton__text} variant='body1'>
+            View on TripAdvisor
+          </Typography>
         </Button>
       </Box>
     </ListItem>

@@ -21,7 +21,7 @@ const theme = createTheme({
       main: 'hsl(195, 50%, 75%)',
     },
     background: {
-      default: 'hsl(200, 45%, 93%)',
+      default: 'hsl(210, 45%, 93%)',
       dark: 'hsl(205, 35%, 15%)',
     },
   },
@@ -42,16 +42,7 @@ const theme = createTheme({
   },
   typography: {
     fontSize: 12,
-    // custom variant
-    button2: {
-      margin: 0,
-      fontFamily: 'Roboto","Helvetica","Arial",sans-serif',
-      fontWeight: 500,
-      fontSize: '0.75rem',
-      lineHeight: 1.75,
-      letterSpacing: '0.02857em',
-      textTransform: 'none',
-    },
+    fontFamily: '"Raleway", sans-serif',
   },
   layout: {
     appBar: { xs: { width: 100, height: 8 }, sm: {}, md: {}, lg: {}, xl: {} },

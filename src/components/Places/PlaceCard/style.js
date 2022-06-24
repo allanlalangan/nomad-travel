@@ -148,6 +148,8 @@ const style = {
     width: '100%',
     padding: '0 1rem 1rem 1rem',
   },
+  __booking__actionText: { fontWeight: 500 },
+  cardActionButton__text: { fontWeight: 600 },
   __booking: {
     display: 'flex',
     alignItems: 'center',
