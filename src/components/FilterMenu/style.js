@@ -93,10 +93,17 @@ const style = {
     },
   },
 
-  checkboxLabel: {
+  fieldContainer: {
+    backgroundColor: (theme) => theme.palette.background.default,
+  },
+  filterField: {
+    width: '100%',
+  },
+
+  checkboxLiItem: {
     width: '100%',
     height: '100%',
-    margin: 0,
+    padding: 0,
   },
 };
 

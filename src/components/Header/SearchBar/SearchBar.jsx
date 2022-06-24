@@ -11,7 +11,6 @@ const SearchBar = () => {
     setIsUpdating: setMapIsUpdating,
     setIsSuccess: setMapUpdateSuccess,
     setCoordinates,
-    setBounds,
   } = useContext(MapContext);
   const [autocomplete, setAutocomplete] = useState(null);
   const onLoad = (ac) => {

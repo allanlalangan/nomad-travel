@@ -1,11 +1,13 @@
 import { FormControlLabel, Checkbox } from '@mui/material';
 import { useContext } from 'react';
-import { FilterContext } from '../../../../store/FilterContext/FilterContextProvider';
+import { FilterContext } from '../../../store/FilterContext/FilterContextProvider';
 
 import style from './style';
 
 const FilterOption = ({ field, label, value }) => {
   const {
+    active,
+    setFilterActive,
     setSelectedSubcategories,
     setSelectedCuisines,
     setSelectedDiets,
@@ -14,6 +16,7 @@ const FilterOption = ({ field, label, value }) => {
   } = useContext(FilterContext);
 
   const onChange = (e) => {
+    !active && setFilterActive();
     if (field.field === 'subcategory') {
       setSelectedSubcategories(value, e.target.checked);
     }
@@ -30,6 +33,7 @@ const FilterOption = ({ field, label, value }) => {
       setSelectedOrderOptions(value, e.target.checked);
     }
   };
+
   return (
     <FormControlLabel
       sx={style.checkboxLabel}

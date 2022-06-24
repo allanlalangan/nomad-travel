@@ -13,12 +13,16 @@ import {
   Select,
   MenuItem,
   Typography,
+  List,
+  FormGroup,
+  ListItemButton,
 } from '@mui/material';
 
 import SortButton from './SortButton/SortButton';
 import useFilter from '../../hooks/useFilter';
-import FilterField from './FilterField/FilterField';
+
 import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
+import FilterOption from './FilterOption/FilterOption';
 
 const FilterMenu = ({ isLoaded }) => {
   const {
@@ -219,22 +223,33 @@ const FilterMenu = ({ isLoaded }) => {
             </Box>
           </Box>
           <Divider />
-          {/* {category !== 'attraction' && (
-            <>
-              <Box sx={style.fieldContainer} component='fieldset'>
-                <Typography variant='h6'>Price Range</Typography>
-                <Box sx={style.filterField}>
-                  <PriceSlider minMax={priceMinMax} />
-                </Box>
-              </Box>
-              <Divider />
-            </>
-          )} */}
 
           {filterFields?.length >= 1 &&
             filterFields.map((field) => (
-              <Box key={field.field}>
-                <FilterField field={field} />
+              <Box
+                key={field.field}
+                sx={style.fieldContainer}
+                component='fieldset'
+              >
+                <Typography variant='h6'>{field.label}</Typography>
+                <List sx={style.filterField}>
+                  <FormGroup key={field.field}>
+                    {field.options?.map((option, i) => (
+                      <FormControl key={i}>
+                        <ListItemButton
+                          sx={style.checkboxLiItem}
+                          disableGutters
+                        >
+                          <FilterOption
+                            field={field}
+                            label={option.value}
+                            value={option.value}
+                          />
+                        </ListItemButton>
+                      </FormControl>
+                    ))}
+                  </FormGroup>
+                </List>
                 <Divider />
               </Box>
             ))}
