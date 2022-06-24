@@ -1,5 +1,11 @@
 const filterReducer = (state, { type, payload }) => {
   switch (type) {
+    case 'SET_FILTER_FIELDS':
+      const fields = payload.fields;
+      return {
+        ...state,
+        filterFields: fields,
+      };
     case 'SET_FILTER_ACTIVE':
       if (!state.active) {
         return { ...state, active: true };
@@ -12,21 +18,9 @@ const filterReducer = (state, { type, payload }) => {
       } else {
         return state;
       }
-    case 'SET_PRICE_MIN_MAX':
-      const minMax = payload.minMax;
-      return { ...state, priceMinMax: minMax };
     case 'SET_MIN_RATING':
       const rating = payload.rating;
       return { ...state, minRating: rating };
-    case 'SET_FILTER_FIELDS':
-      const fields = payload.fields;
-      return {
-        ...state,
-        filterFields: fields,
-      };
-    case 'SET_SELECTED_OPTION':
-      console.log(payload.field);
-      return state;
     case 'SET_SELECTED_SUBCATEGORIES':
       if (
         payload.checked &&
