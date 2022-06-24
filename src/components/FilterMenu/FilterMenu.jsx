@@ -51,55 +51,87 @@ const FilterMenu = ({ isLoaded }) => {
   };
 
   const handleApplyFilter = () => {
-    const allPlaces = places;
     const filteredPlaces = [];
-    setFilterActive();
+    !active && setFilterActive();
 
-    minRating &&
-      console.log(
-        allPlaces.filter(
-          (place) => place.rating && Number(place.rating) >= minRating
-        )
-      );
-
-    selectedSubcategories?.length >= 1 &&
+    if (selectedSubcategories?.length >= 1) {
       selectedSubcategories.forEach((sub) => {
-        console.log(
-          allPlaces.filter((place) => place.subcategory?.includes(sub))
-        );
+        places.forEach((place) => {
+          if (
+            !filteredPlaces.includes(place) &&
+            place.subcategory?.includes(sub)
+          ) {
+            filteredPlaces.push(place);
+          }
+        });
       });
+    }
 
-    selectedPrices?.length >= 1 &&
-      selectedPrices.forEach((price) => {
-        console.log(
-          allPlaces.filter((place) => place.price_level?.includes(price))
-        );
-      });
-
-    selectedCuisines?.length >= 1 &&
+    if (selectedCuisines.length >= 1) {
       selectedCuisines.forEach((cuisine) => {
-        console.log(
-          allPlaces.filter((place) => place.cuisine?.includes(cuisine))
-        );
+        places.forEach((place) => {
+          if (
+            !filteredPlaces.includes(place) &&
+            place.cuisine?.includes(cuisine)
+          ) {
+            filteredPlaces.push(place);
+          }
+        });
       });
+    }
 
-    selectedDiets?.length >= 1 &&
-      selectedDiets.forEach((diet) => {
-        console.log(
-          allPlaces.filter((place) =>
-            place.dietary_restrictions?.includes(diet)
-          )
-        );
-      });
-
-    selectedOrderOptions?.length >= 1 &&
+    if (selectedOrderOptions.length >= 1) {
       selectedOrderOptions.forEach((option) => {
-        console.log(
-          allPlaces.filter((place) =>
-            place.reserve_info?.button_text?.includes(option)
-          )
-        );
+        places.forEach((place) => {
+          if (
+            !filteredPlaces.includes(place) &&
+            place.reserve_info.button_text.includes(option)
+          ) {
+            filteredPlaces.push(place);
+          }
+        });
       });
+    }
+
+    if (selectedPrices.length >= 1) {
+      selectedPrices.forEach((price) => {
+        places.forEach((place) => {
+          if (
+            !filteredPlaces.includes(place) &&
+            place.price_level.includes(price)
+          ) {
+            filteredPlaces.push(place);
+          }
+        });
+      });
+    }
+
+    if (minRating) {
+      places.forEach((place) => {
+        if (
+          !filteredPlaces.includes(place) &&
+          place.rating &&
+          place.rating >= minRating
+        ) {
+          filteredPlaces.push(place);
+        }
+      });
+    }
+
+    if (selectedDiets.length >= 1) {
+      selectedDiets.forEach((diet) => {
+        places.forEach((place) => {
+          if (
+            !filteredPlaces.includes(place) &&
+            place.dietary_restrictions?.includes(diet)
+          ) {
+            filteredPlaces.push(place);
+          }
+        });
+      });
+    }
+
+    console.log(filteredPlaces);
   };
 
   return (

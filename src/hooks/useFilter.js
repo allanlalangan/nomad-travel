@@ -85,24 +85,24 @@ const useFilter = () => {
           options: priceValues,
         },
         {
-          field: 'subcategory',
-          label: 'Sub-category',
-          options: subCategoryValues,
-        },
-        {
-          field: 'reserve_info.button_text',
-          label: 'Reservations',
-          options: reservationValues,
-        },
-        {
           field: 'dietary_restrictions',
           label: 'Dietary Restrictions',
           options: dietValues,
         },
         {
+          field: 'subcategory',
+          label: 'Sub-category',
+          options: subCategoryValues,
+        },
+        {
           field: 'cuisine',
           label: 'Cuisine',
           options: cuisineValues,
+        },
+        {
+          field: 'reserve_info.button_text',
+          label: 'Reservations',
+          options: reservationValues,
         },
       ];
 
