@@ -15,6 +15,7 @@ import axios from 'axios';
 import style from './style';
 import { mapStyles } from './mapStyles';
 import { Paper, Typography, Rating, Box } from '@mui/material/';
+import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 
 const Map = () => {
   const {
@@ -30,6 +31,8 @@ const Map = () => {
     setGoogleMap,
   } = useContext(MapContext);
 
+  const { filteredPlaces } = useContext(FilterContext);
+
   const {
     status: placesStatus,
     category,
@@ -39,6 +42,8 @@ const Map = () => {
     fetchSuccess: fetchPlacesSuccess,
     placeCardRefs,
   } = useContext(PlacesContext);
+
+  const displayedPlaces = filteredPlaces.length >= 1 ? filteredPlaces : places;
 
   const mapRef = useRef();
   const onMapLoad = useCallback(
@@ -181,7 +186,7 @@ const Map = () => {
         {placesStatus.isSuccess && (
           <GoogleMarkerClusterer averageCenter={true}>
             {(clusterer) =>
-              places.map((place, i) => (
+              displayedPlaces.map((place, i) => (
                 <Box key={i}>
                   <Marker
                     onClick={() => {
@@ -204,8 +209,8 @@ const Map = () => {
                   />
 
                   {hoveredMarker &&
-                    places.indexOf(hoveredMarker.place) ===
-                      places.indexOf(place) && (
+                    displayedPlaces.indexOf(hoveredMarker.place) ===
+                      displayedPlaces.indexOf(place) && (
                       <InfoWindow
                         position={{
                           lat: Number(place.latitude),

@@ -36,6 +36,7 @@ const FilterMenu = ({ isLoaded }) => {
     minRating,
     setFilterActive,
     clearFilter,
+    setFilteredPlaces,
     selectedSubcategories,
     selectedCuisines,
     selectedDiets,
@@ -44,11 +45,10 @@ const FilterMenu = ({ isLoaded }) => {
     setMinRating,
   } = useContext(FilterContext);
 
-  useEffect(() => {
-    console.log(active);
-  }, [active]);
-
   const { filterFields } = useFilter();
+  useEffect(() => {
+    console.log(filterFields);
+  }, [filterFields]);
 
   const onRatingChange = (e) => {
     setMinRating(Number(e.target.value));
@@ -135,7 +135,7 @@ const FilterMenu = ({ isLoaded }) => {
       });
     }
 
-    console.log(filteredPlaces);
+    setFilteredPlaces(filteredPlaces);
   };
 
   return (
@@ -240,11 +240,7 @@ const FilterMenu = ({ isLoaded }) => {
                           sx={style.checkboxLiItem}
                           disableGutters
                         >
-                          <FilterOption
-                            field={field}
-                            label={option.value}
-                            value={option.value}
-                          />
+                          <FilterOption field={field} value={option.value} />
                         </ListItemButton>
                       </FormControl>
                     ))}

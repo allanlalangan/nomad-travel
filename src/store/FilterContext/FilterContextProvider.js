@@ -5,6 +5,7 @@ export const FilterContext = createContext();
 
 const initState = {
   active: false,
+  status: { active: false, pending: false },
   minRating: null,
   priceMinMax: [1, 4],
   selectedSubcategories: [],
@@ -20,6 +21,21 @@ const FilterContextProvider = ({ children }) => {
   // useReducer
   const [state, dispatch] = useReducer(filterReducer, initState);
 
+  const setFilterFields = useCallback((fields) => {
+    dispatch({ type: 'SET_FILTER_FIELDS', payload: { fields } });
+  }, []);
+
+  const setCheckedOptions = useCallback((field, option, checked) => {
+    dispatch({
+      type: 'SET_CHECKED_OPTIONS',
+      payload: { field, option, checked },
+    });
+  }, []);
+
+  const setFilteredPlaces = useCallback((places) => {
+    dispatch({ type: 'SET_FILTERED_PLACES', payload: { places } });
+  }, []);
+
   const setFilterActive = useCallback(() => {
     dispatch({ type: 'SET_FILTER_ACTIVE' });
   }, []);
@@ -30,10 +46,6 @@ const FilterContextProvider = ({ children }) => {
 
   const setMinRating = useCallback((rating) => {
     dispatch({ type: 'SET_MIN_RATING', payload: { rating } });
-  }, []);
-
-  const setFilterFields = useCallback((fields) => {
-    dispatch({ type: 'SET_FILTER_FIELDS', payload: { fields } });
   }, []);
 
   const setSelectedSubcategories = useCallback((subcategory, checked) => {
@@ -83,6 +95,8 @@ const FilterContextProvider = ({ children }) => {
     filterFields: state.filterFields,
     setFilterActive,
     clearFilter,
+    setCheckedOptions,
+    setFilteredPlaces,
     setMinRating,
     setSelectedSubcategories,
     setSelectedCuisines,

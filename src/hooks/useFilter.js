@@ -60,22 +60,27 @@ const useFilter = () => {
 
       const priceValues = priceRange.map((option) => ({
         value: option,
+        checked: false,
       }));
 
       const reservationValues = reservationOptions.map((option) => ({
         value: option,
+        checked: false,
       }));
 
       const subCategoryValues = subCategoryOptions.map((option) => ({
         value: option,
+        checked: false,
       }));
 
       const dietValues = dietOptions.map((option) => ({
         value: option,
+        checked: false,
       }));
 
       const cuisineValues = cuisineOptions.map((option) => ({
         value: option,
+        checked: false,
       }));
 
       const fields = [
@@ -100,7 +105,7 @@ const useFilter = () => {
           options: cuisineValues,
         },
         {
-          field: 'reserve_info.button_text',
+          field: 'reserve_info',
           label: 'Reservations',
           options: reservationValues,
         },

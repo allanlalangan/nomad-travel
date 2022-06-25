@@ -12,14 +12,11 @@ const Places = ({ filterOpen, toggleFilter }) => {
   const { category, status, places, placeCardRefs, setPlaceCardRefs } =
     useContext(PlacesContext);
 
-  const displayedPlaces = places;
+  const { filteredPlaces } = useContext(FilterContext);
+  const displayedPlaces = filteredPlaces.length >= 1 ? filteredPlaces : places;
   useEffect(() => {
     console.log('places state', places);
   }, [places]);
-
-  useEffect(() => {
-    console.log('displayed places', displayedPlaces);
-  }, [displayedPlaces, places]);
 
   const liRefs = useRef([]);
 
@@ -57,7 +54,7 @@ const Places = ({ filterOpen, toggleFilter }) => {
 
       {status.isSuccess && (
         <List disablePadding sx={style.placesList}>
-          {places?.map((place, i) => (
+          {displayedPlaces?.map((place, i) => (
             <PlaceCard
               ref={(element) => {
                 liRefs.current[i] = element;

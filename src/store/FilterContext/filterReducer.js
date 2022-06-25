@@ -14,10 +14,35 @@ const filterReducer = (state, { type, payload }) => {
       }
     case 'CLEAR_FILTER':
       if (state.active) {
-        return { ...state, active: false };
+        return {
+          ...state,
+          selectedSubcategories: [],
+          selectedPrices: [],
+          selectedOrderOptions: [],
+          selectedDiets: [],
+          selectedCuisines: [],
+          filteredPlaces: [],
+          active: false,
+        };
       } else {
         return state;
       }
+    case 'SET_FILTERED_PLACES':
+      return { ...state, filteredPlaces: payload.places };
+    case 'SET_CHECKED_OPTIONS':
+      state.filterFields.forEach((field) => {
+        if (field.field === payload.field) {
+          console.log(field);
+          const updatedOptions = field.options.map((option) => {
+            if (payload.option === option.value)
+              return { value: payload.option, checked: payload.checked };
+            else return option;
+          });
+
+          console.log(updatedOptions);
+        }
+      });
+      return state;
     case 'SET_MIN_RATING':
       const rating = payload.rating;
       return { ...state, minRating: rating };
