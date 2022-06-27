@@ -31,19 +31,7 @@ const FilterMenu = ({ isLoaded }) => {
     category,
     selectCategory,
   } = useContext(PlacesContext);
-  const {
-    active,
-    minRating,
-    setFilterActive,
-    clearFilter,
-    setFilteredPlaces,
-    selectedSubcategories,
-    selectedCuisines,
-    selectedDiets,
-    selectedOrderOptions,
-    selectedPrices,
-    setMinRating,
-  } = useContext(FilterContext);
+  const { clearFilter, setMinRating } = useContext(FilterContext);
 
   const { filterFields } = useFilter();
   useEffect(() => {
@@ -54,89 +42,89 @@ const FilterMenu = ({ isLoaded }) => {
     setMinRating(Number(e.target.value));
   };
 
-  const handleApplyFilter = () => {
-    const filteredPlaces = [];
-    !active && setFilterActive();
+  // const handleApplyFilter = () => {
+  //   const filteredPlaces = [];
+  //   !active && setFilterActive();
 
-    if (selectedSubcategories?.length >= 1) {
-      selectedSubcategories.forEach((sub) => {
-        places.forEach((place) => {
-          if (
-            !filteredPlaces.includes(place) &&
-            place.subcategory?.includes(sub)
-          ) {
-            filteredPlaces.push(place);
-          }
-        });
-      });
-    }
+  //   if (selectedSubcategories?.length >= 1) {
+  //     selectedSubcategories.forEach((sub) => {
+  //       places.forEach((place) => {
+  //         if (
+  //           !filteredPlaces.includes(place) &&
+  //           place.subcategory?.includes(sub)
+  //         ) {
+  //           filteredPlaces.push(place);
+  //         }
+  //       });
+  //     });
+  //   }
 
-    if (selectedCuisines.length >= 1) {
-      selectedCuisines.forEach((cuisine) => {
-        places.forEach((place) => {
-          if (
-            !filteredPlaces.includes(place) &&
-            place.cuisine?.includes(cuisine)
-          ) {
-            filteredPlaces.push(place);
-          }
-        });
-      });
-    }
+  //   if (selectedCuisines.length >= 1) {
+  //     selectedCuisines.forEach((cuisine) => {
+  //       places.forEach((place) => {
+  //         if (
+  //           !filteredPlaces.includes(place) &&
+  //           place.cuisine?.includes(cuisine)
+  //         ) {
+  //           filteredPlaces.push(place);
+  //         }
+  //       });
+  //     });
+  //   }
 
-    if (selectedOrderOptions.length >= 1) {
-      selectedOrderOptions.forEach((option) => {
-        places.forEach((place) => {
-          if (
-            !filteredPlaces.includes(place) &&
-            place.reserve_info.button_text.includes(option)
-          ) {
-            filteredPlaces.push(place);
-          }
-        });
-      });
-    }
+  //   if (selectedOrderOptions.length >= 1) {
+  //     selectedOrderOptions.forEach((option) => {
+  //       places.forEach((place) => {
+  //         if (
+  //           !filteredPlaces.includes(place) &&
+  //           place.reserve_info.button_text.includes(option)
+  //         ) {
+  //           filteredPlaces.push(place);
+  //         }
+  //       });
+  //     });
+  //   }
 
-    if (selectedPrices.length >= 1) {
-      selectedPrices.forEach((price) => {
-        places.forEach((place) => {
-          if (
-            !filteredPlaces.includes(place) &&
-            place.price_level.includes(price)
-          ) {
-            filteredPlaces.push(place);
-          }
-        });
-      });
-    }
+  //   if (selectedPrices.length >= 1) {
+  //     selectedPrices.forEach((price) => {
+  //       places.forEach((place) => {
+  //         if (
+  //           !filteredPlaces.includes(place) &&
+  //           place.price_level.includes(price)
+  //         ) {
+  //           filteredPlaces.push(place);
+  //         }
+  //       });
+  //     });
+  //   }
 
-    if (minRating) {
-      places.forEach((place) => {
-        if (
-          !filteredPlaces.includes(place) &&
-          place.rating &&
-          place.rating >= minRating
-        ) {
-          filteredPlaces.push(place);
-        }
-      });
-    }
+  //   if (minRating) {
+  //     places.forEach((place) => {
+  //       if (
+  //         !filteredPlaces.includes(place) &&
+  //         place.rating &&
+  //         place.rating >= minRating
+  //       ) {
+  //         filteredPlaces.push(place);
+  //       }
+  //     });
+  //   }
 
-    if (selectedDiets.length >= 1) {
-      selectedDiets.forEach((diet) => {
-        places.forEach((place) => {
-          if (
-            !filteredPlaces.includes(place) &&
-            place.dietary_restrictions?.includes(diet)
-          ) {
-            filteredPlaces.push(place);
-          }
-        });
-      });
-    }
+  //   if (selectedDiets.length >= 1) {
+  //     selectedDiets.forEach((diet) => {
+  //       places.forEach((place) => {
+  //         if (
+  //           !filteredPlaces.includes(place) &&
+  //           place.dietary_restrictions?.includes(diet)
+  //         ) {
+  //           filteredPlaces.push(place);
+  //         }
+  //       });
+  //     });
+  //   }
 
-    setFilteredPlaces(filteredPlaces);
-  };
+  //   setFilteredPlaces(filteredPlaces);
+  // };
 
   return (
     <Box component='section' sx={style.filterMenu}>
@@ -188,7 +176,6 @@ const FilterMenu = ({ isLoaded }) => {
             <Box sx={style.filterButtons}>
               <Button
                 // color='primary'
-                onClick={handleApplyFilter}
                 variant='contained'
                 disableElevation
                 disabled={!isLoaded}

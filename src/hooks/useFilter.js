@@ -12,8 +12,7 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
 const useFilter = () => {
   const { category, places } = useContext(PlacesContext);
-  const { priceMinMax, setPriceMinMax, filterFields, setFilterFields } =
-    useContext(FilterContext);
+  const { filterFields, setFilterFields } = useContext(FilterContext);
 
   useEffect(() => {
     // if Places isSuccess
@@ -100,25 +99,22 @@ const useFilter = () => {
           options: subCategoryValues,
         },
         {
-          field: 'cuisine',
-          label: 'Cuisine',
-          options: cuisineValues,
-        },
-        {
           field: 'reserve_info',
           label: 'Reservations',
           options: reservationValues,
+        },
+        {
+          field: 'cuisine',
+          label: 'Cuisine',
+          options: cuisineValues,
         },
       ];
 
       setFilterFields(fields.filter((field) => field.options.length >= 1));
     }
-  }, [category, places, setPriceMinMax, setFilterFields]);
+  }, [category, places, setFilterFields]);
 
-  return {
-    filterFields,
-    priceMinMax,
-  };
+  return { filterFields };
 };
 
 export default useFilter;

@@ -7,162 +7,65 @@ const filterReducer = (state, { type, payload }) => {
         filterFields: fields,
       };
     case 'SET_FILTER_ACTIVE':
-      if (!state.active) {
-        return { ...state, active: true };
-      } else {
-        return state;
-      }
+      const activeFilters = state.filterFields.map((field) => {
+        return {
+          field: field.field,
+          active: field.options.filter((opt) => opt.checked),
+        };
+      });
+
+      console.log(activeFilters);
+      return state;
+    // }
     case 'CLEAR_FILTER':
+      const clearedFields = state.filterFields.map((field) => {
+        return {
+          ...field,
+          options: field.options.map((option) => ({
+            value: option.value,
+            checked: false,
+          })),
+        };
+      });
       if (state.active) {
         return {
           ...state,
-          selectedSubcategories: [],
-          selectedPrices: [],
-          selectedOrderOptions: [],
-          selectedDiets: [],
-          selectedCuisines: [],
+          filterFields: clearedFields,
           filteredPlaces: [],
           active: false,
         };
       } else {
-        return state;
+        return {
+          ...state,
+          filterFields: clearedFields,
+        };
       }
     case 'SET_FILTERED_PLACES':
       return { ...state, filteredPlaces: payload.places };
     case 'SET_CHECKED_OPTIONS':
-      state.filterFields.forEach((field) => {
-        if (field.field === payload.field) {
-          console.log(field);
-          const updatedOptions = field.options.map((option) => {
-            if (payload.option === option.value)
-              return { value: payload.option, checked: payload.checked };
-            else return option;
-          });
-
-          console.log(updatedOptions);
-        }
+      const newFields = state.filterFields.map((field) => {
+        if (field.field === payload.field.field) {
+          return {
+            field: field.field,
+            label: field.label,
+            options: field.options.map((option) => {
+              if (payload.option === option.value) {
+                return { value: payload.option, checked: payload.checked };
+              } else {
+                return option;
+              }
+            }),
+          };
+        } else return field;
       });
-      return state;
+
+      return {
+        ...state,
+        filterFields: newFields,
+      };
     case 'SET_MIN_RATING':
       const rating = payload.rating;
       return { ...state, minRating: rating };
-    case 'SET_SELECTED_SUBCATEGORIES':
-      if (
-        payload.checked &&
-        !state.selectedSubcategories.includes(payload.subcategory)
-      ) {
-        return {
-          ...state,
-          selectedSubcategories: [
-            ...state.selectedSubcategories,
-            payload.subcategory,
-          ],
-        };
-      } else if (
-        !payload.checked &&
-        state.selectedSubcategories.includes(payload.subcategory)
-      ) {
-        const currentSelected = state.selectedSubcategories;
-        const updatedSelected = currentSelected.filter(
-          (sub) => sub !== payload.subcategory
-        );
-
-        return {
-          ...state,
-          selectedSubcategories: updatedSelected,
-        };
-      }
-      return state;
-    case 'SET_SELECTED_CUISINES':
-      if (
-        payload.checked &&
-        !state.selectedCuisines.includes(payload.cuisine)
-      ) {
-        return {
-          ...state,
-          selectedCuisines: [...state.selectedCuisines, payload.cuisine],
-        };
-      } else if (
-        !payload.checked &&
-        state.selectedCuisines.includes(payload.cuisine)
-      ) {
-        const currentSelected = state.selectedCuisines;
-        const updatedSelected = currentSelected.filter(
-          (cuisine) => cuisine !== payload.cuisine
-        );
-
-        return {
-          ...state,
-          selectedCuisines: updatedSelected,
-        };
-      }
-      return state;
-    case 'SET_SELECTED_DIETS':
-      if (payload.checked && !state.selectedDiets.includes(payload.diet)) {
-        return {
-          ...state,
-          selectedDiets: [...state.selectedDiets, payload.diet],
-        };
-      } else if (
-        !payload.checked &&
-        state.selectedDiets.includes(payload.diet)
-      ) {
-        const currentSelected = state.selectedDiets;
-        const updatedSelected = currentSelected.filter(
-          (diet) => diet !== payload.diet
-        );
-
-        return {
-          ...state,
-          selectedDiets: updatedSelected,
-        };
-      }
-      return state;
-    case 'SET_SELECTED_ORDER_OPTIONS':
-      if (
-        payload.checked &&
-        !state.selectedOrderOptions.includes(payload.option)
-      ) {
-        return {
-          ...state,
-          selectedOrderOptions: [...state.selectedOrderOptions, payload.option],
-        };
-      } else if (
-        !payload.checked &&
-        state.selectedOrderOptions.includes(payload.option)
-      ) {
-        const currentSelected = state.selectedOrderOptions;
-        const updatedSelected = currentSelected.filter(
-          (option) => option !== payload.option
-        );
-
-        return {
-          ...state,
-          selectedOrderOptions: updatedSelected,
-        };
-      }
-      return state;
-    case 'SET_SELECTED_PRICES':
-      if (payload.checked && !state.selectedPrices.includes(payload.price)) {
-        return {
-          ...state,
-          selectedPrices: [...state.selectedPrices, payload.price],
-        };
-      } else if (
-        !payload.checked &&
-        state.selectedPrices.includes(payload.price)
-      ) {
-        const currentSelected = state.selectedPrices;
-        const updatedSelected = currentSelected.filter(
-          (price) => price !== payload.price
-        );
-
-        return {
-          ...state,
-          selectedPrices: updatedSelected,
-        };
-      }
-      return state;
     default:
       throw new Error(`No case for ${type}`);
   }
