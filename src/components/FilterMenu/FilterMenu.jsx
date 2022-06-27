@@ -31,12 +31,15 @@ const FilterMenu = ({ isLoaded }) => {
     category,
     selectCategory,
   } = useContext(PlacesContext);
-  const { clearFilter, setMinRating } = useContext(FilterContext);
+  const { active, clearFilter, setMinRating } = useContext(FilterContext);
 
   const { filterFields } = useFilter();
   useEffect(() => {
     console.log(filterFields);
   }, [filterFields]);
+  useEffect(() => {
+    console.log(active);
+  }, [active]);
 
   const onRatingChange = (e) => {
     setMinRating(Number(e.target.value));
@@ -171,10 +174,8 @@ const FilterMenu = ({ isLoaded }) => {
         </Box>
 
         {placesStatus.isSuccess && (
-          <>
-            <Typography variant='h5'>Filters</Typography>
-            <Box sx={style.filterButtons}>
-              <Button
+          <Box sx={style.filterButtons}>
+            {/* <Button
                 // color='primary'
                 variant='contained'
                 disableElevation
@@ -182,16 +183,15 @@ const FilterMenu = ({ isLoaded }) => {
                 sx={style.applyFilterButton}
               >
                 Apply Filters
-              </Button>
-              <Button
-                onClick={clearFilter}
-                variant='outlined'
-                disabled={!isLoaded}
-              >
-                Reset
-              </Button>
-            </Box>
-          </>
+              </Button> */}
+            <Button
+              onClick={clearFilter}
+              variant='outlined'
+              disabled={!isLoaded}
+            >
+              Clear Filter
+            </Button>
+          </Box>
         )}
       </Box>
 

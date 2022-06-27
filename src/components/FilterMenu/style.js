@@ -2,6 +2,8 @@ import { alpha } from '@mui/material';
 
 const style = {
   filterMenu: {
+    display: 'flex',
+    flexDirection: 'column',
     // display: { xs: 'none', lg: 'block' },
 
     width: '100%',
@@ -23,10 +25,10 @@ const style = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
 
     width: '100%',
-    height: { xs: '35%', sm: '25%' },
+    // height: { xs: '35%', sm: '25%' },
     zIndex: 999,
 
     padding: '1rem',
@@ -43,10 +45,14 @@ const style = {
   },
 
   filterForm: {
+    display: 'flex',
+    flexDirection: 'column',
     width: 'calc(100% - 2rem)',
-    height: { xs: 'calc(65% - 2rem)', sm: 'calc(75% - 2rem)' },
-    marginTop: '1rem',
+    height: 'calc(100% - 2rem)',
+    // height: { xs: 'calc(65% - 2rem)', sm: 'calc(75% - 2rem)' },
+
     padding: '0 1rem',
+    margin: '1rem',
 
     overflowY: 'scroll',
     borderRadius: 2,
@@ -77,6 +83,7 @@ const style = {
   },
 
   filterButtons: {
+    paddingTop: '1rem',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

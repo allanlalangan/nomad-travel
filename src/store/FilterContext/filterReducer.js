@@ -7,16 +7,24 @@ const filterReducer = (state, { type, payload }) => {
         filterFields: fields,
       };
     case 'SET_FILTER_ACTIVE':
-      const activeFilters = state.filterFields.map((field) => {
+      const activeFilterFields = state.filterFields.map((field) => {
         return {
-          field: field.field,
-          active: field.options.filter((opt) => opt.checked),
+          ...field,
+          selected: field.options
+            .filter((opt) => opt.checked)
+            .map((opt) => opt.value),
         };
       });
 
-      console.log(activeFilters);
-      return state;
-    // }
+      const active = activeFilterFields.some(
+        (field) => field.selected.length >= 1
+      );
+
+      return {
+        ...state,
+        active,
+        filterFields: activeFilterFields,
+      };
     case 'CLEAR_FILTER':
       const clearedFields = state.filterFields.map((field) => {
         return {
@@ -25,29 +33,22 @@ const filterReducer = (state, { type, payload }) => {
             value: option.value,
             checked: false,
           })),
+          selected: [],
         };
       });
-      if (state.active) {
-        return {
-          ...state,
-          filterFields: clearedFields,
-          filteredPlaces: [],
-          active: false,
-        };
-      } else {
-        return {
-          ...state,
-          filterFields: clearedFields,
-        };
-      }
+
+      return {
+        ...state,
+        active: false,
+        filterFields: clearedFields,
+      };
     case 'SET_FILTERED_PLACES':
       return { ...state, filteredPlaces: payload.places };
     case 'SET_CHECKED_OPTIONS':
       const newFields = state.filterFields.map((field) => {
         if (field.field === payload.field.field) {
           return {
-            field: field.field,
-            label: field.label,
+            ...field,
             options: field.options.map((option) => {
               if (payload.option === option.value) {
                 return { value: payload.option, checked: payload.checked };

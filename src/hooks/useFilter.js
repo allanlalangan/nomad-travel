@@ -12,8 +12,9 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
 const useFilter = () => {
   const { category, places } = useContext(PlacesContext);
-  const { filterFields, setFilterFields } = useContext(FilterContext);
-
+  const { filterFields, setFilterFields, filteredPlaces, setFilteredPlaces } =
+    useContext(FilterContext);
+  // create filterFields
   useEffect(() => {
     // if Places isSuccess
     if (places?.length >= 1) {
@@ -87,26 +88,31 @@ const useFilter = () => {
           field: 'price_level',
           label: 'Price',
           options: priceValues,
+          selected: [],
         },
         {
           field: 'dietary_restrictions',
           label: 'Dietary Restrictions',
           options: dietValues,
+          selected: [],
         },
         {
           field: 'subcategory',
           label: 'Sub-category',
           options: subCategoryValues,
+          selected: [],
         },
         {
           field: 'reserve_info',
           label: 'Reservations',
           options: reservationValues,
+          selected: [],
         },
         {
           field: 'cuisine',
           label: 'Cuisine',
           options: cuisineValues,
+          selected: [],
         },
       ];
 

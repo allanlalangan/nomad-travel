@@ -5,14 +5,7 @@ export const FilterContext = createContext();
 
 const initState = {
   active: false,
-  status: { active: false, pending: false },
   minRating: null,
-  priceMinMax: [1, 4],
-  selectedSubcategories: [],
-  selectedPrices: [],
-  selectedOrderOptions: [],
-  selectedDiets: [],
-  selectedCuisines: [],
   filterFields: null,
   filteredPlaces: [],
 };
@@ -46,6 +39,7 @@ const FilterContextProvider = ({ children }) => {
       type: 'SET_CHECKED_OPTIONS',
       payload: { field, option, checked },
     });
+    dispatch({ type: 'SET_FILTER_ACTIVE' });
   }, []);
 
   const context = {

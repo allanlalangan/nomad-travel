@@ -38,7 +38,7 @@ const Places = ({ filterOpen, toggleFilter }) => {
             Top {places.length} {category}s in the area
           </Typography>
         ) : (
-          <Typography sx={style.heading} variant='subtitle' component='h3'>
+          <Typography sx={style.heading} variant='subtitle1' component='h3'>
             Select a category
           </Typography>
         )}
