@@ -22,10 +22,6 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: 'SET_FILTERED_PLACES', payload: { places } });
   }, []);
 
-  const setFilterActive = useCallback(() => {
-    dispatch({ type: 'SET_FILTER_ACTIVE' });
-  }, []);
-
   const clearFilter = useCallback(() => {
     dispatch({ type: 'CLEAR_FILTER' });
   }, []);
@@ -48,7 +44,6 @@ const FilterContextProvider = ({ children }) => {
     minRating: state.minRating,
     filteredPlaces: state.filteredPlaces,
     setFilterFields,
-    setFilterActive,
     clearFilter,
     setFilteredPlaces,
     setMinRating,
