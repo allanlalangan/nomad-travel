@@ -14,8 +14,8 @@ const FilterContextProvider = ({ children }) => {
   // useReducer
   const [state, dispatch] = useReducer(filterReducer, initState);
 
-  const setFilterFields = useCallback((fields) => {
-    dispatch({ type: 'SET_FILTER_FIELDS', payload: { fields } });
+  const createFilterFields = useCallback((fields) => {
+    dispatch({ type: 'CREATE_FILTER_FIELDS', payload: { fields } });
   }, []);
 
   const setFilteredPlaces = useCallback((places) => {
@@ -43,7 +43,7 @@ const FilterContextProvider = ({ children }) => {
     filterFields: state.filterFields,
     minRating: state.minRating,
     filteredPlaces: state.filteredPlaces,
-    setFilterFields,
+    createFilterFields,
     clearFilter,
     setFilteredPlaces,
     setMinRating,

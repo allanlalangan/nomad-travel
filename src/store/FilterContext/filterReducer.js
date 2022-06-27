@@ -1,6 +1,6 @@
 const filterReducer = (state, { type, payload }) => {
   switch (type) {
-    case 'SET_FILTER_FIELDS':
+    case 'CREATE_FILTER_FIELDS':
       const fields = payload.fields;
       return {
         ...state,
@@ -26,7 +26,7 @@ const filterReducer = (state, { type, payload }) => {
         filterFields: activeFilterFields,
       };
     case 'CLEAR_FILTER':
-      const clearedFields = state.filterFields.map((field) => {
+      const uncheckedFields = state.filterFields?.map((field) => {
         return {
           ...field,
           options: field.options.map((option) => ({
@@ -40,7 +40,7 @@ const filterReducer = (state, { type, payload }) => {
       return {
         ...state,
         active: false,
-        filterFields: clearedFields,
+        filterFields: uncheckedFields || null,
       };
     case 'SET_FILTERED_PLACES':
       return { ...state, filteredPlaces: payload.places };

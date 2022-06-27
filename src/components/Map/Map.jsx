@@ -31,7 +31,7 @@ const Map = () => {
     setGoogleMap,
   } = useContext(MapContext);
 
-  const { filteredPlaces } = useContext(FilterContext);
+  const { filteredPlaces, clearFilter } = useContext(FilterContext);
 
   const {
     status: placesStatus,
@@ -66,6 +66,7 @@ const Map = () => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
       fetchPlacesLoading();
+      clearFilter();
       getPlaces(bounds, category, source)
         .then((data) => {
           if (typeof data === 'object') {
