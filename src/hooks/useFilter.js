@@ -12,8 +12,7 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
 const useFilter = () => {
   const { category, places } = useContext(PlacesContext);
-  const { filterFields, setFilterFields, filteredPlaces, setFilteredPlaces } =
-    useContext(FilterContext);
+  const { filterFields, createFilterFields } = useContext(FilterContext);
   // create filterFields
   useEffect(() => {
     // if Places isSuccess
@@ -116,9 +115,9 @@ const useFilter = () => {
         },
       ];
 
-      setFilterFields(fields.filter((field) => field.options.length >= 1));
+      createFilterFields(fields.filter((field) => field.options.length >= 1));
     }
-  }, [category, places, setFilterFields]);
+  }, [category, places, createFilterFields]);
 
   return { filterFields };
 };
