@@ -89,7 +89,7 @@ const style = {
     justifyContent: 'center',
   },
 
-  applyFilterButton: {
+  clearFilterButton: {
     '&.MuiButton-root': {
       color: (theme) => theme.palette.tertiary.light,
       // backgroundColor: (theme) => theme.palette.primary.main,

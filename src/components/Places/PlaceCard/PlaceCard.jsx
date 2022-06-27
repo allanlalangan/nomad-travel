@@ -169,12 +169,14 @@ const PlaceCard = forwardRef(({ place }, ref) => {
             <>
               <List sx={{ ...style.summaryLists.__tags, ...style.fullWidth }}>
                 {place.dietary_restrictions.map((diet) => (
-                  <Chip label={diet} />
+                  <Chip key={diet} label={diet} />
                 ))}
               </List>
               <List sx={{ ...style.summaryLists.__diets, ...style.fullWidth }}>
                 {place.cuisine?.length >= 1 &&
-                  place.cuisine.map((cuisine) => <Chip label={cuisine} />)}
+                  place.cuisine.map((cuisine) => (
+                    <Chip key={cuisine} label={cuisine} />
+                  ))}
               </List>
             </>
           )}

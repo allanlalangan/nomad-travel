@@ -26,6 +26,7 @@ const filterReducer = (state, { type, payload }) => {
         filterFields: activeFilterFields,
       };
     case 'CLEAR_FILTER':
+      if (!state.active) return state;
       const uncheckedFields = state.filterFields?.map((field) => {
         return {
           ...field,

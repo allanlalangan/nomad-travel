@@ -175,19 +175,12 @@ const FilterMenu = ({ isLoaded }) => {
 
         {placesStatus.isSuccess && (
           <Box sx={style.filterButtons}>
-            {/* <Button
-                // color='primary'
-                variant='contained'
-                disableElevation
-                disabled={!isLoaded}
-                sx={style.applyFilterButton}
-              >
-                Apply Filters
-              </Button> */}
             <Button
               onClick={clearFilter}
-              variant='outlined'
+              variant='contained'
+              disableElevation
               disabled={!isLoaded}
+              sx={style.clearFilterButton}
             >
               Clear Filter
             </Button>
