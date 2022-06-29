@@ -1,8 +1,5 @@
 import { FormControlLabel, Checkbox } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { useContext } from 'react';
-import useFilter from '../../../hooks/useFilter';
-import { FilterContext } from '../../../store/FilterContext/FilterContextProvider';
 
 import style from './style';
 

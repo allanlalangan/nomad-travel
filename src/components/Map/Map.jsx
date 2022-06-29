@@ -1,7 +1,5 @@
 import { useEffect, useCallback, useRef, useContext } from 'react';
-import { MapContext } from '../../store/MapContext/MapContextProvider';
-import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
-// import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
+
 import { getPlaces } from '../../api/placesAPI';
 import {
   GoogleMap,
@@ -15,8 +13,9 @@ import axios from 'axios';
 import style from './style';
 import { mapStyles } from './mapStyles';
 import { Paper, Typography, Rating, Box } from '@mui/material/';
-import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
+
 import useFilter from '../../hooks/useFilter';
+import { useState } from 'react';
 
 const Map = ({
   setFilterActive,
@@ -33,30 +32,9 @@ const Map = ({
   setCoordinates,
   setBounds,
 }) => {
-  const {
-    setIsUpdating: setMapIsUpdating,
-    setIsSuccess: setMapUpdateSuccess,
-    // coordinates,
-    // bounds,
-
-    hoveredMarker,
-    // setCoordinates,
-    // setBounds,
-    setHoveredMarker,
-  } = useContext(MapContext);
+  const [hoveredMarker, setHoveredMarker] = useState(null);
 
   const { filteredPlaces, clearFilter } = useFilter(places);
-  const {
-    // status: placesStatus,
-    // category,
-    // places,
-    // setIsLoading: fetchPlacesLoading,
-    // setIsError: fetchPlacesError,
-    // fetchSuccess: fetchPlacesSuccess,
-    placeCardRefs,
-  } = useContext(PlacesContext);
-
-  const displayedPlaces = filteredPlaces.length >= 1 ? filteredPlaces : places;
 
   const mapRef = useRef();
   const onMapLoad = useCallback(
@@ -78,6 +56,7 @@ const Map = ({
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
+      setPlaces([]);
       setPlacesStatus({ loading: true, success: false, error: null });
       clearFilter();
       setFilterActive(false);
@@ -182,7 +161,7 @@ const Map = ({
 
   return (
     <>
-      {placesStatus.loading && (
+      {placesStatus.loading === true && (
         <Paper sx={style.statusMessage}>
           <Typography variant='body1'>
             Fetching most popular places in this area...

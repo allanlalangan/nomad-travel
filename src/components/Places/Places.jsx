@@ -1,21 +1,18 @@
 import { useEffect, useRef, useContext, useState } from 'react';
-import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
+
 // components
 import PlaceCard from './PlaceCard/PlaceCard';
 // styles and ui
 import style from './style';
 import { Typography, IconButton, Box, List } from '@mui/material';
 import { Tune, Close } from '@mui/icons-material';
-import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
+
 import useFilter from '../../hooks/useFilter';
 
 const Places = ({ category, status, places, filterOpen, toggleFilter }) => {
   const [cardRefs, setCardRefs] = useState([]);
-  // const { category, status, places, placeCardRefs, setCardRefs } =
-  //   useContext(PlacesContext);
 
   const { filteredPlaces } = useFilter(places);
-  // const { filteredPlaces } = useContext(FilterContext);
 
   useEffect(() => {
     console.log('places state', places);
@@ -59,6 +56,7 @@ const Places = ({ category, status, places, filterOpen, toggleFilter }) => {
         <List disablePadding sx={style.placesList}>
           {places?.map((place, i) => (
             <PlaceCard
+              category={category}
               ref={(element) => {
                 liRefs.current[i] = element;
               }}

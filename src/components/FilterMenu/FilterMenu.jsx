@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
-import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
+import { useEffect, useState } from 'react';
 
 import style from './style';
 import {
@@ -21,7 +20,6 @@ import {
 import SortButton from './SortButton/SortButton';
 import useFilter from '../../hooks/useFilter';
 
-import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 import FilterOption from './FilterOption/FilterOption';
 
 const FilterMenu = ({

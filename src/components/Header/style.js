@@ -7,14 +7,18 @@ const style = {
     backgroundColor: (theme) => theme.palette.background.default,
     // backgroundColor: (theme) => theme.palette.primary.light,
     boxShadow: (theme) => theme.shadows[1],
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   toolBar: {
     '&.MuiToolbar-root': {
       minHeight: '0',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: { xs: 'center', sm: 'space-between' },
     },
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: { xs: 'center', sm: 'space-between' },
   },
 
   logo: {
@@ -70,6 +74,25 @@ const style = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+  },
+
+  searchContainer: {
+    // width: '25%',
+    position: { xs: 'absolute', sm: 'static' },
+    right: { xs: 0 },
+    width: { xs: '30%', md: '25%' },
+    height: '100%',
+    padding: '0 1rem',
+
+    display: { xs: 'flex' },
+    // display: { xs: 'none', sm: 'flex' },
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  searchTextField: {
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '2rem',
     },
   },
 };

@@ -13,11 +13,8 @@ import {
 } from '@mui/material';
 import { LocalPhone, Email, Language, LocationOn } from '@mui/icons-material';
 import style from './style';
-import { useContext } from 'react';
-import { PlacesContext } from '../../../store/PlacesContext/PlacesContextProvider';
 
-const PlaceCard = forwardRef(({ place }, ref) => {
-  const { category } = useContext(PlacesContext);
+const PlaceCard = forwardRef(({ category, place }, ref) => {
   return (
     <ListItem disableGutters disablePadding ref={ref} sx={style.placeCard}>
       <Box
