@@ -78,26 +78,22 @@ const Map = ({
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
-      setPlacesStatus((state) => ({ loading: true, ...state }));
+      setPlacesStatus({ loading: true, success: false, error: null });
       clearFilter();
       setFilterActive(false);
       getPlaces(bounds, category, source)
         .then((data) => {
           if (typeof data === 'object') {
+            setPlacesStatus({ success: true, loading: false, error: null });
             setPlaces(data);
-            setPlacesStatus((state) => ({
-              loading: false,
-              success: true,
-              ...state,
-            }));
           } else return;
         })
         .catch((error) => {
-          setPlacesStatus((state) => ({
+          setPlacesStatus({
             error: error.message,
             loading: false,
             success: false,
-          }));
+          });
         });
     } else return;
     return () => {
@@ -186,16 +182,16 @@ const Map = ({
 
   return (
     <>
-      {placesStatus.isLoading && (
+      {placesStatus.loading && (
         <Paper sx={style.statusMessage}>
           <Typography variant='body1'>
             Fetching most popular places in this area...
           </Typography>
         </Paper>
       )}
-      {placesStatus.isError && (
+      {placesStatus.error && (
         <Paper sx={style.statusMessage}>
-          <Typography variant='body1'>{placesStatus.message}</Typography>
+          <Typography variant='body1'>{placesStatus.error}</Typography>
         </Paper>
       )}
       <GoogleMap
@@ -208,10 +204,10 @@ const Map = ({
         options={options}
         zoom={14}
       >
-        {placesStatus.isSuccess && (
+        {placesStatus.success && (
           <GoogleMarkerClusterer averageCenter={true}>
             {(clusterer) =>
-              displayedPlaces.map((place, i) => (
+              places.map((place, i) => (
                 <Box key={i}>
                   <Marker
                     // onClick={() => {
@@ -234,8 +230,8 @@ const Map = ({
                   />
 
                   {hoveredMarker &&
-                    displayedPlaces.indexOf(hoveredMarker.place) ===
-                      displayedPlaces.indexOf(place) && (
+                    places.indexOf(hoveredMarker.place) ===
+                      places.indexOf(place) && (
                       <InfoWindow
                         position={{
                           lat: Number(place.latitude),

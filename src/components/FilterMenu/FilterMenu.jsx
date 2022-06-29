@@ -26,6 +26,7 @@ import FilterOption from './FilterOption/FilterOption';
 
 const FilterMenu = ({
   active,
+  setActive,
   category,
   setCategory,
   placesStatus,
@@ -33,7 +34,11 @@ const FilterMenu = ({
   places,
 }) => {
   const [minRating, setMinRating] = useState(null);
-  const { fields, clearFilter } = useFilter(places);
+  const { fields, clearFilter, setCheckedOptions } = useFilter(
+    places,
+    active,
+    setActive
+  );
   // const {
   //   status: placesStatus,
   //   category,
@@ -176,10 +181,10 @@ const FilterMenu = ({
           <SortButton />
         </Box>
 
-        {placesStatus.isSuccess && (
+        {placesStatus.success && (
           <Box sx={style.filterButtons}>
             <Button
-              onClick={clearFilter}
+              onClick={() => clearFilter(fields)}
               variant='contained'
               disableElevation
               sx={style.clearFilterButton}
@@ -190,7 +195,7 @@ const FilterMenu = ({
         )}
       </Box>
 
-      {placesStatus.isSuccess && (
+      {placesStatus.success && (
         <Container sx={style.filterForm}>
           <Box sx={style.fieldContainer} component='fieldset'>
             <Typography variant='h6'>Rating</Typography>
@@ -223,8 +228,9 @@ const FilterMenu = ({
                           disableGutters
                         >
                           <FilterOption
+                            setCheckedOptions={setCheckedOptions}
                             allFields={fields}
-                            field={field}
+                            selectedField={field}
                             value={option.value}
                           />
                         </ListItemButton>

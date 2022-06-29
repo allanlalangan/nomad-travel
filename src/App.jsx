@@ -57,6 +57,8 @@ const App = () => {
               <Container sx={style.mainContent} component='main'>
                 <Container component='section' sx={style.places}>
                   <Places
+                    places={places}
+                    category={category}
                     status={placesStatus}
                     filterOpen={filterOpen}
                     toggleFilter={() => setFilterOpen(!filterOpen)}
@@ -65,6 +67,7 @@ const App = () => {
                 <FilterDrawer isOpen={filterOpen}>
                   <FilterMenu
                     active={filterActive}
+                    setActive={setFilterActive}
                     category={category}
                     setCategory={setCategory}
                     placesStatus={placesStatus}

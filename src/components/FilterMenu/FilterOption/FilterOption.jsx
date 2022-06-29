@@ -6,8 +6,12 @@ import { FilterContext } from '../../../store/FilterContext/FilterContextProvide
 
 import style from './style';
 
-const FilterOption = ({ allFields, selectedField, value }) => {
-  const { setCheckedOptions } = useFilter();
+const FilterOption = ({
+  allFields,
+  selectedField,
+  setCheckedOptions,
+  value,
+}) => {
   // const { filterFields, setCheckedOptions } = useContext(FilterContext);
   const [checked, setChecked] = useState(false);
 

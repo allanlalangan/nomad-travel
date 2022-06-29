@@ -10,7 +10,7 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 // restaurant: { subcategory: [{key: 'sub_category', name: 'Sub Category'}] }
 // restaurant: { reserve_info: {button_text: 'online || reserve', url: ' '} }
 
-const useFilter = (places) => {
+const useFilter = (places, active, setActive) => {
   const [fields, setFields] = useState(null);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   // const {  places } = useContext(PlacesContext);
@@ -120,19 +120,23 @@ const useFilter = (places) => {
     }
   }, [places, setFields]);
 
-  const clearFilter = useCallback(() => {
-    const uncheckedFields = fields?.map((field) => {
-      return {
-        ...field,
-        options: field.options.map((option) => ({
-          value: option.value,
-          checked: false,
-        })),
-        selected: [],
-      };
-    });
-    setFields(uncheckedFields);
-  }, []);
+  const clearFilter = useCallback(
+    (currentFields) => {
+      const uncheckedFields = currentFields?.map((field) => {
+        return {
+          ...field,
+          options: field.options.map((option) => ({
+            value: option.value,
+            checked: false,
+          })),
+          selected: [],
+        };
+      });
+      setFields(uncheckedFields || null);
+      active && setActive(false);
+    },
+    [active, setActive]
+  );
 
   const setCheckedOptions = useCallback(
     (selectedField, selectedValue, checked) => {
@@ -151,10 +155,26 @@ const useFilter = (places) => {
         } else return field;
       });
 
-      setFields(newFields);
+      const activeFilterFields = newFields?.map((field) => {
+        return {
+          ...field,
+          selected: field.options
+            .filter((opt) => opt.checked)
+            .map((opt) => opt.value),
+        };
+      });
+
+      const isFilterActive = activeFilterFields.some(
+        (field) => field.selected.length >= 1
+      );
+
+      setFields(activeFilterFields);
+      active !== isFilterActive && setActive(isFilterActive);
     },
-    [setFields, fields]
+    [active, setActive, setFields, fields]
   );
+
+  const setFilterActive = useCallback(() => {}, []);
 
   return { fields, setFields, filteredPlaces, clearFilter, setCheckedOptions };
 };
