@@ -31,18 +31,14 @@ const FilterMenu = ({
   isOpen,
   places,
 }) => {
+  useEffect(() => {}, []);
+
   const [minRating, setMinRating] = useState(null);
   const { fields, clearFilter, setCheckedOptions } = useFilter(
     places,
     active,
     setActive
   );
-  // const {
-  //   status: placesStatus,
-  //   category,
-  //   selectCategory,
-  // } = useContext(PlacesContext);
-  // const { active, clearFilter, setMinRating } = useContext(FilterContext);
 
   useEffect(() => {
     console.log(fields);

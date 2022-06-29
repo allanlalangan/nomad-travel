@@ -120,6 +120,62 @@ const useFilter = (places, active, setActive) => {
     }
   }, [places, setFields]);
 
+  useEffect(() => {
+    if (active) {
+      const pendingPlaces = [];
+
+      fields.forEach((field) => {
+        if (field.selected.length >= 1) {
+          field.selected.forEach((option) => {
+            places.forEach((place) => {
+              if (field.field.includes('reserve')) {
+                !pendingPlaces.includes(place) &&
+                  place.reserve_info?.button_text.includes(option) &&
+                  pendingPlaces.push(place);
+              } else {
+                !pendingPlaces.includes(place) &&
+                  place[field.field].includes(option) &&
+                  pendingPlaces.push(place);
+              }
+            });
+          });
+        }
+      });
+
+      if (fields.some((field) => field.field.includes('dietary'))) {
+        const dietFilteredPlaces = [];
+        const dietFieldIndex = fields.findIndex((field) =>
+          field.field.includes('dietary')
+        );
+
+        fields[dietFieldIndex].selected.forEach((diet) => {
+          pendingPlaces.forEach((place) => {
+            if (place.dietary_restrictions?.some((d) => d === diet)) {
+              dietFilteredPlaces.push(place);
+            }
+          });
+        });
+
+        console.log(dietFilteredPlaces);
+      } else {
+        console.log(pendingPlaces);
+      }
+
+      //   if (selectedSubcategories?.length >= 1) {
+      //   selectedSubcategories.forEach((sub) => {
+      //     places.forEach((place) => {
+      //       if (
+      //         !filteredPlaces.includes(place) &&
+      //         place.subcategory?.includes(sub)
+      //       ) {
+      //         filteredPlaces.push(place);
+      //       }
+      //     });
+      //   });
+      // }
+    }
+  }, [active, fields, places]);
+
   const clearFilter = useCallback(
     (currentFields) => {
       const uncheckedFields = currentFields?.map((field) => {
@@ -173,8 +229,6 @@ const useFilter = (places, active, setActive) => {
     },
     [active, setActive, setFields, fields]
   );
-
-  const setFilterActive = useCallback(() => {}, []);
 
   return { fields, setFields, filteredPlaces, clearFilter, setCheckedOptions };
 };
