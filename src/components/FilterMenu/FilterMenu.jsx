@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
 
 import style from './style';
@@ -24,19 +24,26 @@ import useFilter from '../../hooks/useFilter';
 import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 import FilterOption from './FilterOption/FilterOption';
 
-const FilterMenu = ({ isLoaded }) => {
-  const {
-    status: placesStatus,
-    places,
-    category,
-    selectCategory,
-  } = useContext(PlacesContext);
-  const { active, clearFilter, setMinRating } = useContext(FilterContext);
+const FilterMenu = ({
+  active,
+  category,
+  setCategory,
+  placesStatus,
+  isOpen,
+  places,
+}) => {
+  const [minRating, setMinRating] = useState(null);
+  const { fields, clearFilter } = useFilter(places);
+  // const {
+  //   status: placesStatus,
+  //   category,
+  //   selectCategory,
+  // } = useContext(PlacesContext);
+  // const { active, clearFilter, setMinRating } = useContext(FilterContext);
 
-  const { filterFields } = useFilter();
   useEffect(() => {
-    console.log(filterFields);
-  }, [filterFields]);
+    console.log(fields);
+  }, [fields]);
   useEffect(() => {
     console.log(active);
   }, [active]);
@@ -143,8 +150,7 @@ const FilterMenu = ({ isLoaded }) => {
               id='category-select'
               label='Category'
               value={category}
-              onChange={(e) => selectCategory(e.target.value)}
-              disabled={!isLoaded}
+              onChange={(e) => setCategory(e.target.value)}
             >
               <MenuItem value={'restaurant'}>Restaurants</MenuItem>
               <MenuItem value={'hotel'}>Hotels</MenuItem>
@@ -160,9 +166,6 @@ const FilterMenu = ({ isLoaded }) => {
               labelId='sortBy-select-label'
               id='sortBy-select'
               label='Sort By'
-              disabled={
-                !isLoaded || places.length < 1 || placesStatus.isLoading
-              }
               defaultValue='rank'
             >
               <MenuItem value={'rank'}>Rank</MenuItem>
@@ -179,7 +182,6 @@ const FilterMenu = ({ isLoaded }) => {
               onClick={clearFilter}
               variant='contained'
               disableElevation
-              disabled={!isLoaded}
               sx={style.clearFilterButton}
             >
               Clear Filter
@@ -204,8 +206,8 @@ const FilterMenu = ({ isLoaded }) => {
           </Box>
           <Divider />
 
-          {filterFields?.length >= 1 &&
-            filterFields.map((field) => (
+          {fields?.length >= 1 &&
+            fields.map((field) => (
               <Box
                 key={field.field}
                 sx={style.fieldContainer}
@@ -220,7 +222,11 @@ const FilterMenu = ({ isLoaded }) => {
                           sx={style.checkboxLiItem}
                           disableGutters
                         >
-                          <FilterOption field={field} value={option.value} />
+                          <FilterOption
+                            allFields={fields}
+                            field={field}
+                            value={option.value}
+                          />
                         </ListItemButton>
                       </FormControl>
                     ))}

@@ -1,17 +1,19 @@
 import { FormControlLabel, Checkbox } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';
+import useFilter from '../../../hooks/useFilter';
 import { FilterContext } from '../../../store/FilterContext/FilterContextProvider';
 
 import style from './style';
 
-const FilterOption = ({ field, value }) => {
-  const { filterFields, setCheckedOptions } = useContext(FilterContext);
+const FilterOption = ({ allFields, selectedField, value }) => {
+  const { setCheckedOptions } = useFilter();
+  // const { filterFields, setCheckedOptions } = useContext(FilterContext);
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    filterFields.forEach((f) => {
-      if (f === field) {
+    allFields.forEach((f) => {
+      if (f === selectedField) {
         f.options.forEach((option) => {
           if (option.value === value) {
             setChecked(option.checked);
@@ -19,10 +21,10 @@ const FilterOption = ({ field, value }) => {
         });
       }
     });
-  }, [field, value, filterFields]);
+  }, [selectedField, value, allFields]);
 
   const onChange = (e) => {
-    setCheckedOptions(field, value, e.target.checked);
+    setCheckedOptions(selectedField, value, e.target.checked);
   };
 
   return (

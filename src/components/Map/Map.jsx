@@ -16,30 +16,43 @@ import style from './style';
 import { mapStyles } from './mapStyles';
 import { Paper, Typography, Rating, Box } from '@mui/material/';
 import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
+import useFilter from '../../hooks/useFilter';
 
-const Map = () => {
+const Map = ({
+  setFilterActive,
+  setPlacesStatus,
+  setMapStatus,
+  placesStatus,
+  places,
+  setPlaces,
+  category,
+  googleMap,
+  setGoogleMap,
+  coordinates,
+  bounds,
+  setCoordinates,
+  setBounds,
+}) => {
   const {
     setIsUpdating: setMapIsUpdating,
     setIsSuccess: setMapUpdateSuccess,
-    coordinates,
-    bounds,
-    googleMap,
+    // coordinates,
+    // bounds,
+
     hoveredMarker,
-    setCoordinates,
-    setBounds,
+    // setCoordinates,
+    // setBounds,
     setHoveredMarker,
-    setGoogleMap,
   } = useContext(MapContext);
 
-  const { filteredPlaces, clearFilter } = useContext(FilterContext);
-
+  const { filteredPlaces, clearFilter } = useFilter(places);
   const {
-    status: placesStatus,
-    category,
-    places,
-    setIsLoading: fetchPlacesLoading,
-    setIsError: fetchPlacesError,
-    fetchSuccess: fetchPlacesSuccess,
+    // status: placesStatus,
+    // category,
+    // places,
+    // setIsLoading: fetchPlacesLoading,
+    // setIsError: fetchPlacesError,
+    // fetchSuccess: fetchPlacesSuccess,
     placeCardRefs,
   } = useContext(PlacesContext);
 
@@ -65,16 +78,26 @@ const Map = () => {
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
-      fetchPlacesLoading();
+      setPlacesStatus((state) => ({ loading: true, ...state }));
       clearFilter();
+      setFilterActive(false);
       getPlaces(bounds, category, source)
         .then((data) => {
           if (typeof data === 'object') {
-            fetchPlacesSuccess(data);
+            setPlaces(data);
+            setPlacesStatus((state) => ({
+              loading: false,
+              success: true,
+              ...state,
+            }));
           } else return;
         })
         .catch((error) => {
-          fetchPlacesError(error.message);
+          setPlacesStatus((state) => ({
+            error: error.message,
+            loading: false,
+            success: false,
+          }));
         });
     } else return;
     return () => {
@@ -82,10 +105,11 @@ const Map = () => {
     };
   }, [
     bounds,
-    fetchPlacesLoading,
-    fetchPlacesError,
-    fetchPlacesSuccess,
     category,
+    setPlacesStatus,
+    clearFilter,
+    setFilterActive,
+    setPlaces,
   ]);
 
   const onTilesLoaded = () => {
@@ -111,7 +135,7 @@ const Map = () => {
     // const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
     // const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
 
-    // const newLatLng = googleMap
+    // const newLatLng = mapRef
     //   .getProjection()
     //   .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
 
@@ -128,7 +152,7 @@ const Map = () => {
   };
 
   const onDragStart = () => {
-    setMapIsUpdating();
+    // setMapIsUpdating();
   };
 
   const onDragEnd = () => {
@@ -136,7 +160,7 @@ const Map = () => {
       lat: googleMap.center.lat(),
       lng: googleMap.center.lng(),
     });
-    setMapUpdateSuccess();
+    // setMapUpdateSuccess();
   };
 
   const options = {
@@ -190,12 +214,12 @@ const Map = () => {
               displayedPlaces.map((place, i) => (
                 <Box key={i}>
                   <Marker
-                    onClick={() => {
-                      placeCardRefs[i].scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                      });
-                    }}
+                    // onClick={() => {
+                    //   placeCardRefs[i].scrollIntoView({
+                    //     behavior: 'smooth',
+                    //     block: 'center',
+                    //   });
+                    // }}
                     onMouseOver={(marker) => {
                       setHoveredMarker({ marker: marker, place: place });
                     }}

@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import { PlacesContext } from '../store/PlacesContext/PlacesContextProvider';
 import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
@@ -10,9 +10,10 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 // restaurant: { subcategory: [{key: 'sub_category', name: 'Sub Category'}] }
 // restaurant: { reserve_info: {button_text: 'online || reserve', url: ' '} }
 
-const useFilter = () => {
-  const { category, places } = useContext(PlacesContext);
-  const { filterFields, createFilterFields } = useContext(FilterContext);
+const useFilter = (places) => {
+  const [fields, setFields] = useState(null);
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  // const {  places } = useContext(PlacesContext);
   // create filterFields
   useEffect(() => {
     // if Places isSuccess
@@ -115,11 +116,47 @@ const useFilter = () => {
         },
       ];
 
-      createFilterFields(fields.filter((field) => field.options.length >= 1));
+      setFields(fields.filter((field) => field.options.length >= 1));
     }
-  }, [category, places, createFilterFields]);
+  }, [places, setFields]);
 
-  return { filterFields };
+  const clearFilter = useCallback(() => {
+    const uncheckedFields = fields?.map((field) => {
+      return {
+        ...field,
+        options: field.options.map((option) => ({
+          value: option.value,
+          checked: false,
+        })),
+        selected: [],
+      };
+    });
+    setFields(uncheckedFields);
+  }, []);
+
+  const setCheckedOptions = useCallback(
+    (selectedField, selectedValue, checked) => {
+      const newFields = fields?.map((field) => {
+        if (field.field === selectedField.field) {
+          return {
+            ...field,
+            options: field.options.map((option) => {
+              if (selectedValue === option.value) {
+                return { value: selectedValue, checked: checked };
+              } else {
+                return option;
+              }
+            }),
+          };
+        } else return field;
+      });
+
+      setFields(newFields);
+    },
+    [setFields, fields]
+  );
+
+  return { fields, setFields, filteredPlaces, clearFilter, setCheckedOptions };
 };
 
 export default useFilter;
