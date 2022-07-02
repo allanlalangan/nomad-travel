@@ -8,6 +8,7 @@ import { Typography, IconButton, Box, List } from '@mui/material';
 import { Tune, Close } from '@mui/icons-material';
 
 import useFilter from '../../hooks/useFilter';
+import SkeletonCard from '../ui/Skeleton/SkeletonCard';
 
 const Places = ({ category, status, places, filterOpen, toggleFilter }) => {
   const [cardRefs, setCardRefs] = useState([]);
@@ -51,6 +52,11 @@ const Places = ({ category, status, places, filterOpen, toggleFilter }) => {
           </IconButton>
         </Box>
       </Box>
+      {status.loading && (
+        <List sx={style.placesList}>
+          <SkeletonCard />
+        </List>
+      )}
 
       {status.success && (
         <List disablePadding sx={style.placesList}>
