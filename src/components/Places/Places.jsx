@@ -65,13 +65,13 @@ const Places = ({
           </IconButton>
         </Box>
       </Box>
-      {status.loading && (
+      {status.loading && window.innerWidth >= 700 && (
         <List sx={style.placesList}>
           <SkeletonCard />
         </List>
       )}
 
-      {status.success && (
+      {status.success && window.innerWidth >= 700 && (
         <List disablePadding sx={style.placesList}>
           {places?.map((place, i) => (
             <PlaceCard

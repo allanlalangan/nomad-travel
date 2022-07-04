@@ -16,7 +16,10 @@ const style = {
     top: '1rem',
     zIndex: 1000,
 
-    borderRadius: '0 0.5rem 0.5rem 0.5rem',
+    borderRadius: (theme) => ({
+      sm: '0 0.5rem 0.5rem 0.5rem',
+    }),
+    // borderRadius: '0 0.5rem 0.5rem 0.5rem',
     backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
     boxShadow: (theme) => theme.shadows[3],
   },
@@ -34,8 +37,8 @@ const style = {
     padding: '1rem',
     backgroundColor: (theme) => theme.palette.background.default,
     boxShadow: (theme) => theme.shadows[1],
-    borderRadius: 2,
-    borderTopLeftRadius: 0,
+    borderRadius: { xs: 0, sm: 2 },
+    borderTopLeftRadius: { xs: 0, sm: 0 },
   },
 
   filterButton: {

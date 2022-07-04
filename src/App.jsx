@@ -30,7 +30,8 @@ const App = () => {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-  const handleOpenModal = () => {
+  const handleOpenModal = (place) => {
+    console.log(place);
     setModalOpen(true);
   };
   const [filterOpen, setFilterOpen] = useState(true);

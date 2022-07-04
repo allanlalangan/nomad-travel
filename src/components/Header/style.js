@@ -38,7 +38,7 @@ const style = {
 
   mainTitle: {
     width: '100%',
-    fontFamily: 'Righteous',
+    fontFamily: '"Righteous", "Roboto", sans-serif',
     // fontSize: (theme) => `calc((${theme.layout.appBarHeight}vh) - 1rem)`,
     fontSize: 45,
     fontWeight: '700',
@@ -80,18 +80,26 @@ const style = {
   searchContainer: {
     // width: '25%',
     position: { xs: 'absolute', sm: 'static' },
-    right: { xs: 0 },
-    width: { xs: '30%', md: '25%' },
+    top: (theme) => ({
+      xs: `calc(${theme.layout.appBar.xs.height}vh + ${theme.layout.placesHeading.sm.height}rem)`,
+    }),
+    width: { xs: '35%', md: '25%' },
     height: '100%',
-    padding: '0 1rem',
+    // padding: '0 1rem',
 
     display: { xs: 'flex' },
     // display: { xs: 'none', sm: 'flex' },
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  // backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
+  zIndex: 2,
+
   searchTextField: {
+    // backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
     '& .MuiOutlinedInput-root': {
+      backgroundColor: (theme) => theme.palette.background.default,
       borderRadius: '2rem',
     },
   },

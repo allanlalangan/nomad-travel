@@ -3,7 +3,7 @@ import Modal from '../ui/Modal/Modal';
 
 import style from './style';
 
-const PlaceDetails = ({ onClose }) => {
+const PlaceDetails = ({ place, onClose }) => {
   return (
     <Modal onBackdropClick={onClose}>
       <Box sx={style.container} component='article'>

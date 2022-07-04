@@ -10,12 +10,17 @@ const style = {
     justifyContent: 'space-between',
     margin: '1rem 0',
 
-    minHeight: (theme) => ({
-      xs: '100%',
-      md: `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
+    // minHeight: (theme) => ({
+    //   xs: '100%',
+    //   md: `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
+    //     theme.layout.placesHeading.sm.height * 2
+    //   }rem)`,
+    // }),
+
+    height: (theme) =>
+      `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
         theme.layout.placesHeading.sm.height * 2
       }rem)`,
-    }),
 
     // minHeight: (theme) =>
     //   `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
@@ -41,11 +46,11 @@ const style = {
   },
 
   placeImage: {
-    display: 'flex',
+    // display: 'flex',
     height: '100%',
-    // width: '100%',
+    width: '100%',
     zIndex: -99,
-    objectFit: 'cover',
+    // objectFit: 'cover',
 
     borderRadius: 2,
     borderBottomLeftRadius: 0,
@@ -127,6 +132,7 @@ const style = {
   summaryAddress: {
     display: 'flex',
     justifyContent: 'space-between',
+    paddingBottom: '.5rem',
   },
 
   addressStreet: {

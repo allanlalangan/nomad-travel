@@ -198,7 +198,7 @@ const Map = ({
                       //     block: 'center',
                       //   });
                       // }
-                      openModal
+                      () => openModal(place)
                     }
                     onMouseOver={(marker) => {
                       setHoveredMarker({ marker: marker, place: place });

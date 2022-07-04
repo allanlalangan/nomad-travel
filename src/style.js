@@ -21,8 +21,8 @@ const style = {
     position: 'relative',
     width: '100%',
     height: (theme) => ({
-      xs: mobileContentHeight(theme),
-      sm: mainContentHeight(theme),
+      // xs: mobileContentHeight(theme),
+      xs: mainContentHeight(theme),
     }),
 
     marginTop: (theme) => `${theme.layout.appBar.xs.height}vh`,
