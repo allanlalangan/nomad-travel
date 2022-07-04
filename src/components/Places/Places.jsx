@@ -11,6 +11,8 @@ import useFilter from '../../hooks/useFilter';
 import SkeletonCard from '../ui/Skeleton/SkeletonCard';
 
 const Places = ({
+  cardRefs,
+  setCardRefs,
   category,
   status,
   places,
@@ -18,7 +20,7 @@ const Places = ({
   filterActive,
   toggleFilter,
 }) => {
-  const [cardRefs, setCardRefs] = useState([]);
+  // const [cardRefs, setCardRefs] = useState([]);
 
   const { filteredPlaces } = useFilter(places, filterActive);
 

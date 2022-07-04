@@ -25,17 +25,27 @@ const App = () => {
     success: false,
     error: null,
   });
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+  const [filterOpen, setFilterOpen] = useState(true);
   const [filterActive, setFilterActive] = useState(false);
 
-  const [filterOpen, setFilterOpen] = useState(true);
+  const [category, setCategory] = useState('');
   const [places, setPlaces] = useState([]);
+  const [placeCardRefs, setPlaceCardRefs] = useState([]);
+
   const [googleMap, setGoogleMap] = useState(null);
   const [coordinates, setCoordinates] = useState({
     lat: 45.5252,
     lng: -122.6584,
   });
   const [bounds, setBounds] = useState(null);
-  const [category, setCategory] = useState('');
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY,
@@ -53,9 +63,11 @@ const App = () => {
             isLoaded={isLoaded}
           />
           <Container sx={style.mainContent} component='main'>
-            <PlaceDetails />
+            {modalOpen && <PlaceDetails onClose={handleCloseModal} />}
             <Container component='section' sx={style.places}>
               <Places
+                cardRefs={placeCardRefs}
+                setCardRefs={setPlaceCardRefs}
                 places={places}
                 category={category}
                 status={placesStatus}
@@ -77,12 +89,15 @@ const App = () => {
             <Container component='section' sx={style.map}>
               {isLoaded ? (
                 <Map
+                  isModalOpen={modalOpen}
+                  openModal={handleOpenModal}
                   status={mapStatus}
                   category={category}
                   placesStatus={placesStatus}
                   setPlacesStatus={setPlacesStatus}
                   setMapStatus={setMapStatus}
                   places={places}
+                  placeCardRefs={placeCardRefs}
                   setPlaces={setPlaces}
                   setFilterActive={setFilterActive}
                   googleMap={googleMap}

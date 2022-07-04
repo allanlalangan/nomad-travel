@@ -3,9 +3,9 @@ import Modal from '../ui/Modal/Modal';
 
 import style from './style';
 
-const PlaceDetails = () => {
+const PlaceDetails = ({ onClose }) => {
   return (
-    <Modal>
+    <Modal onBackdropClick={onClose}>
       <Box sx={style.container} component='article'>
         <Typography variant='h4'>Details</Typography>
       </Box>

@@ -18,11 +18,13 @@ import useFilter from '../../hooks/useFilter';
 import { useState } from 'react';
 
 const Map = ({
+  openModal,
   setFilterActive,
   setPlacesStatus,
   setMapStatus,
   placesStatus,
   places,
+  placeCardRefs,
   setPlaces,
   category,
   googleMap,
@@ -189,12 +191,15 @@ const Map = ({
               places.map((place, i) => (
                 <Box key={i}>
                   <Marker
-                    // onClick={() => {
-                    //   placeCardRefs[i].scrollIntoView({
-                    //     behavior: 'smooth',
-                    //     block: 'center',
-                    //   });
-                    // }}
+                    onClick={
+                      //   () => {
+                      //   placeCardRefs[i]?.scrollIntoView({
+                      //     behavior: 'auto',
+                      //     block: 'center',
+                      //   });
+                      // }
+                      openModal
+                    }
                     onMouseOver={(marker) => {
                       setHoveredMarker({ marker: marker, place: place });
                     }}

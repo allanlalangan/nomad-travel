@@ -13,7 +13,7 @@ const ModalBackdrop = (props) => {
 
 const ModalWindow = (props) => {
   return (
-    <Box component='aside' sx={style.window}>
+    <Box component='section' sx={style.window}>
       {props.children}
     </Box>
   );
