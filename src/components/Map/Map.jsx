@@ -1,7 +1,5 @@
 import { useEffect, useCallback, useRef, useContext } from 'react';
-import { MapContext } from '../../store/MapContext/MapContextProvider';
-import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
-// import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
+
 import { getPlaces } from '../../api/placesAPI';
 import {
   GoogleMap,
@@ -15,35 +13,28 @@ import axios from 'axios';
 import style from './style';
 import { mapStyles } from './mapStyles';
 import { Paper, Typography, Rating, Box } from '@mui/material/';
-import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 
-const Map = () => {
-  const {
-    setIsUpdating: setMapIsUpdating,
-    setIsSuccess: setMapUpdateSuccess,
-    coordinates,
-    bounds,
-    googleMap,
-    hoveredMarker,
-    setCoordinates,
-    setBounds,
-    setHoveredMarker,
-    setGoogleMap,
-  } = useContext(MapContext);
+import useFilter from '../../hooks/useFilter';
+import { useState } from 'react';
 
-  const { filteredPlaces, clearFilter } = useContext(FilterContext);
+const Map = ({
+  setFilterActive,
+  setPlacesStatus,
+  setMapStatus,
+  placesStatus,
+  places,
+  setPlaces,
+  category,
+  googleMap,
+  setGoogleMap,
+  coordinates,
+  bounds,
+  setCoordinates,
+  setBounds,
+}) => {
+  const [hoveredMarker, setHoveredMarker] = useState(null);
 
-  const {
-    status: placesStatus,
-    category,
-    places,
-    setIsLoading: fetchPlacesLoading,
-    setIsError: fetchPlacesError,
-    fetchSuccess: fetchPlacesSuccess,
-    placeCardRefs,
-  } = useContext(PlacesContext);
-
-  const displayedPlaces = filteredPlaces.length >= 1 ? filteredPlaces : places;
+  const { filteredPlaces, clearFilter } = useFilter(places);
 
   const mapRef = useRef();
   const onMapLoad = useCallback(
@@ -65,16 +56,23 @@ const Map = () => {
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
-      fetchPlacesLoading();
+      setPlaces([]);
+      setPlacesStatus({ loading: true, success: false, error: null });
       clearFilter();
+      setFilterActive(false);
       getPlaces(bounds, category, source)
         .then((data) => {
           if (typeof data === 'object') {
-            fetchPlacesSuccess(data);
+            setPlacesStatus({ success: true, loading: false, error: null });
+            setPlaces(data);
           } else return;
         })
         .catch((error) => {
-          fetchPlacesError(error.message);
+          setPlacesStatus({
+            error: error.message,
+            loading: false,
+            success: false,
+          });
         });
     } else return;
     return () => {
@@ -82,10 +80,11 @@ const Map = () => {
     };
   }, [
     bounds,
-    fetchPlacesLoading,
-    fetchPlacesError,
-    fetchPlacesSuccess,
     category,
+    setPlacesStatus,
+    clearFilter,
+    setFilterActive,
+    setPlaces,
   ]);
 
   const onTilesLoaded = () => {
@@ -111,7 +110,7 @@ const Map = () => {
     // const newLngInPx = (neBoundInPx.x - swBoundInPx.x) * procX + swBoundInPx.x;
     // const newLatInPx = (swBoundInPx.y - neBoundInPx.y) * procY + neBoundInPx.y;
 
-    // const newLatLng = googleMap
+    // const newLatLng = mapRef
     //   .getProjection()
     //   .fromPointToLatLng(new window.google.maps.Point(newLngInPx, newLatInPx));
 
@@ -128,7 +127,7 @@ const Map = () => {
   };
 
   const onDragStart = () => {
-    setMapIsUpdating();
+    // setMapIsUpdating();
   };
 
   const onDragEnd = () => {
@@ -136,7 +135,7 @@ const Map = () => {
       lat: googleMap.center.lat(),
       lng: googleMap.center.lng(),
     });
-    setMapUpdateSuccess();
+    // setMapUpdateSuccess();
   };
 
   const options = {
@@ -162,16 +161,16 @@ const Map = () => {
 
   return (
     <>
-      {placesStatus.isLoading && (
+      {placesStatus.loading === true && (
         <Paper sx={style.statusMessage}>
           <Typography variant='body1'>
             Fetching most popular places in this area...
           </Typography>
         </Paper>
       )}
-      {placesStatus.isError && (
+      {placesStatus.error && (
         <Paper sx={style.statusMessage}>
-          <Typography variant='body1'>{placesStatus.message}</Typography>
+          <Typography variant='body1'>{placesStatus.error}</Typography>
         </Paper>
       )}
       <GoogleMap
@@ -184,18 +183,18 @@ const Map = () => {
         options={options}
         zoom={14}
       >
-        {placesStatus.isSuccess && (
+        {placesStatus.success && (
           <GoogleMarkerClusterer averageCenter={true}>
             {(clusterer) =>
-              displayedPlaces.map((place, i) => (
+              places.map((place, i) => (
                 <Box key={i}>
                   <Marker
-                    onClick={() => {
-                      placeCardRefs[i].scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                      });
-                    }}
+                    // onClick={() => {
+                    //   placeCardRefs[i].scrollIntoView({
+                    //     behavior: 'smooth',
+                    //     block: 'center',
+                    //   });
+                    // }}
                     onMouseOver={(marker) => {
                       setHoveredMarker({ marker: marker, place: place });
                     }}
@@ -210,8 +209,8 @@ const Map = () => {
                   />
 
                   {hoveredMarker &&
-                    displayedPlaces.indexOf(hoveredMarker.place) ===
-                      displayedPlaces.indexOf(place) && (
+                    places.indexOf(hoveredMarker.place) ===
+                      places.indexOf(place) && (
                       <InfoWindow
                         position={{
                           lat: Number(place.latitude),

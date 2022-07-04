@@ -1,19 +1,31 @@
-import { useEffect, useRef, useContext } from 'react';
-import { PlacesContext } from '../../store/PlacesContext/PlacesContextProvider';
+import { useEffect, useRef, useContext, useState } from 'react';
+
 // components
 import PlaceCard from './PlaceCard/PlaceCard';
 // styles and ui
 import style from './style';
 import { Typography, IconButton, Box, List } from '@mui/material';
 import { Tune, Close } from '@mui/icons-material';
-import { FilterContext } from '../../store/FilterContext/FilterContextProvider';
 
-const Places = ({ filterOpen, toggleFilter }) => {
-  const { category, status, places, placeCardRefs, setPlaceCardRefs } =
-    useContext(PlacesContext);
+import useFilter from '../../hooks/useFilter';
+import SkeletonCard from '../ui/Skeleton/SkeletonCard';
 
-  const { filteredPlaces } = useContext(FilterContext);
-  const displayedPlaces = filteredPlaces.length >= 1 ? filteredPlaces : places;
+const Places = ({
+  category,
+  status,
+  places,
+  filterOpen,
+  filterActive,
+  toggleFilter,
+}) => {
+  const [cardRefs, setCardRefs] = useState([]);
+
+  const { filteredPlaces } = useFilter(places, filterActive);
+
+  useEffect(() => {
+    console.log(filteredPlaces);
+  }, [filteredPlaces]);
+
   useEffect(() => {
     console.log('places state', places);
   }, [places]);
@@ -26,14 +38,14 @@ const Places = ({ filterOpen, toggleFilter }) => {
       places.forEach((place, i) => {
         refs.push(liRefs.current[i]);
       });
-      setPlaceCardRefs(refs);
+      setCardRefs(refs);
     }
-  }, [places, setPlaceCardRefs]);
+  }, [places, setCardRefs]);
 
   return (
     <>
       <Box sx={style.header}>
-        {status.isSuccess ? (
+        {status.success ? (
           <Typography sx={style.heading} variant='subtitle1' component='h3'>
             Top {places.length} {category}s in the area
           </Typography>
@@ -51,15 +63,21 @@ const Places = ({ filterOpen, toggleFilter }) => {
           </IconButton>
         </Box>
       </Box>
+      {status.loading && (
+        <List sx={style.placesList}>
+          <SkeletonCard />
+        </List>
+      )}
 
-      {status.isSuccess && (
+      {status.success && (
         <List disablePadding sx={style.placesList}>
-          {displayedPlaces?.map((place, i) => (
+          {places?.map((place, i) => (
             <PlaceCard
+              category={category}
               ref={(element) => {
                 liRefs.current[i] = element;
               }}
-              liRef={placeCardRefs.length >= 1 ? placeCardRefs[i] : null}
+              liRef={cardRefs.length >= 1 ? cardRefs[i] : null}
               key={i}
               place={place}
             />

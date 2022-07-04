@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import { PlacesContext } from '../store/PlacesContext/PlacesContextProvider';
 import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
@@ -10,9 +10,10 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 // restaurant: { subcategory: [{key: 'sub_category', name: 'Sub Category'}] }
 // restaurant: { reserve_info: {button_text: 'online || reserve', url: ' '} }
 
-const useFilter = () => {
-  const { category, places } = useContext(PlacesContext);
-  const { filterFields, createFilterFields } = useContext(FilterContext);
+const useFilter = (places, active, setActive) => {
+  const [fields, setFields] = useState(null);
+  const [filteredPlaces, setFilteredPlaces] = useState(null);
+  // const {  places } = useContext(PlacesContext);
   // create filterFields
   useEffect(() => {
     // if Places isSuccess
@@ -115,11 +116,115 @@ const useFilter = () => {
         },
       ];
 
-      createFilterFields(fields.filter((field) => field.options.length >= 1));
+      setFields(fields.filter((field) => field.options.length >= 1));
     }
-  }, [category, places, createFilterFields]);
+  }, [places, setFields]);
 
-  return { filterFields };
+  useEffect(() => {
+    if (active) {
+      const pendingPlaces = [];
+      const priorityPendingPlaces = [];
+
+      const lowPriorityFields = fields.filter(
+        (field) => !field.field.includes('dietary')
+      );
+      const dietsField = fields.find(
+        (field) => field.field === 'dietary_restrictions'
+      );
+      console.log(lowPriorityFields);
+      console.log(dietsField);
+
+      lowPriorityFields.forEach((field) => {
+        if (field.selected.length >= 1) {
+          field.selected.forEach((option) => {
+            places.forEach((place) => {
+              if (field.field.includes('reserve')) {
+                !pendingPlaces.includes(place) &&
+                  place.reserve_info?.button_text.includes(option) &&
+                  pendingPlaces.push(place);
+              } else {
+                !pendingPlaces.includes(place) &&
+                  place[field.field].includes(option) &&
+                  pendingPlaces.push(place);
+              }
+            });
+          });
+        }
+      });
+
+      if (dietsField?.selected.length >= 1) {
+        dietsField.selected.forEach((diet) => {
+          pendingPlaces.forEach((place) => {
+            if (
+              !priorityPendingPlaces.includes(place) &&
+              place.dietary_restrictions?.includes(diet)
+            ) {
+              priorityPendingPlaces.push(place);
+            }
+          });
+        });
+        console.log(priorityPendingPlaces);
+      } else {
+        console.log(pendingPlaces);
+      }
+    }
+  }, [active, fields, places]);
+
+  const clearFilter = useCallback(
+    (currentFields) => {
+      const uncheckedFields = currentFields?.map((field) => {
+        return {
+          ...field,
+          options: field.options.map((option) => ({
+            value: option.value,
+            checked: false,
+          })),
+          selected: [],
+        };
+      });
+      setFields(uncheckedFields || null);
+      active && setActive(false);
+    },
+    [active, setActive]
+  );
+
+  const setCheckedOptions = useCallback(
+    (selectedField, selectedValue, checked) => {
+      const newFields = fields?.map((field) => {
+        if (field.field === selectedField.field) {
+          return {
+            ...field,
+            options: field.options.map((option) => {
+              if (selectedValue === option.value) {
+                return { value: selectedValue, checked: checked };
+              } else {
+                return option;
+              }
+            }),
+          };
+        } else return field;
+      });
+
+      const activeFilterFields = newFields?.map((field) => {
+        return {
+          ...field,
+          selected: field.options
+            .filter((opt) => opt.checked)
+            .map((opt) => opt.value),
+        };
+      });
+
+      const isFilterActive = activeFilterFields.some(
+        (field) => field.selected.length >= 1
+      );
+
+      setFields(activeFilterFields);
+      active !== isFilterActive && setActive(isFilterActive);
+    },
+    [active, setActive, setFields, fields]
+  );
+
+  return { fields, setFields, filteredPlaces, clearFilter, setCheckedOptions };
 };
 
 export default useFilter;
