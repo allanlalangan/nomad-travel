@@ -14,7 +14,7 @@ const style = {
         },
         overflow: 'visible',
 
-        // zIndex: { xs: 1000, sm: 600 },
+        zIndex: { sm: 600 },
         top: (theme) => ({
           xs: `calc(${theme.layout.appBar.xs.height}vh + ${theme.layout.placesHeading.sm.height}rem)`,
           sm: `calc(${theme.layout.appBar.xs.height}vh + 1rem)`,
