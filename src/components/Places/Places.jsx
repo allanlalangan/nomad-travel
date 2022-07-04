@@ -10,10 +10,21 @@ import { Tune, Close } from '@mui/icons-material';
 import useFilter from '../../hooks/useFilter';
 import SkeletonCard from '../ui/Skeleton/SkeletonCard';
 
-const Places = ({ category, status, places, filterOpen, toggleFilter }) => {
+const Places = ({
+  category,
+  status,
+  places,
+  filterOpen,
+  filterActive,
+  toggleFilter,
+}) => {
   const [cardRefs, setCardRefs] = useState([]);
 
-  const { filteredPlaces } = useFilter(places);
+  const { filteredPlaces } = useFilter(places, filterActive);
+
+  useEffect(() => {
+    console.log(filteredPlaces);
+  }, [filteredPlaces]);
 
   useEffect(() => {
     console.log('places state', places);

@@ -12,7 +12,7 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 
 const useFilter = (places, active, setActive) => {
   const [fields, setFields] = useState(null);
-  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState(null);
   // const {  places } = useContext(PlacesContext);
   // create filterFields
   useEffect(() => {
@@ -123,8 +123,18 @@ const useFilter = (places, active, setActive) => {
   useEffect(() => {
     if (active) {
       const pendingPlaces = [];
+      const priorityPendingPlaces = [];
 
-      fields.forEach((field) => {
+      const lowPriorityFields = fields.filter(
+        (field) => !field.field.includes('dietary')
+      );
+      const dietsField = fields.find(
+        (field) => field.field === 'dietary_restrictions'
+      );
+      console.log(lowPriorityFields);
+      console.log(dietsField);
+
+      lowPriorityFields.forEach((field) => {
         if (field.selected.length >= 1) {
           field.selected.forEach((option) => {
             places.forEach((place) => {
@@ -142,37 +152,21 @@ const useFilter = (places, active, setActive) => {
         }
       });
 
-      if (fields.some((field) => field.field.includes('dietary'))) {
-        const dietFilteredPlaces = [];
-        const dietFieldIndex = fields.findIndex((field) =>
-          field.field.includes('dietary')
-        );
-
-        fields[dietFieldIndex].selected.forEach((diet) => {
+      if (dietsField?.selected.length >= 1) {
+        dietsField.selected.forEach((diet) => {
           pendingPlaces.forEach((place) => {
-            if (place.dietary_restrictions?.some((d) => d === diet)) {
-              dietFilteredPlaces.push(place);
+            if (
+              !priorityPendingPlaces.includes(place) &&
+              place.dietary_restrictions?.includes(diet)
+            ) {
+              priorityPendingPlaces.push(place);
             }
           });
         });
-
-        console.log(dietFilteredPlaces);
+        console.log(priorityPendingPlaces);
       } else {
         console.log(pendingPlaces);
       }
-
-      //   if (selectedSubcategories?.length >= 1) {
-      //   selectedSubcategories.forEach((sub) => {
-      //     places.forEach((place) => {
-      //       if (
-      //         !filteredPlaces.includes(place) &&
-      //         place.subcategory?.includes(sub)
-      //       ) {
-      //         filteredPlaces.push(place);
-      //       }
-      //     });
-      //   });
-      // }
     }
   }, [active, fields, places]);
 
