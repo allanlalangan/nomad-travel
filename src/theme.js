@@ -42,7 +42,7 @@ const theme = createTheme({
   },
   typography: {
     fontSize: 12,
-    fontFamily: '"Raleway", sans-serif',
+    fontFamily: '"Raleway", "Roboto", sans-serif',
   },
   layout: {
     appBar: { xs: { width: 100, height: 8 }, sm: {}, md: {}, lg: {}, xl: {} },

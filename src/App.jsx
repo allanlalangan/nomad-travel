@@ -2,7 +2,14 @@ import { useState } from 'react';
 // google maps api
 import { useLoadScript } from '@react-google-maps/api';
 // components
-import { Header, Places, FilterMenu, Map, FilterDrawer } from './components';
+import {
+  Header,
+  Places,
+  PlaceDetails,
+  FilterMenu,
+  Map,
+  FilterDrawer,
+} from './components';
 import { CssBaseline, Box, Container, ThemeProvider } from '@mui/material';
 import theme from './theme';
 import style from './style';
@@ -46,6 +53,7 @@ const App = () => {
             isLoaded={isLoaded}
           />
           <Container sx={style.mainContent} component='main'>
+            <PlaceDetails />
             <Container component='section' sx={style.places}>
               <Places
                 places={places}
