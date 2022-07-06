@@ -12,11 +12,12 @@ const style = {
   window: {
     position: 'absolute',
     top: (theme) => `calc((${theme.layout.appBar.xs.height}vh) + 1rem)`,
-    left: '1rem',
-    width: 'calc(100% - 2rem)',
+    left: { xs: '1rem', lg: 'calc(30% + 1rem)' },
+    width: { xs: 'calc(100% - 2rem)', lg: 'calc(70% - 2rem)' },
     height: (theme) =>
       `calc((100vh - ${theme.layout.appBar.xs.height}vh) - 2rem)`,
     zIndex: 9999,
+    borderRadius: 2,
   },
 };
 

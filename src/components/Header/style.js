@@ -22,7 +22,7 @@ const style = {
   },
 
   logo: {
-    width: '25%',
+    width: '30%',
 
     display: 'flex',
     alignItems: 'center',

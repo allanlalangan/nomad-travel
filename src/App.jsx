@@ -27,11 +27,13 @@ const App = () => {
   });
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [activePlace, setActivePlace] = useState(null);
   const handleCloseModal = () => {
     setModalOpen(false);
+    setActivePlace(null);
   };
   const handleOpenModal = (place) => {
-    console.log(place);
+    setActivePlace(place);
     setModalOpen(true);
   };
   const [filterOpen, setFilterOpen] = useState(true);
@@ -64,7 +66,9 @@ const App = () => {
             isLoaded={isLoaded}
           />
           <Container sx={style.mainContent} component='main'>
-            {modalOpen && <PlaceDetails onClose={handleCloseModal} />}
+            {modalOpen && (
+              <PlaceDetails place={activePlace} onClose={handleCloseModal} />
+            )}
             <Container component='section' sx={style.places}>
               <Places
                 cardRefs={placeCardRefs}
