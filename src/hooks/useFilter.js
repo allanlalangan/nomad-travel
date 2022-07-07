@@ -123,65 +123,66 @@ const useFilter = (places, active, setActive) => {
   useEffect(() => {
     if (active) {
       const pendingPlaces = [];
-      const priorityPendingPlaces = [];
-
-      const lowPriorityFields = fields.filter(
-        (field) => !field.field.includes('dietary')
-      );
       const dietsField = fields.find(
         (field) => field.field === 'dietary_restrictions'
       );
       const priceField = fields.find((field) => field.field === 'price_level');
+      const orderField = fields.find((field) => field.field === 'reserve_info');
+      const cuisineField = fields.find((field) => field.field === 'cuisine');
 
-      console.log(lowPriorityFields);
-      console.log(dietsField);
-
-      lowPriorityFields.forEach((field) => {
-        if (field.selected.length >= 1) {
-          field.selected.forEach((option) => {
-            places.forEach((place) => {
-              if (field.field.includes('reserve')) {
-                !pendingPlaces.includes(place) &&
-                  place.reserve_info?.button_text.includes(option) &&
-                  pendingPlaces.push(place);
-              } else {
-                !pendingPlaces.includes(place) &&
-                  place[field.field].includes(option) &&
-                  pendingPlaces.push(place);
-              }
-            });
+      if (priceField?.selected.length >= 1) {
+        priceField.selected.forEach((price) => {
+          places.forEach((place) => {
+            if (
+              !pendingPlaces.includes(place) &&
+              place.price_level?.includes(price)
+            ) {
+              pendingPlaces.push(place);
+            }
           });
-        }
-      });
+        });
+      }
+
+      if (cuisineField?.selected.length >= 1) {
+        cuisineField.selected.forEach((cuisine) => {
+          places.forEach((place) => {
+            if (
+              !pendingPlaces.includes(place) &&
+              place.cuisine?.includes(cuisine)
+            ) {
+              pendingPlaces.push(place);
+            }
+          });
+        });
+      }
+
+      if (orderField?.selected.length >= 1) {
+        orderField.selected.forEach((option) => {
+          places.forEach((place) => {
+            if (
+              !pendingPlaces.includes(place) &&
+              place.reserve_info?.button_text?.includes(option)
+            ) {
+              pendingPlaces.push(place);
+            }
+          });
+        });
+      }
 
       if (dietsField?.selected.length >= 1) {
         dietsField.selected.forEach((diet) => {
-          pendingPlaces.forEach((place) => {
+          places.forEach((place) => {
             if (
-              !priorityPendingPlaces.includes(place) &&
+              !pendingPlaces.includes(place) &&
               place.dietary_restrictions?.includes(diet)
             ) {
-              priorityPendingPlaces.push(place);
+              pendingPlaces.push(place);
             }
           });
         });
-        console.log(priorityPendingPlaces);
       }
 
-      if (priceField?.selected.length >= 1) {
-        const pendingFilter = [];
-        priceField.selected.forEach((price) => {
-          priorityPendingPlaces.forEach((place) => {
-            if (
-              !pendingFilter.includes(place) &&
-              place.price_level.includes(price)
-            ) {
-              pendingFilter.push(place);
-            }
-          });
-        });
-        console.log(pendingFilter);
-      }
+      console.log(pendingPlaces);
     }
   }, [active, fields, places]);
 
