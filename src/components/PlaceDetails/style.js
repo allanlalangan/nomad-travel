@@ -17,12 +17,7 @@ const style = {
     // display: 'flex',
     height: '100%',
     width: '100%',
-    zIndex: -99,
-    // objectFit: 'cover',
-
-    borderRadius: 2,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
+    objectFit: 'cover',
   },
 };
 
