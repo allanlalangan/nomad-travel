@@ -127,6 +127,9 @@ const useFilter = (places, active, setActive, setFilteredPlaces) => {
         (field) => field.field === 'dietary_restrictions'
       );
       const priceField = fields.find((field) => field.field === 'price_level');
+      const subcategoryField = fields.find(
+        (field) => field.field === 'subcategory'
+      );
       const orderField = fields.find((field) => field.field === 'reserve_info');
       const cuisineField = fields.find((field) => field.field === 'cuisine');
 
@@ -149,6 +152,19 @@ const useFilter = (places, active, setActive, setFilteredPlaces) => {
             if (
               !pendingPlaces.includes(place) &&
               place.cuisine?.includes(cuisine)
+            ) {
+              pendingPlaces.push(place);
+            }
+          });
+        });
+      }
+
+      if (subcategoryField?.selected.length >= 1) {
+        subcategoryField.selected.forEach((subcategory) => {
+          places.forEach((place) => {
+            if (
+              !pendingPlaces.includes(place) &&
+              place.subcategory?.includes(subcategory)
             ) {
               pendingPlaces.push(place);
             }
