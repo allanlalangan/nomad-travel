@@ -1,12 +1,8 @@
 import { Close, LocationOn } from '@mui/icons-material';
-import { CardMedia, Box, Typography, Button, IconButton } from '@mui/material';
+import { CardMedia, Box, Typography, IconButton, Chip } from '@mui/material';
 import Modal from '../ui/Modal/Modal';
 
 import style from './style';
-
-const gridColumns = 12;
-const gridLines = gridColumns + 1;
-const gridHeaderSpan = 1;
 
 const PlaceDetails = ({ place, onClose }) => {
   return (
@@ -17,8 +13,8 @@ const PlaceDetails = ({ place, onClose }) => {
           width: 1,
           height: 1,
           display: 'grid',
-          gridTemplateColumns: `repeat(${gridColumns}, 1fr)`,
-          gridTemplateRows: `repeat(${gridColumns}, 1fr)`,
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gridTemplateRows: 'repeat(12, 1fr)',
           p: (theme) => theme.spacing(2),
           backgroundColor: (theme) => theme.palette.background.default,
         }}
@@ -29,7 +25,7 @@ const PlaceDetails = ({ place, onClose }) => {
             <Close />
           </IconButton>
         </Box>
-        <Typography sx={{ gridColumn: `1 / span ${gridColumns}` }} variant='h4'>
+        <Typography sx={{ gridColumn: '1 / 13' }} variant='h4'>
           {place.name}
         </Typography>
         <Box
@@ -38,7 +34,7 @@ const PlaceDetails = ({ place, onClose }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gridColumn: `1 / span ${gridColumns}`,
+            gridColumn: '1 / 13',
           }}
         >
           <Typography>Details</Typography>
