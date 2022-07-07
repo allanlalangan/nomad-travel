@@ -131,6 +131,8 @@ const useFilter = (places, active, setActive) => {
       const dietsField = fields.find(
         (field) => field.field === 'dietary_restrictions'
       );
+      const priceField = fields.find((field) => field.field === 'price_level');
+
       console.log(lowPriorityFields);
       console.log(dietsField);
 
@@ -164,8 +166,21 @@ const useFilter = (places, active, setActive) => {
           });
         });
         console.log(priorityPendingPlaces);
-      } else {
-        console.log(pendingPlaces);
+      }
+
+      if (priceField?.selected.length >= 1) {
+        const pendingFilter = [];
+        priceField.selected.forEach((price) => {
+          priorityPendingPlaces.forEach((place) => {
+            if (
+              !pendingFilter.includes(place) &&
+              place.price_level.includes(price)
+            ) {
+              pendingFilter.push(place);
+            }
+          });
+        });
+        console.log(pendingFilter);
       }
     }
   }, [active, fields, places]);
