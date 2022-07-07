@@ -46,15 +46,15 @@ const PlaceDetails = ({ place, onClose }) => {
         <Box
           component='figure'
           sx={{
-            gridColumn: `1 / span ${gridColumns / 2}`,
-            gridRow: `3 / 11`,
+            gridColumn: { xs: '1 / 13', md: '1 / 7' },
+            gridRow: { xs: '3 / 6', md: '3 / 11' },
             overflow: 'hidden',
           }}
         >
           {place.photo?.images?.large?.url ? (
             <CardMedia
               component='img'
-              sx={{ ...style.image }}
+              sx={style.image}
               src={place.photo.images.large.url}
               alt={`Place card img of ${place.name}`}
             />
@@ -70,8 +70,8 @@ const PlaceDetails = ({ place, onClose }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gridColumn: `7 / 13`,
-            gridRow: `3 / 7`,
+            gridColumn: { xs: '1 / 13', md: '7 / 13' },
+            gridRow: { xs: '6 / 8', md: '3 / 7' },
           }}
         >
           <Typography>Reviews</Typography>
@@ -82,8 +82,8 @@ const PlaceDetails = ({ place, onClose }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gridColumn: `7 / 13`,
-            gridRow: `7 / 11`,
+            gridColumn: { xs: '1 / 13', md: '7 / 13' },
+            gridRow: { xs: '8 / 10', md: '7 / 11' },
           }}
         >
           <Typography>Awards</Typography>
@@ -93,8 +93,8 @@ const PlaceDetails = ({ place, onClose }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gridColumn: `7 / 13`,
-            gridRow: `11 / 13`,
+            gridColumn: { xs: '1 / 13', md: '7 / 13' },
+            gridRow: { xs: '11 / 12', md: '11 / 13' },
             overflow: 'hidden',
           }}
         >
@@ -102,8 +102,8 @@ const PlaceDetails = ({ place, onClose }) => {
         </Box>
         <Box
           sx={{
-            gridColumn: `1 / span ${gridColumns / 2}`,
-            gridRow: `11 / 13`,
+            gridColumn: { xs: '1 / 13', md: '1 / 7' },
+            gridRow: { xs: '12 / 13', md: '11 / 13' },
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
