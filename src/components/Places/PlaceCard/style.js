@@ -8,7 +8,8 @@ const style = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    margin: '1rem 0',
+
+    margin: '0 0 1rem 0',
 
     // minHeight: (theme) => ({
     //   xs: '100%',
@@ -17,10 +18,12 @@ const style = {
     //   }rem)`,
     // }),
 
-    height: (theme) =>
-      `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
-        theme.layout.placesHeading.sm.height * 2
-      }rem)`,
+    // height: (theme) =>
+    //   `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
+    //     theme.layout.placesHeading.sm.height * 2
+    //   }rem)`,
+
+    height: 'calc(50% - 1rem)',
 
     // minHeight: (theme) =>
     //   `calc((100vh - ${theme.layout.appBar.xs.height}vh) - ${
@@ -64,7 +67,6 @@ const style = {
   placeHeading: {
     display: 'flex',
 
-    position: 'absolute',
     top: 0,
 
     color: 'white',
@@ -80,7 +82,6 @@ const style = {
   },
 
   contactInfo: {
-    position: 'absolute',
     bottom: 0,
     padding: '1rem',
 
@@ -140,12 +141,8 @@ const style = {
   },
 
   summaryLists: {
-    __tags: {
-      flexWrap: 'wrap',
-    },
-    __diets: {
-      flexWrap: 'wrap',
-    },
+    __tags: {},
+    __diets: {},
   },
 
   cardActions: {
