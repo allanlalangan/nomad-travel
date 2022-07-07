@@ -37,7 +37,7 @@ const Map = ({
 }) => {
   const [hoveredMarker, setHoveredMarker] = useState(null);
 
-  const { filteredPlaces, clearFilter } = useFilter(places);
+  const { clearFilter } = useFilter(places);
 
   const mapRef = useRef();
   const onMapLoad = useCallback(
@@ -193,15 +193,7 @@ const Map = ({
               places.map((place, i) => (
                 <Box key={i}>
                   <Marker
-                    onClick={
-                      //   () => {
-                      //   placeCardRefs[i]?.scrollIntoView({
-                      //     behavior: 'auto',
-                      //     block: 'center',
-                      //   });
-                      // }
-                      () => openModal(place)
-                    }
+                    onClick={() => openModal(place)}
                     onMouseOver={(marker) => {
                       setHoveredMarker({ marker: marker, place: place });
                     }}

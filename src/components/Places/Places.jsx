@@ -11,6 +11,7 @@ import useFilter from '../../hooks/useFilter';
 import SkeletonCard from '../ui/Skeleton/SkeletonCard';
 
 const Places = ({
+  handleOpenModal,
   cardRefs,
   setCardRefs,
   category,
@@ -75,6 +76,7 @@ const Places = ({
         <List disablePadding sx={style.placesList}>
           {places?.map((place, i) => (
             <PlaceCard
+              openModal={handleOpenModal}
               category={category}
               ref={(element) => {
                 liRefs.current[i] = element;

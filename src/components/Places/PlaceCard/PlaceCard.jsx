@@ -14,7 +14,7 @@ import {
 import { LocalPhone, Email, Language, LocationOn } from '@mui/icons-material';
 import style from './style';
 
-const PlaceCard = forwardRef(({ category, place }, ref) => {
+const PlaceCard = forwardRef(({ openModal, category, place }, ref) => {
   return (
     <ListItem disableGutters disablePadding ref={ref} sx={style.placeCard}>
       <Box sx={{ ...style.placeHeading, ...style.fullWidth }}>
@@ -76,36 +76,13 @@ const PlaceCard = forwardRef(({ category, place }, ref) => {
       </Box>
       <Box component='article' sx={style.cardActions}>
         <Divider sx={{ width: '100%' }} />
-        {place.reserve_info?.button_text && (
-          <Box sx={style.__booking}>
-            <Typography sx={style.__booking__actionText} variant='body1'>
-              {(place.reserve_info.button_text
-                .toLowerCase()
-                .includes('online') &&
-                'Online Orders Available') ||
-                (place.reserve_info.button_text
-                  .toLowerCase()
-                  .includes('reserve') &&
-                  'Taking Reservations')}
-            </Typography>
-            <Button
-              color='secondary'
-              variant='contained'
-              sx={style.cardActionButton}
-            >
-              <Typography sx={style.cardActionButton__text} variant='button'>
-                {place.reserve_info.button_text
-                  ?.toLowerCase()
-                  .includes('online')
-                  ? `Order On ${place.reserve_info.provider}`
-                  : `Book On ${place.reserve_info.provider}`}
-              </Typography>
-            </Button>
-          </Box>
-        )}
-        <Button sx={style.tripAdvisorLink} variant='outlined'>
+        <Button
+          onClick={() => openModal(place)}
+          sx={style.tripAdvisorLink}
+          variant='outlined'
+        >
           <Typography sx={style.cardActionButton__text} variant='body1'>
-            View on TripAdvisor
+            View More Info
           </Typography>
         </Button>
       </Box>

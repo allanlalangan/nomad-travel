@@ -75,6 +75,7 @@ const App = () => {
             )}
             <Container component='section' sx={style.places}>
               <Places
+                handleOpenModal={handleOpenModal}
                 cardRefs={placeCardRefs}
                 setCardRefs={setPlaceCardRefs}
                 places={filteredPlaces || places}
