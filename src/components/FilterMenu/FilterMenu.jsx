@@ -25,6 +25,7 @@ import FilterOption from './FilterOption/FilterOption';
 const FilterMenu = ({
   active,
   setActive,
+  setFilteredPlaces,
   category,
   setCategory,
   placesStatus,
@@ -37,7 +38,8 @@ const FilterMenu = ({
   const { fields, clearFilter, setCheckedOptions } = useFilter(
     places,
     active,
-    setActive
+    setActive,
+    setFilteredPlaces
   );
 
   useEffect(() => {
@@ -49,6 +51,11 @@ const FilterMenu = ({
 
   const onRatingChange = (e) => {
     setMinRating(Number(e.target.value));
+  };
+
+  const handleClearFilter = () => {
+    clearFilter(fields);
+    setFilteredPlaces(null);
   };
 
   // const handleApplyFilter = () => {
@@ -178,7 +185,7 @@ const FilterMenu = ({
         {placesStatus.success && (
           <Box sx={style.filterButtons}>
             <Button
-              onClick={() => clearFilter(fields)}
+              onClick={handleClearFilter}
               variant='contained'
               disableElevation
               sx={style.clearFilterButton}

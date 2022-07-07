@@ -10,9 +10,9 @@ import { FilterContext } from '../store/FilterContext/FilterContextProvider';
 // restaurant: { subcategory: [{key: 'sub_category', name: 'Sub Category'}] }
 // restaurant: { reserve_info: {button_text: 'online || reserve', url: ' '} }
 
-const useFilter = (places, active, setActive) => {
+const useFilter = (places, active, setActive, setFilteredPlaces) => {
   const [fields, setFields] = useState(null);
-  const [filteredPlaces, setFilteredPlaces] = useState(null);
+  // const [filteredPlaces, setFilteredPlaces] = useState(null);
   // const {  places } = useContext(PlacesContext);
   // create filterFields
   useEffect(() => {
@@ -182,9 +182,9 @@ const useFilter = (places, active, setActive) => {
         });
       }
 
-      console.log(pendingPlaces);
+      setFilteredPlaces(pendingPlaces);
     }
-  }, [active, fields, places]);
+  }, [active, setFilteredPlaces, fields, places]);
 
   const clearFilter = useCallback(
     (currentFields) => {
@@ -199,6 +199,7 @@ const useFilter = (places, active, setActive) => {
         };
       });
       setFields(uncheckedFields || null);
+
       active && setActive(false);
     },
     [active, setActive]
@@ -240,7 +241,7 @@ const useFilter = (places, active, setActive) => {
     [active, setActive, setFields, fields]
   );
 
-  return { fields, setFields, filteredPlaces, clearFilter, setCheckedOptions };
+  return { fields, setFields, clearFilter, setCheckedOptions };
 };
 
 export default useFilter;

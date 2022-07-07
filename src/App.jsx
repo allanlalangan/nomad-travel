@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // google maps api
 import { useLoadScript } from '@react-google-maps/api';
 // components
@@ -38,10 +38,14 @@ const App = () => {
   };
   const [filterOpen, setFilterOpen] = useState(true);
   const [filterActive, setFilterActive] = useState(false);
-
+  const [filteredPlaces, setFilteredPlaces] = useState(null);
   const [category, setCategory] = useState('');
   const [places, setPlaces] = useState([]);
   const [placeCardRefs, setPlaceCardRefs] = useState([]);
+
+  useEffect(() => {
+    console.log(filteredPlaces);
+  }, [filteredPlaces]);
 
   const [googleMap, setGoogleMap] = useState(null);
   const [coordinates, setCoordinates] = useState({
@@ -73,7 +77,7 @@ const App = () => {
               <Places
                 cardRefs={placeCardRefs}
                 setCardRefs={setPlaceCardRefs}
-                places={places}
+                places={filteredPlaces || places}
                 category={category}
                 status={placesStatus}
                 filterOpen={filterOpen}
@@ -82,6 +86,7 @@ const App = () => {
             </Container>
             <FilterDrawer isOpen={filterOpen}>
               <FilterMenu
+                setFilteredPlaces={setFilteredPlaces}
                 active={filterActive}
                 setActive={setFilterActive}
                 category={category}
@@ -94,6 +99,7 @@ const App = () => {
             <Container component='section' sx={style.map}>
               {isLoaded ? (
                 <Map
+                  setFilteredPlaces={setFilteredPlaces}
                   isModalOpen={modalOpen}
                   openModal={handleOpenModal}
                   status={mapStatus}
@@ -101,7 +107,7 @@ const App = () => {
                   placesStatus={placesStatus}
                   setPlacesStatus={setPlacesStatus}
                   setMapStatus={setMapStatus}
-                  places={places}
+                  places={filteredPlaces || places}
                   placeCardRefs={placeCardRefs}
                   setPlaces={setPlaces}
                   setFilterActive={setFilterActive}

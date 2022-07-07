@@ -20,6 +20,7 @@ import { useState } from 'react';
 const Map = ({
   openModal,
   setFilterActive,
+  setFilteredPlaces,
   setPlacesStatus,
   setMapStatus,
   placesStatus,
@@ -58,6 +59,7 @@ const Map = ({
   useEffect(() => {
     const source = axios.CancelToken.source();
     if (category !== '' && bounds) {
+      setFilteredPlaces(null);
       setPlaces([]);
       setPlacesStatus({ loading: true, success: false, error: null });
       clearFilter();
