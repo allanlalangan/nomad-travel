@@ -39,6 +39,11 @@ const theme = createTheme({
         root: { minHeight: 0 },
       },
     },
+    MuiListItem: {
+      styleOverrides: {
+        root: { width: 'auto' },
+      },
+    },
   },
   typography: {
     fontSize: 12,

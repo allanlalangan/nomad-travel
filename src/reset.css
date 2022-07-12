@@ -36,6 +36,8 @@ p,
 figure,
 blockquote,
 dl,
+ul,
+ol,
 dd {
   margin: 0;
 }

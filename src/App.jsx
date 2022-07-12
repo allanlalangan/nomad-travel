@@ -71,7 +71,11 @@ const App = () => {
           />
           <Container sx={style.mainContent} component='main'>
             {modalOpen && (
-              <PlaceDetails place={activePlace} onClose={handleCloseModal} />
+              <PlaceDetails
+                category={category}
+                place={activePlace}
+                onClose={handleCloseModal}
+              />
             )}
             <Container component='section' sx={style.places}>
               <Places

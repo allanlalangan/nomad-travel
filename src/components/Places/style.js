@@ -5,7 +5,7 @@ const style = {
 
     width: '100%',
     // height: (theme) => `${theme.layout.placesHeading.sm.height}rem`,
-    height: '7%',
+    height: '2rem',
 
     position: { xs: 'fixed', sm: 'static' },
     top: (theme) => ({ xs: `${theme.layout.appBar.xs.height}vh` }),
@@ -26,7 +26,7 @@ const style = {
   },
 
   placesList: {
-    height: '93%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
