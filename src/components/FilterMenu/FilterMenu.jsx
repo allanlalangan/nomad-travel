@@ -189,6 +189,7 @@ const FilterMenu = ({
               variant='contained'
               disableElevation
               sx={style.clearFilterButton}
+              disabled={!active || !placesStatus.success}
             >
               Clear Filter
             </Button>

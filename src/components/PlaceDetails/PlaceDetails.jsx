@@ -61,10 +61,11 @@ const PlaceDetails = ({ category, place, onClose }) => {
             component='h1'
             sx={{
               color: 'white',
-              padding: '1rem 0 1rem 1rem',
+              // padding: '1rem 0 1rem 1rem',
               width: '100%',
               fontWeight: 700,
-              gridColumn: '1 / 7',
+              fontSize: { xs: '1.5rem', lg: '2rem' },
+              gridColumn: '1 / 13',
             }}
           >
             {place.name}
@@ -75,7 +76,7 @@ const PlaceDetails = ({ category, place, onClose }) => {
               display: 'inline-flex',
               alignItems: 'center',
               overflowX: 'scroll',
-              gridColumn: '7 / 13',
+              gridColumn: '1 / 13',
             }}
           >
             <List
@@ -161,12 +162,26 @@ const PlaceDetails = ({ category, place, onClose }) => {
           </Box>
         </Box>
 
+        {place.ranking && (
+          <Typography
+            variant='h6'
+            component='h2'
+            sx={{
+              ...style.section,
+              fontWeight: 600,
+              gridColumn: { xs: '1 / 13', sm: '1 / 7', md: '1 / 7' },
+              gridRow: { xs: '2 / 3' },
+            }}
+          >
+            {place.ranking}
+          </Typography>
+        )}
         <Box
           component='figure'
           sx={{
             borderRadius: 1,
             gridColumn: { xs: '1 / 13', md: '1 / 7' },
-            gridRow: { xs: '3 / 6', md: '3 / 10' },
+            gridRow: { xs: '3 / 7', md: '3 / 10' },
             overflow: 'hidden',
             boxShadow: (theme) => theme.shadows[1],
           }}
@@ -184,20 +199,6 @@ const PlaceDetails = ({ category, place, onClose }) => {
             </Typography>
           )}
         </Box>
-        {place.ranking && (
-          <Typography
-            variant='h6'
-            component='h2'
-            sx={{
-              ...style.section,
-              fontWeight: 600,
-              gridColumn: { md: '1 / 7' },
-              gridRow: { md: '2 / 3' },
-            }}
-          >
-            {place.ranking}
-          </Typography>
-        )}
         <Box
           component='article'
           sx={{
@@ -205,8 +206,8 @@ const PlaceDetails = ({ category, place, onClose }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gridColumn: { xs: '1 / 13', md: '7 / 13' },
-            gridRow: { xs: '6 / 8', md: '2 / 3' },
+            gridColumn: { xs: '1 / 7', sm: '7 / 13', md: '7 / 13' },
+            gridRow: { xs: '7 / 9', sm: '2 / 3', md: '2 / 3' },
           }}
         >
           {Number(place.num_reviews) >= 1 ? (
@@ -233,9 +234,9 @@ const PlaceDetails = ({ category, place, onClose }) => {
               like to leave a review?
             </Typography>
           )}
-          {place.write_review && (
+          {/* {place.write_review && (
             <Typography variant='body1'>Write a review</Typography>
-          )}
+          )} */}
         </Box>
         <Box
           component='article'
@@ -245,8 +246,8 @@ const PlaceDetails = ({ category, place, onClose }) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-start',
-            gridColumn: { xs: '1 / 13', md: '7 / 13' },
-            gridRow: { xs: '8 / 10', md: '3 / 10' },
+            gridColumn: { xs: '1 / 13', sm: '1 / 7', md: '7 / 13' },
+            gridRow: { xs: '9 / 11', sm: '7 / 10', md: '3 / 10' },
             width: '100%',
           }}
         >
@@ -265,7 +266,7 @@ const PlaceDetails = ({ category, place, onClose }) => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 width: '100%',
-                overFlowY: 'scroll',
+                overflowY: 'scroll',
               }}
             >
               {place.awards.map((award) => (
@@ -293,8 +294,8 @@ const PlaceDetails = ({ category, place, onClose }) => {
             flexDirection: 'column',
             alignItems: 'flex-start',
             justifyContent: 'center',
-            gridColumn: { xs: '1 / 13', md: '7 / 13' },
-            gridRow: { xs: '11 / 12', md: '10 / 13' },
+            gridColumn: { xs: '7 / 13', md: '7 / 13' },
+            gridRow: { xs: '7 / 9', sm: '7 / 10', md: '10 / 13' },
             overflow: 'hidden',
           }}
         >
@@ -357,7 +358,7 @@ const PlaceDetails = ({ category, place, onClose }) => {
           sx={{
             ...style.section,
             gridColumn: { xs: '1 / 13', md: '1 / 7' },
-            gridRow: { xs: '12 / 13', md: '10 / 13' },
+            gridRow: { xs: '11 / 13', sm: '10 / 13' },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'space-between',
