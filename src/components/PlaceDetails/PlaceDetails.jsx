@@ -56,20 +56,37 @@ const PlaceDetails = ({ category, place, onClose }) => {
             backgroundColor: (theme) => theme.palette.primary.dark,
           }}
         >
-          <Typography
-            variant='h3'
-            component='h1'
+          <Box
             sx={{
               color: 'white',
-              // padding: '1rem 0 1rem 1rem',
+              display: 'flex',
+              justifyContent: 'space-between',
               width: '100%',
-              fontWeight: 700,
-              fontSize: { xs: '1.5rem', lg: '2rem' },
               gridColumn: '1 / 13',
             }}
           >
-            {place.name}
-          </Typography>
+            <Typography
+              variant='h3'
+              component='h1'
+              sx={{
+                fontWeight: 700,
+                fontSize: { xs: '1.5rem', lg: '2rem' },
+              }}
+            >
+              {place.name}
+            </Typography>
+            {place.ranking && (
+              <Typography
+                variant='h6'
+                component='h2'
+                sx={{
+                  fontWeight: 600,
+                }}
+              >
+                {place.ranking}
+              </Typography>
+            )}
+          </Box>
           <Box
             sx={{
               // height: '100%',
@@ -162,26 +179,12 @@ const PlaceDetails = ({ category, place, onClose }) => {
           </Box>
         </Box>
 
-        {place.ranking && (
-          <Typography
-            variant='h6'
-            component='h2'
-            sx={{
-              ...style.section,
-              fontWeight: 600,
-              gridColumn: { xs: '1 / 13', sm: '1 / 7', md: '1 / 7' },
-              gridRow: { xs: '2 / 3' },
-            }}
-          >
-            {place.ranking}
-          </Typography>
-        )}
         <Box
           component='figure'
           sx={{
             borderRadius: 1,
             gridColumn: { xs: '1 / 13', md: '1 / 7' },
-            gridRow: { xs: '3 / 7', md: '3 / 10' },
+            gridRow: { xs: '2 / 7', md: '2 / 10' },
             overflow: 'hidden',
             boxShadow: (theme) => theme.shadows[1],
           }}
@@ -206,8 +209,8 @@ const PlaceDetails = ({ category, place, onClose }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gridColumn: { xs: '1 / 7', sm: '7 / 13', md: '7 / 13' },
-            gridRow: { xs: '7 / 9', sm: '2 / 3', md: '2 / 3' },
+            gridColumn: { xs: '7 / 13', sm: '7 / 13', md: '7 / 13' },
+            gridRow: { xs: '9 / 11', sm: '2 / 3', md: '2 / 3' },
           }}
         >
           {Number(place.num_reviews) >= 1 ? (
@@ -246,8 +249,8 @@ const PlaceDetails = ({ category, place, onClose }) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-start',
-            gridColumn: { xs: '1 / 13', sm: '1 / 7', md: '7 / 13' },
-            gridRow: { xs: '9 / 11', sm: '7 / 10', md: '3 / 10' },
+            gridColumn: { xs: '1 / 7', sm: '1 / 7', md: '7 / 13' },
+            gridRow: { xs: '7 / 11', sm: '7 / 10', md: '3 / 10' },
             width: '100%',
           }}
         >
