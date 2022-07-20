@@ -10,7 +10,7 @@ const style = {
     position: { xs: 'fixed', sm: 'static' },
     top: (theme) => ({ xs: `${theme.layout.appBar.xs.height}vh` }),
 
-    zIndex: 2000,
+    zIndex: 20,
     backgroundColor: (theme) => theme.palette.background.default,
   },
 

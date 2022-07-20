@@ -14,14 +14,14 @@ const style = {
     // position: 'absolute',
     // left: 'calc(30% + 1rem)',
     top: '1rem',
-    zIndex: 1000,
+    zIndex: 19,
 
     borderRadius: (theme) => ({
       sm: '0 0.5rem 0.5rem 0.5rem',
     }),
     // borderRadius: '0 0.5rem 0.5rem 0.5rem',
     backgroundColor: (theme) => alpha(theme.palette.background.default, 0.75),
-    boxShadow: (theme) => theme.shadows[3],
+    boxShadow: (theme) => ({ md: theme.shadows[3] }),
   },
 
   filterHeader: {
