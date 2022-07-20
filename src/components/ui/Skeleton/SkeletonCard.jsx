@@ -17,12 +17,7 @@ import style from './style';
 const SkeletonCard = () => {
   return (
     <ListItem disableGutters disablePadding sx={style.placeCard}>
-      <Box
-        component='figure'
-        sx={{ ...style.imageContainer, ...style.fullWidth }}
-      >
-        <Skeleton sx={style.skeletonImage} variant='rectangular' />
-      </Box>
+      <Skeleton sx={style.skeletonRectangle} variant='rectangular' />
 
       <Box
         component='article'
@@ -31,14 +26,10 @@ const SkeletonCard = () => {
         <Skeleton width={'100%'} variant='text' />
         <Skeleton width={'100%'} variant='text' />
         <Skeleton width={'100%'} variant='text' />
-        <Skeleton width={'100%'} variant='text' />
-        <Skeleton width={'100%'} variant='text' />
-        <Skeleton width={'100%'} variant='text' />
-        <Skeleton width={'100%'} variant='text' />
       </Box>
 
       <Box component='article' sx={style.cardActions}>
-        <Skeleton width={'100%'} height={100} variant='rectangular' />
+        <Skeleton sx={style.skeletonRectangle} variant='rectangular' />
       </Box>
     </ListItem>
   );

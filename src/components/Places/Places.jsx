@@ -69,6 +69,15 @@ const Places = ({
       {status.loading && window.innerWidth >= 700 && (
         <List sx={style.placesList}>
           <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
         </List>
       )}
 
