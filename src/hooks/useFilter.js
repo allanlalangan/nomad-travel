@@ -1,6 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
-import { PlacesContext } from '../store/PlacesContext/PlacesContextProvider';
-import { FilterContext } from '../store/FilterContext/FilterContextProvider';
+import { useState, useEffect, useCallback } from 'react';
 
 // place: { rating: '4.5' }
 // hotel / restaurant: { price_level: '$$' || '$-$$$' }
