@@ -117,7 +117,12 @@ const FilterMenu = ({
         <Container sx={style.filterForm}>
           <Box sx={style.fieldContainer} component='fieldset'>
             <Typography variant='h6'>Rating</Typography>
-            <Box sx={{ ...style.filterField, ...style.ratingField }}>
+            <Box
+              sx={{
+                ...style.filterField,
+                ...style.ratingField,
+              }}
+            >
               <Rating
                 sx={style.rating}
                 size='large'
@@ -125,6 +130,7 @@ const FilterMenu = ({
                 precision={0.5}
                 onChange={onRatingChange}
               />
+              <Typography variant='subtitle1'>Minimum 3 star rating</Typography>
             </Box>
           </Box>
           <Divider />

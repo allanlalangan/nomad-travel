@@ -82,6 +82,7 @@ const style = {
 
   ratingField: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
   },
 
