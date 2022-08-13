@@ -1,10 +1,4 @@
-import {
-  Close,
-  Email,
-  Language,
-  LocalPhone,
-  LocationOn,
-} from '@mui/icons-material';
+import { Close, Email, Language, LocalPhone } from '@mui/icons-material';
 import {
   CardMedia,
   Box,
@@ -42,7 +36,7 @@ const PlaceDetails = ({ category, place, onClose }) => {
         component='article'
       >
         <Box sx={{ position: 'absolute', right: 0 }}>
-          <IconButton onClick={onClose}>
+          <IconButton sx={style.closeButton} onClick={onClose}>
             <Close />
           </IconButton>
         </Box>
@@ -81,6 +75,7 @@ const PlaceDetails = ({ category, place, onClose }) => {
                 component='h2'
                 sx={{
                   fontWeight: 600,
+                  paddingRight: '1.5rem',
                 }}
               >
                 {place.ranking}
@@ -183,9 +178,8 @@ const PlaceDetails = ({ category, place, onClose }) => {
           component='figure'
           sx={{
             borderRadius: 1,
-            gridColumn: { xs: '1 / 13', md: '1 / 7' },
-            gridRow: { xs: '2 / 7', md: '2 / 10' },
-            overflow: 'hidden',
+            gridColumn: { xs: '1 / 13', sm: '1 / 7' },
+            gridRow: { xs: '2 / 7', sm: '2 / 10' },
             boxShadow: (theme) => theme.shadows[1],
           }}
         >
@@ -209,8 +203,8 @@ const PlaceDetails = ({ category, place, onClose }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gridColumn: { xs: '7 / 13', sm: '7 / 13', md: '7 / 13' },
-            gridRow: { xs: '9 / 11', sm: '2 / 3', md: '2 / 3' },
+            gridColumn: { xs: '7 / 13', sm: '7 / 13' },
+            gridRow: { xs: '9 / 11', sm: '2 / 3' },
           }}
         >
           {Number(place.num_reviews) >= 1 ? (
@@ -237,9 +231,6 @@ const PlaceDetails = ({ category, place, onClose }) => {
               like to leave a review?
             </Typography>
           )}
-          {/* {place.write_review && (
-            <Typography variant='body1'>Write a review</Typography>
-          )} */}
         </Box>
         <Box
           component='article'
@@ -249,8 +240,8 @@ const PlaceDetails = ({ category, place, onClose }) => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'flex-start',
-            gridColumn: { xs: '1 / 7', sm: '1 / 7', md: '7 / 13' },
-            gridRow: { xs: '7 / 11', sm: '7 / 10', md: '3 / 10' },
+            gridColumn: { xs: '1 / 7', sm: '7 / 13' },
+            gridRow: { xs: '7 / 11', sm: '3 / 10' },
             width: '100%',
           }}
         >
@@ -297,14 +288,11 @@ const PlaceDetails = ({ category, place, onClose }) => {
             flexDirection: 'column',
             alignItems: 'flex-start',
             justifyContent: 'center',
-            gridColumn: { xs: '7 / 13', md: '7 / 13' },
-            gridRow: { xs: '7 / 9', sm: '7 / 10', md: '10 / 13' },
+            gridColumn: { xs: '7 / 13', sm: '7 / 13' },
+            gridRow: { xs: '7 / 9', sm: '10 / 13' },
             overflow: 'hidden',
           }}
         >
-          {/* <Typography>Contact</Typography>
-           */}
-
           {category !== 'hotel' && (
             <>
               <ListItemButton
@@ -360,7 +348,7 @@ const PlaceDetails = ({ category, place, onClose }) => {
         <Box
           sx={{
             ...style.section,
-            gridColumn: { xs: '1 / 13', md: '1 / 7' },
+            gridColumn: { xs: '1 / 13', sm: '1 / 7' },
             gridRow: { xs: '11 / 13', sm: '10 / 13' },
             display: 'flex',
             flexDirection: 'column',

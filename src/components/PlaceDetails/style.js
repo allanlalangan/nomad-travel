@@ -1,3 +1,5 @@
+import { alpha } from '@mui/material';
+
 const style = {
   container: {
     display: 'flex',
@@ -11,6 +13,12 @@ const style = {
     borderRadius: 2,
 
     position: 'absolute',
+  },
+
+  closeButton: {
+    '&.MuiIconButton-root': {
+      backgroundColor: (theme) => alpha(theme.palette.background.default, 0.5),
+    },
   },
 
   section: {
