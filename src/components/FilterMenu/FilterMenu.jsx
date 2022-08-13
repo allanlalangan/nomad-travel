@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import style from './style';
 import {
@@ -7,7 +7,6 @@ import {
   Box,
   Divider,
   FormControl,
-  Rating,
   InputLabel,
   Select,
   MenuItem,
@@ -17,7 +16,6 @@ import {
   ListItemButton,
 } from '@mui/material';
 
-import SortButton from './SortButton/SortButton';
 import useFilter from '../../hooks/useFilter';
 
 import FilterOption from './FilterOption/FilterOption';
@@ -29,13 +27,9 @@ const FilterMenu = ({
   category,
   setCategory,
   placesStatus,
-  isOpen,
   places,
 }) => {
-  useEffect(() => {}, []);
-
-  const [minRating, setMinRating] = useState(null);
-  const { fields, clearFilter, setCheckedOptions } = useFilter(
+  const { fields, minRating, clearFilter, setCheckedOptions } = useFilter(
     places,
     active,
     setActive,
@@ -43,15 +37,11 @@ const FilterMenu = ({
   );
 
   useEffect(() => {
-    console.log(fields);
-  }, [fields]);
+    console.log(minRating);
+  }, [minRating]);
   useEffect(() => {
     console.log(active);
   }, [active]);
-
-  const onRatingChange = (e) => {
-    setMinRating(Number(e.target.value));
-  };
 
   const handleClearFilter = () => {
     clearFilter(fields);
@@ -79,23 +69,6 @@ const FilterMenu = ({
               <MenuItem value={'attraction'}>Attractions</MenuItem>
             </Select>
           </FormControl>
-          <FormControl key={'sort'} fullWidth sx={style.categorySelectInput}>
-            <InputLabel color='secondary' id='sortBy-select-label'>
-              Sort By
-            </InputLabel>
-            <Select
-              color='secondary'
-              labelId='sortBy-select-label'
-              id='sortBy-select'
-              label='Sort By'
-              defaultValue='rank'
-            >
-              <MenuItem value={'rank'}>Rank</MenuItem>
-              <MenuItem value={'rating'}>Rating</MenuItem>
-              <MenuItem value={'price'}>Price</MenuItem>
-            </Select>
-          </FormControl>
-          <SortButton />
         </Box>
 
         {placesStatus.success && (
@@ -115,26 +88,6 @@ const FilterMenu = ({
 
       {placesStatus.success && (
         <Container sx={style.filterForm}>
-          <Box sx={style.fieldContainer} component='fieldset'>
-            <Typography variant='h6'>Rating</Typography>
-            <Box
-              sx={{
-                ...style.filterField,
-                ...style.ratingField,
-              }}
-            >
-              <Rating
-                sx={style.rating}
-                size='large'
-                name='placeRating'
-                precision={0.5}
-                onChange={onRatingChange}
-              />
-              <Typography variant='subtitle1'>Minimum 3 star rating</Typography>
-            </Box>
-          </Box>
-          <Divider />
-
           {fields?.length >= 1 &&
             fields.map((field) => (
               <Box
