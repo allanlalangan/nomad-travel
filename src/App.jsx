@@ -49,8 +49,8 @@ const App = () => {
 
   const [googleMap, setGoogleMap] = useState(null);
   const [coordinates, setCoordinates] = useState({
-    lat: 45.5252,
-    lng: -122.6584,
+    lat: 40.7831,
+    lng: -73.9712,
   });
   const [bounds, setBounds] = useState(null);
 
