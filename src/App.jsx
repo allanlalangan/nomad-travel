@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
-// google maps api
+import { useState } from 'react';
 import { useLoadScript } from '@react-google-maps/api';
-// components
 import {
   Header,
   Places,
@@ -42,10 +40,6 @@ const App = () => {
   const [category, setCategory] = useState('');
   const [places, setPlaces] = useState([]);
   const [placeCardRefs, setPlaceCardRefs] = useState([]);
-
-  useEffect(() => {
-    console.log(filteredPlaces);
-  }, [filteredPlaces]);
 
   const [googleMap, setGoogleMap] = useState(null);
   const [coordinates, setCoordinates] = useState({

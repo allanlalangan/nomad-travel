@@ -14,7 +14,6 @@ import {
 import style from './style';
 
 const Header = ({ setCoordinates, setMapStatus, isLoaded }) => {
-  console.log(window.innerWidth);
   const [autocomplete, setAutocomplete] = useState(null);
   const onLoad = (ac) => {
     setAutocomplete(ac);

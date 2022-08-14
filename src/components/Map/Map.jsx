@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef, useContext } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 
 import { getPlaces } from '../../api/placesAPI';
 import {
@@ -86,6 +86,7 @@ const Map = ({
     bounds,
     category,
     setPlacesStatus,
+    setFilteredPlaces,
     clearFilter,
     setFilterActive,
     setPlaces,

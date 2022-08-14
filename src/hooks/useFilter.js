@@ -1,27 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 
-// place: { rating: '4.5' }
-// hotel / restaurant: { price_level: '$$' || '$-$$$' }
-// hotel: { price: '$100' || '$100 - $150' }
-// hotel: { subcategory_type: 'hotel' }
-// attraction: { subcategory: [{key: '123', name: 'Sub Category'}] }
-// restaurant: { subcategory: [{key: 'sub_category', name: 'Sub Category'}] }
-// restaurant: { reserve_info: {button_text: 'online || reserve', url: ' '} }
-
 const useFilter = (places, active, setActive, setFilteredPlaces) => {
   const [fields, setFields] = useState(null);
-  // const [filteredPlaces, setFilteredPlaces] = useState(null);
-  // const {  places } = useContext(PlacesContext);
-  // create filterFields
   useEffect(() => {
-    // if Places isSuccess
     if (places?.length >= 1) {
       const priceOptions = [];
       const cuisineOptions = [];
       const dietOptions = [];
       const reservationOptions = [];
       const subCategoryOptions = [];
-      // loop Places and retrieve price(s)
 
       places.forEach((place) => {
         if (place.price_level?.length >= 1) {
@@ -33,9 +20,7 @@ const useFilter = (places, active, setActive, setFilteredPlaces) => {
 
       const priceRange = priceOptions.sort((a, b) => a.length - b.length);
 
-      // push to options arrays and set FilterFields
       places.forEach((place) => {
-        // withtransformed Data
         place.subcategory?.forEach((sub) => {
           !subCategoryOptions.includes(sub) && subCategoryOptions.push(sub);
         });

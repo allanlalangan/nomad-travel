@@ -1,9 +1,6 @@
 const mainContentHeight = (theme) =>
   `calc(100vh - ${theme.layout.appBar.xs.height}vh)`;
 
-const mobileContentHeight = (theme) =>
-  `calc((100vh - ${theme.layout.appBar.xs.height}vh) * .85)`;
-
 const style = {
   wrapper: {
     display: 'flex',
@@ -21,7 +18,6 @@ const style = {
     position: 'relative',
     width: '100%',
     height: (theme) => ({
-      // xs: mobileContentHeight(theme),
       xs: mainContentHeight(theme),
     }),
 

@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import style from './style';
 import {
   Button,
@@ -29,19 +27,12 @@ const FilterMenu = ({
   placesStatus,
   places,
 }) => {
-  const { fields, minRating, clearFilter, setCheckedOptions } = useFilter(
+  const { fields, clearFilter, setCheckedOptions } = useFilter(
     places,
     active,
     setActive,
     setFilteredPlaces
   );
-
-  useEffect(() => {
-    console.log(minRating);
-  }, [minRating]);
-  useEffect(() => {
-    console.log(active);
-  }, [active]);
 
   const handleClearFilter = () => {
     clearFilter(fields);

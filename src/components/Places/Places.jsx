@@ -21,18 +21,6 @@ const Places = ({
   filterActive,
   toggleFilter,
 }) => {
-  // const [cardRefs, setCardRefs] = useState([]);
-
-  const { filteredPlaces } = useFilter(places, filterActive);
-
-  useEffect(() => {
-    console.log(filteredPlaces);
-  }, [filteredPlaces]);
-
-  useEffect(() => {
-    console.log('places state', places);
-  }, [places]);
-
   const liRefs = useRef([]);
 
   useEffect(() => {
