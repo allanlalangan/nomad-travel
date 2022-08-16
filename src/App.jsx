@@ -57,7 +57,7 @@ const App = () => {
     <>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <Box component='div' sx={style.wrapper}>
+        <Box sx={style.wrapper} disableGutters>
           <Header
             setMapStatus={setMapStatus}
             setCoordinates={setCoordinates}
