@@ -27,9 +27,8 @@ https://nononomad.netlify.app/
 
 ## Lessons Learned
 
-- Working with RESTful APIs
+- Working with APIs
 - Learned how to manipulate JSON data
-- Managing global state with Redux
 - How to optimize HTTP requests
 - Mobile responsiveness
 
