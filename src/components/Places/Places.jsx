@@ -4,7 +4,7 @@ import { useEffect, useRef, useContext, useState } from 'react';
 import PlaceCard from './PlaceCard/PlaceCard';
 // styles and ui
 import style from './style';
-import { Typography, IconButton, Box, List } from '@mui/material';
+import { Typography, IconButton, Box, List, Button } from '@mui/material';
 import { Tune, Close } from '@mui/icons-material';
 
 import useFilter from '../../hooks/useFilter';
@@ -42,16 +42,20 @@ const Places = ({
           </Typography>
         ) : (
           <Typography sx={style.heading} variant='subtitle1' component='h3'>
-            Select a category
+            No Places Currently Listed
           </Typography>
         )}
         <Box sx={style.buttonContainer}>
-          <Typography sx={style.buttonText} variant='caption'>
-            Filters
-          </Typography>
-          <IconButton onClick={toggleFilter} sx={style.filterButton}>
+          <Button
+            variant='contained'
+            onClick={toggleFilter}
+            sx={style.filterButton}
+          >
+            <Typography sx={style.buttonText} variant='body1'>
+              Filters
+            </Typography>
             {filterOpen ? <Close /> : <Tune />}
-          </IconButton>
+          </Button>
         </Box>
       </Box>
       {status.loading && window.innerWidth >= 700 && (

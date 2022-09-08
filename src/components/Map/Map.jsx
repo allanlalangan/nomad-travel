@@ -22,10 +22,8 @@ const Map = ({
   setFilterActive,
   setFilteredPlaces,
   setPlacesStatus,
-  setMapStatus,
   placesStatus,
   places,
-  placeCardRefs,
   setPlaces,
   category,
   googleMap,
@@ -95,15 +93,15 @@ const Map = ({
   const onTilesLoaded = () => {
     // getBounds
     const latLngBounds = googleMap.getBounds();
-    // const neBound = latLngBounds.getNorthEast();
-    // const swBound = latLngBounds.getSouthWest();
-
+    // get tr and bl lat lng
     const tr_latitude = latLngBounds.getNorthEast().lat();
     const tr_longitude = latLngBounds.getNorthEast().lng();
     const bl_latitude = latLngBounds.getSouthWest().lat();
     const bl_longitude = latLngBounds.getSouthWest().lng();
 
-    // fetch within cropped map bounds (bypass geodata of map area behind FilterMenu)
+    // only fetch within cropped map bounds (bypass geodata of map area behind FilterMenu)
+    // const neBound = latLngBounds.getNorthEast();
+    // const swBound = latLngBounds.getSouthWest();
 
     // convert the bounds in pixels
     // const neBoundInPx = googleMap.getProjection().fromLatLngToPoint(neBound);

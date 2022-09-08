@@ -17,6 +17,7 @@ import {
 import useFilter from '../../hooks/useFilter';
 
 import FilterOption from './FilterOption/FilterOption';
+import { FaMapMarkedAlt } from 'react-icons/fa';
 
 const FilterMenu = ({
   active,
@@ -76,7 +77,27 @@ const FilterMenu = ({
           </Box>
         )}
       </Box>
-
+      {places.length === 0 && (
+        <Box
+          sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: (theme) => theme.palette.background.default,
+            borderRadius: (theme) => ({
+              sm: '0 0.5rem 0.5rem 0.5rem',
+            }),
+          }}
+          variant='span'
+        >
+          <FaMapMarkedAlt sx={{ opacity: '0.5' }} fontSize='10rem' />
+          <Typography sx={{ fontWeight: 600 }} variant='h5' component='h2'>
+            Select a Category Find Places
+          </Typography>
+        </Box>
+      )}
       {placesStatus.success && (
         <Container sx={style.filterForm}>
           {fields?.length >= 1 &&

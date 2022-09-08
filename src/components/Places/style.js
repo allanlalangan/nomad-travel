@@ -16,7 +16,7 @@ const style = {
 
   heading: {
     fontSize: '1rem',
-    fontWeight: 400,
+    fontWeight: 600,
     textTransform: 'capitalize',
   },
 
@@ -35,6 +35,17 @@ const style = {
     boxSizing: 'border-box',
     zIndex: 1,
     padding: '0 1rem',
+  },
+
+  filterButton: {
+    '&.MuiButtonBase-root': {
+      borderRadius: '0 0 0 0.5rem',
+    },
+  },
+
+  buttonText: {
+    letterSpacing: '1px',
+    fontWeight: 600,
   },
 };
 
