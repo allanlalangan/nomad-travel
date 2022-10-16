@@ -24,6 +24,13 @@ https://nononomad.netlify.app/
 - Refresh available places as user navigates map
 - Filter places by selecting options
 
+## Optimization
+
+- Implement backend and fetch data from server
+- User authentication
+- Implement Redux if necessary 
+- Add front end routes(pages)
+- Minimize components
 
 ## Lessons Learned
 
