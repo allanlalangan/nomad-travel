@@ -13,7 +13,6 @@ Nomad Travel is a single page application built with React using Material UI com
 
 
 ## Demo
-**Google API subscription disabled. Map renders in development mode and autocomplete search is not functional.**
 
 https://nononomad.netlify.app/
 
